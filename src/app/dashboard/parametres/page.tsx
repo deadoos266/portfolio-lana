@@ -1,6 +1,6 @@
 import { PinForm } from "./PinForm";
 import { getSetting } from "@/lib/settings";
-import { uploadCv } from "../actions";
+import { uploadCv, logout } from "../actions";
 
 export default async function ParametresPage() {
   const cvUrl = await getSetting("cv_url");
@@ -47,6 +47,19 @@ export default async function ParametresPage() {
             </button>
           </form>
         </div>
+      </section>
+
+      <section className="space-y-3 border-t border-black/5 pt-8">
+        <h2 className="text-lg font-semibold">Session</h2>
+        <p className="max-w-sm text-sm text-zinc-500">
+          Tu restes connectée sur cet appareil. Déconnecte-toi seulement sur un
+          ordinateur partagé.
+        </p>
+        <form action={logout}>
+          <button type="submit" className="btn-ghost">
+            Se déconnecter
+          </button>
+        </form>
       </section>
     </div>
   );
