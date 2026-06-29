@@ -21,6 +21,12 @@ export default async function DashboardLayout({
               Candidatures
             </Link>
             <Link
+              href="/dashboard/publications"
+              className="text-zinc-500 transition hover:text-zinc-900"
+            >
+              Publications
+            </Link>
+            <Link
               href="/dashboard/visites"
               className="text-zinc-500 transition hover:text-zinc-900"
             >

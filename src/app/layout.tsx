@@ -14,8 +14,22 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://lana-herve.vercel.app",
+  ),
   title: "Lana Hervé",
-  description: "Portfolio de Lana Hervé",
+  description: "Portfolio de Lana Hervé, journaliste.",
+  openGraph: {
+    title: "Lana Hervé — Journaliste",
+    description: "Portfolio de Lana Hervé, journaliste.",
+    type: "website",
+    locale: "fr_FR",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Lana Hervé — Journaliste",
+    description: "Portfolio de Lana Hervé, journaliste.",
+  },
 };
 
 export default function RootLayout({

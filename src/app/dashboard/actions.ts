@@ -11,6 +11,8 @@ import {
 } from "@/lib/auth";
 import { generateSlug, normalizeUrl } from "@/lib/slug";
 import { isApplicationStatus } from "@/lib/types";
+import { uploadFile } from "@/lib/storage";
+import { setSetting } from "@/lib/settings";
 
 function str(formData: FormData, key: string): string | null {
   const value = formData.get(key);
@@ -135,6 +137,17 @@ export async function changePin(
 
   await setPin(next);
   return { error: "", success: true };
+}
+
+/** Upload du CV (PDF) -> Supabase Storage, URL stockée dans les réglages. */
+export async function uploadCv(formData: FormData) {
+  const file = formData.get("cv");
+  if (!(file instanceof File) || file.size === 0) return;
+  const url = await uploadFile(file, "cv");
+  if (url) {
+    await setSetting("cv_url", url);
+  }
+  revalidatePath("/dashboard/parametres");
 }
 
 export async function logout() {

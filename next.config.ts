@@ -5,6 +5,12 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: __dirname,
   },
+  experimental: {
+    // Permet l'upload de fichiers (CV / images) via les Server Actions.
+    serverActions: {
+      bodySizeLimit: "4mb",
+    },
+  },
   images: {
     // Autorise les images servies depuis Supabase Storage
     remotePatterns: [

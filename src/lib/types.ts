@@ -74,6 +74,31 @@ export interface LinkOpen {
   bot_reason: string | null;
 }
 
+export const MEDIA_TYPES = ["ecrit", "audio", "video"] as const;
+export type MediaType = (typeof MEDIA_TYPES)[number];
+
+export const MEDIA_LABELS: Record<MediaType, string> = {
+  ecrit: "Écrit",
+  audio: "Audio",
+  video: "Vidéo",
+};
+
+export interface Publication {
+  id: string;
+  created_at: string;
+  updated_at: string;
+  title: string;
+  media_type: MediaType;
+  outlet: string | null;
+  published_date: string | null;
+  url: string | null;
+  category: string | null;
+  excerpt: string | null;
+  cover_image_url: string | null;
+  display_order: number;
+  published: boolean;
+}
+
 export interface PageVisit {
   id: string;
   created_at: string;
