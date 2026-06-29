@@ -1,4 +1,5 @@
 import { createAdminClient } from "@/lib/supabase/admin";
+import { DeleteVisitButton } from "@/components/DeleteVisitButton";
 import type { PageVisit } from "@/lib/types";
 
 function formatDateTime(value: string): string {
@@ -73,6 +74,7 @@ export default async function VisitesPage() {
                 <th className="px-4 py-3">Appareil</th>
                 <th className="px-4 py-3">Navigateur</th>
                 <th className="px-4 py-3">Source</th>
+                <th className="px-4 py-3"></th>
               </tr>
             </thead>
             <tbody className="divide-y divide-zinc-100">
@@ -108,6 +110,9 @@ export default async function VisitesPage() {
                     {v.os ? <span className="text-zinc-400"> · {v.os}</span> : null}
                   </td>
                   <td className="px-4 py-3 text-zinc-500">{source(v.referrer)}</td>
+                  <td className="px-4 py-3 text-right">
+                    <DeleteVisitButton id={v.id} />
+                  </td>
                 </tr>
               ))}
             </tbody>

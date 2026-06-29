@@ -115,6 +115,13 @@ export async function deleteOpen(id: string, applicationId: string) {
   revalidatePath(`/dashboard/a/${applicationId}`);
 }
 
+/** Supprime une visite du site. */
+export async function deleteVisit(id: string) {
+  const supabase = createAdminClient();
+  await supabase.from("page_visits").delete().eq("id", id);
+  revalidatePath("/dashboard/visites");
+}
+
 export interface ChangePinState {
   error: string;
   success: boolean;
