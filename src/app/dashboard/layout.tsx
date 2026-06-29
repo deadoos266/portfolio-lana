@@ -39,14 +39,24 @@ export default async function DashboardLayout({
               Réglages
             </Link>
           </nav>
-          <form action={logout}>
-            <button
-              type="submit"
+          <div className="flex items-center gap-3">
+            <Link
+              href="/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="rounded-md border border-zinc-300 px-2 py-1 text-sm font-medium text-zinc-700 transition hover:bg-zinc-100"
             >
-              Déconnexion
-            </button>
-          </form>
+              Voir le site ↗
+            </Link>
+            <form action={logout}>
+              <button
+                type="submit"
+                className="rounded-md border border-zinc-300 px-2 py-1 text-sm font-medium text-zinc-700 transition hover:bg-zinc-100"
+              >
+                Déconnexion
+              </button>
+            </form>
+          </div>
         </div>
       </header>
       <main className="mx-auto max-w-5xl px-4 py-8">{children}</main>
