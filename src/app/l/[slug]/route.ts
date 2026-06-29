@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse, userAgent } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { detectBot } from "@/lib/bot";
 
 // Toujours exécuté dynamiquement (jamais mis en cache) : chaque visite compte.
 export const dynamic = "force-dynamic";
@@ -38,6 +39,12 @@ export async function GET(
     h.get("x-real-ip") ??
     null;
 
+  const bot = detectBot({
+    userAgent: ua.ua,
+    secPurpose: h.get("sec-purpose"),
+    purpose: h.get("purpose") ?? h.get("x-purpose"),
+  });
+
   // On attend l'écriture avant de rediriger (l'exécution serverless peut
   // s'arrêter dès la réponse renvoyée).
   await supabase.from("link_opens").insert({
@@ -50,6 +57,8 @@ export async function GET(
     browser: ua.browser.name ?? null,
     os: ua.os.name ?? null,
     referrer: h.get("referer"),
+    is_bot: bot.isBot,
+    bot_reason: bot.reason,
   });
 
   return NextResponse.redirect(link.destination_url, 302);

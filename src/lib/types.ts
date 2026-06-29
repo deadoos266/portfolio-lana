@@ -70,6 +70,8 @@ export interface LinkOpen {
   browser: string | null;
   os: string | null;
   referrer: string | null;
+  is_bot: boolean;
+  bot_reason: string | null;
 }
 
 export interface PageVisit {
@@ -84,4 +86,6 @@ export interface PageVisit {
   device_type: string | null;
   browser: string | null;
   os: string | null;
+  is_bot: boolean;
+  bot_reason: string | null;
 }

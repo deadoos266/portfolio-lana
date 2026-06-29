@@ -33,7 +33,7 @@ export default async function DashboardPage() {
         .select("*")
         .order("created_at", { ascending: false }),
       supabase.from("tracked_links").select("*"),
-      supabase.from("link_opens").select("link_id, opened_at"),
+      supabase.from("link_opens").select("link_id, opened_at, is_bot"),
     ]);
 
   const linkByApp = new Map<string, TrackedLink>();
@@ -41,12 +41,23 @@ export default async function DashboardPage() {
     if (link.application_id) linkByApp.set(link.application_id, link);
   }
 
-  const openStats = new Map<string, { count: number; last: string | null }>();
+  const openStats = new Map<
+    string,
+    { human: number; bot: number; last: string | null }
+  >();
   for (const open of opens ?? []) {
-    const current = openStats.get(open.link_id) ?? { count: 0, last: null };
-    current.count += 1;
-    if (!current.last || open.opened_at > current.last) {
-      current.last = open.opened_at;
+    const current = openStats.get(open.link_id) ?? {
+      human: 0,
+      bot: 0,
+      last: null,
+    };
+    if (open.is_bot) {
+      current.bot += 1;
+    } else {
+      current.human += 1;
+      if (!current.last || open.opened_at > current.last) {
+        current.last = open.opened_at;
+      }
     }
     openStats.set(open.link_id, current);
   }
@@ -112,8 +123,16 @@ export default async function DashboardPage() {
                         <span className="text-xs text-zinc-400">aucun</span>
                       )}
                     </td>
-                    <td className="px-4 py-3 text-center font-semibold">
-                      {stats?.count ?? 0}
+                    <td className="px-4 py-3 text-center">
+                      <span className="font-semibold">{stats?.human ?? 0}</span>
+                      {stats && stats.bot > 0 && (
+                        <span
+                          className="ml-1 text-xs text-zinc-400"
+                          title={`${stats.bot} ouverture(s) automatique(s) (robots)`}
+                        >
+                          +{stats.bot}🤖
+                        </span>
+                      )}
                     </td>
                     <td className="px-4 py-3 text-xs text-zinc-500">
                       {formatDate(stats?.last ?? null)}

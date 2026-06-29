@@ -31,7 +31,9 @@ export default async function VisitesPage() {
     .limit(500);
 
   const visits = (data ?? []) as PageVisit[];
-  const unique = new Set(visits.map((v) => v.ip).filter(Boolean)).size;
+  const humanVisits = visits.filter((v) => !v.is_bot);
+  const botCount = visits.length - humanVisits.length;
+  const unique = new Set(humanVisits.map((v) => v.ip).filter(Boolean)).size;
 
   return (
     <div className="space-y-8">
@@ -43,12 +45,15 @@ export default async function VisitesPage() {
         </p>
       </div>
 
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-        <Stat label="Visites totales" value={visits.length} />
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+        <Stat label="Visites réelles" value={humanVisits.length} />
         <Stat label="Visiteurs uniques" value={unique} />
+        <Stat label="Robots filtrés" value={botCount} />
         <Stat
-          label="Dernière visite"
-          value={visits[0] ? formatDateTime(visits[0].created_at) : "—"}
+          label="Dernière (réelle)"
+          value={
+            humanVisits[0] ? formatDateTime(humanVisits[0].created_at) : "—"
+          }
           small
         />
       </div>
@@ -72,9 +77,22 @@ export default async function VisitesPage() {
             </thead>
             <tbody className="divide-y divide-zinc-100">
               {visits.map((v) => (
-                <tr key={v.id} className="hover:bg-zinc-50">
+                <tr
+                  key={v.id}
+                  className={
+                    v.is_bot ? "bg-zinc-50/60 text-zinc-400" : "hover:bg-zinc-50"
+                  }
+                >
                   <td className="px-4 py-3 whitespace-nowrap">
                     {formatDateTime(v.created_at)}
+                    {v.is_bot && (
+                      <span
+                        className="ml-2 rounded bg-zinc-200 px-1.5 py-0.5 text-[10px] font-medium text-zinc-600"
+                        title={v.bot_reason ?? "robot"}
+                      >
+                        🤖
+                      </span>
+                    )}
                   </td>
                   <td className="px-4 py-3">
                     <code className="rounded bg-zinc-100 px-1.5 py-0.5 text-xs">

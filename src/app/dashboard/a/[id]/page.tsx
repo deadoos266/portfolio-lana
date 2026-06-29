@@ -69,7 +69,12 @@ export default async function ApplicationDetailPage({
     opens = (data ?? []) as LinkOpen[];
   }
 
-  const uniqueVisitors = new Set(opens.map((o) => o.ip).filter(Boolean)).size;
+  const humanOpens = opens.filter((o) => !o.is_bot);
+  const botOpens = opens.filter((o) => o.is_bot);
+  const uniqueVisitors = new Set(
+    humanOpens.map((o) => o.ip).filter(Boolean),
+  ).size;
+  const lastHuman = humanOpens[0] ?? null;
   const shortUrl = link ? `${origin}/l/${link.slug}` : null;
 
   return (
@@ -118,12 +123,13 @@ export default async function ApplicationDetailPage({
       )}
 
       {/* Stats ouvertures */}
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-        <StatCard label="Ouvertures totales" value={opens.length} />
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+        <StatCard label="Ouvertures réelles" value={humanOpens.length} />
         <StatCard label="Visiteurs uniques" value={uniqueVisitors} />
+        <StatCard label="Robots filtrés" value={botOpens.length} />
         <StatCard
-          label="Dernière ouverture"
-          value={opens[0] ? formatDateTime(opens[0].opened_at) : "—"}
+          label="Dernière (réelle)"
+          value={lastHuman ? formatDateTime(lastHuman.opened_at) : "—"}
           small
         />
       </div>
@@ -150,9 +156,24 @@ export default async function ApplicationDetailPage({
               </thead>
               <tbody className="divide-y divide-zinc-100">
                 {opens.map((open) => (
-                  <tr key={open.id} className="hover:bg-zinc-50">
+                  <tr
+                    key={open.id}
+                    className={
+                      open.is_bot
+                        ? "bg-zinc-50/60 text-zinc-400"
+                        : "hover:bg-zinc-50"
+                    }
+                  >
                     <td className="px-4 py-3 whitespace-nowrap">
                       {formatDateTime(open.opened_at)}
+                      {open.is_bot && (
+                        <span
+                          className="ml-2 rounded bg-zinc-200 px-1.5 py-0.5 text-[10px] font-medium text-zinc-600"
+                          title={open.bot_reason ?? "robot"}
+                        >
+                          🤖 robot
+                        </span>
+                      )}
                     </td>
                     <td className="px-4 py-3">{place(open)}</td>
                     <td className="px-4 py-3 capitalize">
