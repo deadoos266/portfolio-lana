@@ -3,7 +3,12 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { clearSession } from "@/lib/auth";
+import {
+  clearSession,
+  verifyPin,
+  setPin,
+  isValidPinFormat,
+} from "@/lib/auth";
 import { generateSlug, normalizeUrl } from "@/lib/slug";
 import { isApplicationStatus } from "@/lib/types";
 
@@ -99,6 +104,37 @@ export async function deleteApplication(id: string) {
   await supabase.from("applications").delete().eq("id", id);
   revalidatePath("/dashboard");
   redirect("/dashboard");
+}
+
+/** Supprime une ouverture/visite précise d'un lien traqué. */
+export async function deleteOpen(id: string, applicationId: string) {
+  const supabase = createAdminClient();
+  await supabase.from("link_opens").delete().eq("id", id);
+  revalidatePath(`/dashboard/a/${applicationId}`);
+}
+
+export interface ChangePinState {
+  error: string;
+  success: boolean;
+}
+
+/** Change le code d'accès du dashboard (après vérification du code actuel). */
+export async function changePin(
+  _prev: ChangePinState,
+  formData: FormData,
+): Promise<ChangePinState> {
+  const current = String(formData.get("current") ?? "").trim();
+  const next = String(formData.get("next") ?? "").trim();
+
+  if (!(await verifyPin(current))) {
+    return { error: "Code actuel incorrect.", success: false };
+  }
+  if (!isValidPinFormat(next)) {
+    return { error: "Le nouveau code doit faire exactement 6 chiffres.", success: false };
+  }
+
+  await setPin(next);
+  return { error: "", success: true };
 }
 
 export async function logout() {

@@ -13,7 +13,7 @@ export async function login(
 ): Promise<LoginState> {
   const pin = String(formData.get("pin") ?? "").trim();
 
-  if (!verifyPin(pin)) {
+  if (!(await verifyPin(pin))) {
     return { error: "Code incorrect." };
   }
 

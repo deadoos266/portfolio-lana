@@ -4,6 +4,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { getOrigin } from "@/lib/origin";
 import { CopyButton } from "@/components/CopyButton";
 import { StatusSelect } from "@/components/StatusSelect";
+import { DeleteOpenButton } from "@/components/DeleteOpenButton";
 import { deleteApplication } from "../../actions";
 import type {
   Application,
@@ -144,6 +145,7 @@ export default async function ApplicationDetailPage({
                   <th className="px-4 py-3">Appareil</th>
                   <th className="px-4 py-3">Navigateur</th>
                   <th className="px-4 py-3">Source</th>
+                  <th className="px-4 py-3"></th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-zinc-100">
@@ -164,6 +166,9 @@ export default async function ApplicationDetailPage({
                     </td>
                     <td className="px-4 py-3 text-zinc-500">
                       {source(open.referrer)}
+                    </td>
+                    <td className="px-4 py-3 text-right">
+                      <DeleteOpenButton id={open.id} applicationId={app.id} />
                     </td>
                   </tr>
                 ))}

@@ -18,7 +18,7 @@ export default function LoginPage() {
           <h1 className="text-xl font-semibold text-zinc-900">
             Espace de suivi
           </h1>
-          <p className="mt-1 text-sm text-zinc-500">Entre ton code à 4 chiffres.</p>
+          <p className="mt-1 text-sm text-zinc-500">Entre ton code à 6 chiffres.</p>
         </div>
 
         <input
@@ -26,11 +26,11 @@ export default function LoginPage() {
           type="password"
           inputMode="numeric"
           pattern="[0-9]*"
-          maxLength={4}
+          maxLength={6}
           autoComplete="off"
           autoFocus
           required
-          placeholder="••••"
+          placeholder="••••••"
           className="w-full rounded-xl border border-zinc-300 px-4 py-3 text-center text-2xl tracking-[0.6em] outline-none focus:border-zinc-900"
         />
 

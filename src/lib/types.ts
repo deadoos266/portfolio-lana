@@ -71,3 +71,17 @@ export interface LinkOpen {
   os: string | null;
   referrer: string | null;
 }
+
+export interface PageVisit {
+  id: string;
+  created_at: string;
+  path: string;
+  referrer: string | null;
+  ip: string | null;
+  country: string | null;
+  city: string | null;
+  user_agent: string | null;
+  device_type: string | null;
+  browser: string | null;
+  os: string | null;
+}

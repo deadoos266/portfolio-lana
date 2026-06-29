@@ -1,19 +1,18 @@
 import { cookies } from "next/headers";
 import crypto from "node:crypto";
+import { createAdminClient } from "@/lib/supabase/admin";
 
 const COOKIE_NAME = "dash_session";
 const MAX_AGE = 60 * 60 * 24 * 30; // 30 jours
+const PIN_KEY = "dashboard_pin_hash";
 
-/**
- * Jeton attendu dans le cookie : HMAC d'une constante avec le secret serveur.
- * Impossible à forger sans connaître DASHBOARD_SESSION_SECRET.
- */
-function expectedToken(): string {
-  const secret = process.env.DASHBOARD_SESSION_SECRET ?? "";
-  return crypto
-    .createHmac("sha256", secret)
-    .update("authenticated")
-    .digest("hex");
+function secret(): string {
+  return process.env.DASHBOARD_SESSION_SECRET ?? "";
+}
+
+/** HMAC-SHA256 d'un message avec le secret serveur. */
+function hmac(message: string): string {
+  return crypto.createHmac("sha256", secret()).update(message).digest("hex");
 }
 
 function safeEqual(a: string, b: string): boolean {
@@ -23,14 +22,46 @@ function safeEqual(a: string, b: string): boolean {
   return crypto.timingSafeEqual(bufA, bufB);
 }
 
-/** Vérifie le code à 4 chiffres saisi contre DASHBOARD_PIN. */
-export function verifyPin(pin: string): boolean {
-  const expected = process.env.DASHBOARD_PIN ?? "";
-  if (!expected) return false;
-  return safeEqual(pin, expected);
+function expectedToken(): string {
+  return hmac("authenticated");
 }
 
-/** Ouvre une session (pose le cookie signé). */
+// --- Code d'accès (stocké haché en base, donc modifiable depuis le dashboard) ---
+
+async function getStoredPinHash(): Promise<string | null> {
+  const supabase = createAdminClient();
+  const { data } = await supabase
+    .from("app_settings")
+    .select("value")
+    .eq("key", PIN_KEY)
+    .maybeSingle();
+  return data?.value ?? null;
+}
+
+/** Le code saisi correspond-il au code enregistré ? */
+export async function verifyPin(pin: string): Promise<boolean> {
+  const stored = await getStoredPinHash();
+  if (!stored) return false;
+  return safeEqual(hmac(pin), stored);
+}
+
+/** Le format est-il valide (exactement 6 chiffres) ? */
+export function isValidPinFormat(pin: string): boolean {
+  return /^\d{6}$/.test(pin);
+}
+
+/** Enregistre un nouveau code (haché). */
+export async function setPin(newPin: string): Promise<void> {
+  const supabase = createAdminClient();
+  await supabase.from("app_settings").upsert({
+    key: PIN_KEY,
+    value: hmac(newPin),
+    updated_at: new Date().toISOString(),
+  });
+}
+
+// --- Session (cookie signé) ---
+
 export async function createSession(): Promise<void> {
   const store = await cookies();
   store.set(COOKIE_NAME, expectedToken(), {
@@ -42,13 +73,11 @@ export async function createSession(): Promise<void> {
   });
 }
 
-/** Ferme la session. */
 export async function clearSession(): Promise<void> {
   const store = await cookies();
   store.delete(COOKIE_NAME);
 }
 
-/** Vrai si la requête courante a une session valide. */
 export async function isAuthed(): Promise<boolean> {
   const store = await cookies();
   const token = store.get(COOKIE_NAME)?.value;
