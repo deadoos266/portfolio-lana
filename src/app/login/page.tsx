@@ -9,10 +9,10 @@ export default function LoginPage() {
   const [state, formAction, pending] = useActionState(login, initialState);
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-zinc-50 px-4">
+    <main className="flex min-h-screen items-center justify-center px-4">
       <form
         action={formAction}
-        className="w-full max-w-xs space-y-6 rounded-2xl border border-zinc-200 bg-white p-8 text-center shadow-sm"
+        className="card w-full max-w-xs space-y-6 p-8 text-center"
       >
         <div>
           <h1 className="text-xl font-semibold text-zinc-900">
@@ -39,7 +39,7 @@ export default function LoginPage() {
         <button
           type="submit"
           disabled={pending}
-          className="w-full rounded-xl bg-zinc-900 px-4 py-3 text-sm font-medium text-white transition hover:bg-zinc-700 disabled:opacity-50"
+          className="btn-primary w-full justify-center py-3 disabled:opacity-50"
         >
           {pending ? "…" : "Entrer"}
         </button>

@@ -8,8 +8,8 @@ export default async function ParametresPage() {
   return (
     <div className="space-y-10">
       <div>
-        <h1 className="text-2xl font-semibold">Réglages</h1>
-        <p className="text-sm text-zinc-500">
+        <h1 className="text-3xl font-semibold tracking-tight">Réglages</h1>
+        <p className="mt-1 text-sm text-zinc-500">
           Gère l&apos;accès et les éléments de ton espace.
         </p>
       </div>
@@ -21,7 +21,7 @@ export default async function ParametresPage() {
 
       <section className="space-y-3">
         <h2 className="text-lg font-semibold">CV (PDF)</h2>
-        <div className="max-w-sm space-y-3 rounded-xl border border-zinc-200 bg-white p-6">
+        <div className="card max-w-sm space-y-3 p-6">
           {cvUrl ? (
             <a
               href={cvUrl}
@@ -40,12 +40,9 @@ export default async function ParametresPage() {
               type="file"
               accept="application/pdf"
               required
-              className="w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm"
+              className="input"
             />
-            <button
-              type="submit"
-              className="rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-zinc-700"
-            >
+            <button type="submit" className="btn-primary">
               {cvUrl ? "Remplacer le CV" : "Ajouter le CV"}
             </button>
           </form>

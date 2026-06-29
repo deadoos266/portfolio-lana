@@ -39,8 +39,10 @@ export default async function VisitesPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-semibold">Visites du site</h1>
-        <p className="text-sm text-zinc-500">
+        <h1 className="text-3xl font-semibold tracking-tight">
+          Visites du site
+        </h1>
+        <p className="mt-1 text-sm text-zinc-500">
           Toutes les visites de la page publique (pas seulement via les liens
           traqués).
         </p>
@@ -64,9 +66,9 @@ export default async function VisitesPage() {
           Aucune visite enregistrée pour l&apos;instant.
         </p>
       ) : (
-        <div className="overflow-x-auto rounded-xl border border-zinc-200 bg-white">
+        <div className="card overflow-x-auto">
           <table className="w-full text-sm">
-            <thead className="bg-zinc-50 text-left text-xs uppercase tracking-wide text-zinc-500">
+            <thead className="text-left text-xs font-medium uppercase tracking-wide text-zinc-400">
               <tr>
                 <th className="px-4 py-3">Date</th>
                 <th className="px-4 py-3">Page</th>
@@ -133,8 +135,8 @@ function Stat({
   small?: boolean;
 }) {
   return (
-    <div className="rounded-xl border border-zinc-200 bg-white p-4">
-      <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
+    <div className="card p-5">
+      <p className="text-xs font-medium uppercase tracking-wide text-zinc-400">
         {label}
       </p>
       <p

@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { isAuthed } from "@/lib/auth";
 import { logout } from "./actions";
+import { NavLinks } from "./NavLinks";
 
 export default async function DashboardLayout({
   children,
@@ -13,53 +14,23 @@ export default async function DashboardLayout({
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50 text-zinc-900">
-      <header className="border-b border-zinc-200 bg-white">
+    <div className="min-h-screen text-zinc-900">
+      <header className="sticky top-0 z-20 border-b border-black/5 bg-[#f5f5f7]/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 px-4 py-3">
-          <nav className="flex items-center gap-4 text-sm">
-            <Link href="/dashboard" className="font-semibold">
-              Candidatures
-            </Link>
-            <Link
-              href="/dashboard/publications"
-              className="text-zinc-500 transition hover:text-zinc-900"
-            >
-              Publications
-            </Link>
-            <Link
-              href="/dashboard/visites"
-              className="text-zinc-500 transition hover:text-zinc-900"
-            >
-              Visites
-            </Link>
-            <Link
-              href="/dashboard/parametres"
-              className="text-zinc-500 transition hover:text-zinc-900"
-            >
-              Réglages
-            </Link>
-          </nav>
-          <div className="flex items-center gap-3">
-            <Link
-              href="/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-md border border-zinc-300 px-2 py-1 text-sm font-medium text-zinc-700 transition hover:bg-zinc-100"
-            >
+          <NavLinks />
+          <div className="flex items-center gap-2">
+            <Link href="/" target="_blank" rel="noopener noreferrer" className="btn-ghost">
               Voir le site ↗
             </Link>
             <form action={logout}>
-              <button
-                type="submit"
-                className="rounded-md border border-zinc-300 px-2 py-1 text-sm font-medium text-zinc-700 transition hover:bg-zinc-100"
-              >
+              <button type="submit" className="btn-ghost">
                 Déconnexion
               </button>
             </form>
           </div>
         </div>
       </header>
-      <main className="mx-auto max-w-5xl px-4 py-8">{children}</main>
+      <main className="mx-auto max-w-5xl px-4 py-10 sm:px-6">{children}</main>
     </div>
   );
 }

@@ -3,7 +3,7 @@ import crypto from "node:crypto";
 import { createAdminClient } from "@/lib/supabase/admin";
 
 const COOKIE_NAME = "dash_session";
-const MAX_AGE = 60 * 60 * 24 * 30; // 30 jours
+const MAX_AGE = 60 * 60 * 24 * 400; // ~400 jours (max navigateur) — reste connecté
 const PIN_KEY = "dashboard_pin_hash";
 
 function secret(): string {

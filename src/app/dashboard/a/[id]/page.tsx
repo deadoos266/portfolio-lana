@@ -89,7 +89,9 @@ export default async function ApplicationDetailPage({
       {/* En-tête candidature */}
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-semibold">{app.company_name}</h1>
+          <h1 className="text-3xl font-semibold tracking-tight">
+            {app.company_name}
+          </h1>
           {app.role && <p className="text-zinc-500">{app.role}</p>}
         </div>
         <StatusSelect id={app.id} status={app.status as ApplicationStatus} />
@@ -105,7 +107,7 @@ export default async function ApplicationDetailPage({
 
       {/* Lien traqué */}
       {shortUrl && link && (
-        <div className="rounded-xl border border-zinc-200 bg-white p-4">
+        <div className="card p-5">
           <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
             Lien à envoyer
           </p>
@@ -142,9 +144,9 @@ export default async function ApplicationDetailPage({
             Aucune ouverture enregistrée pour le moment.
           </p>
         ) : (
-          <div className="overflow-x-auto rounded-xl border border-zinc-200 bg-white">
+          <div className="card overflow-x-auto">
             <table className="w-full text-sm">
-              <thead className="bg-zinc-50 text-left text-xs uppercase tracking-wide text-zinc-500">
+              <thead className="text-left text-xs font-medium uppercase tracking-wide text-zinc-400">
                 <tr>
                   <th className="px-4 py-3">Date</th>
                   <th className="px-4 py-3">Lieu</th>
@@ -217,7 +219,7 @@ export default async function ApplicationDetailPage({
 
 function InfoCard({ label, value }: { label: string; value: string | null }) {
   return (
-    <div className="rounded-xl border border-zinc-200 bg-white p-4">
+    <div className="card p-5">
       <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
         {label}
       </p>
@@ -236,7 +238,7 @@ function StatCard({
   small?: boolean;
 }) {
   return (
-    <div className="rounded-xl border border-zinc-200 bg-white p-4">
+    <div className="card p-5">
       <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
         {label}
       </p>

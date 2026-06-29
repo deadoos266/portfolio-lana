@@ -5,8 +5,7 @@ import {
   type Publication,
 } from "@/lib/types";
 
-const field =
-  "w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm outline-none focus:border-zinc-900";
+const field = "input";
 const label = "text-xs font-medium text-zinc-600";
 
 interface PublicationFormProps {
@@ -140,10 +139,7 @@ export function PublicationForm({
       </div>
 
       <div className="sm:col-span-2">
-        <button
-          type="submit"
-          className="rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-zinc-700"
-        >
+        <button type="submit" className="btn-primary">
           {submitLabel}
         </button>
       </div>

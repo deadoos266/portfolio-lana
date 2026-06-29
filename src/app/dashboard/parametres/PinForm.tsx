@@ -12,10 +12,7 @@ export function PinForm() {
   const [state, formAction, pending] = useActionState(changePin, initialState);
 
   return (
-    <form
-      action={formAction}
-      className="max-w-sm space-y-4 rounded-xl border border-zinc-200 bg-white p-6"
-    >
+    <form action={formAction} className="card max-w-sm space-y-4 p-6">
       <div className="space-y-1">
         <label className="text-xs font-medium text-zinc-600">Code actuel</label>
         <input
@@ -55,7 +52,7 @@ export function PinForm() {
       <button
         type="submit"
         disabled={pending}
-        className="w-full rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-zinc-700 disabled:opacity-50"
+        className="btn-primary w-full justify-center disabled:opacity-50"
       >
         {pending ? "…" : "Changer le code"}
       </button>

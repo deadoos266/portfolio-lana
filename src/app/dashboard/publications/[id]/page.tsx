@@ -30,7 +30,9 @@ export default async function EditPublicationPage({
       >
         ← Retour
       </Link>
-      <h1 className="text-2xl font-semibold">Modifier la publication</h1>
+      <h1 className="text-3xl font-semibold tracking-tight">
+        Modifier la publication
+      </h1>
       <PublicationForm
         action={updatePublication.bind(null, id)}
         publication={publication}

@@ -11,7 +11,9 @@ export default function NouvellePublicationPage() {
       >
         ← Retour
       </Link>
-      <h1 className="text-2xl font-semibold">Nouvelle publication</h1>
+      <h1 className="text-3xl font-semibold tracking-tight">
+        Nouvelle publication
+      </h1>
       <PublicationForm action={createPublication} submitLabel="Créer" />
     </div>
   );

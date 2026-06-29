@@ -66,38 +66,53 @@ export default async function DashboardPage() {
 
   return (
     <div className="space-y-8">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold">Candidatures</h1>
-        <span className="text-sm text-zinc-500">{apps.length} au total</span>
-      </div>
+      <header className="flex items-end justify-between gap-4">
+        <div>
+          <h1 className="text-3xl font-semibold tracking-tight">Candidatures</h1>
+          <p className="mt-1 text-sm text-zinc-500">
+            Suis tes candidatures et vois qui ouvre tes liens.
+          </p>
+        </div>
+        <span className="shrink-0 rounded-full bg-white px-3 py-1 text-sm font-medium text-zinc-500 shadow-sm">
+          {apps.length}
+        </span>
+      </header>
 
       <NewApplicationForm />
 
       {apps.length === 0 ? (
-        <p className="rounded-xl border border-dashed border-zinc-300 p-8 text-center text-sm text-zinc-500">
-          Aucune candidature pour l&apos;instant. Ajoute-en une ci-dessus.
-        </p>
+        <div className="card flex flex-col items-center gap-2 px-6 py-16 text-center">
+          <p className="text-base font-medium text-zinc-700">
+            Aucune candidature pour l&apos;instant
+          </p>
+          <p className="text-sm text-zinc-500">
+            Ajoute ta première candidature avec le bouton ci-dessus.
+          </p>
+        </div>
       ) : (
-        <div className="overflow-hidden rounded-xl border border-zinc-200 bg-white">
+        <div className="card overflow-hidden">
           <table className="w-full text-sm">
-            <thead className="bg-zinc-50 text-left text-xs uppercase tracking-wide text-zinc-500">
-              <tr>
-                <th className="px-4 py-3">Entreprise</th>
-                <th className="px-4 py-3">Statut</th>
-                <th className="px-4 py-3">Lien traqué</th>
-                <th className="px-4 py-3 text-center">Ouvertures</th>
-                <th className="px-4 py-3">Dernière</th>
-                <th className="px-4 py-3"></th>
+            <thead className="text-left text-xs font-medium uppercase tracking-wide text-zinc-400">
+              <tr className="border-b border-black/5">
+                <th className="px-5 py-4">Entreprise</th>
+                <th className="px-5 py-4">Statut</th>
+                <th className="px-5 py-4">Lien traqué</th>
+                <th className="px-5 py-4 text-center">Ouvertures</th>
+                <th className="px-5 py-4">Dernière</th>
+                <th className="px-5 py-4"></th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-zinc-100">
+            <tbody>
               {apps.map((app) => {
                 const link = linkByApp.get(app.id);
                 const stats = link ? openStats.get(link.id) : undefined;
                 const shortUrl = link ? `${origin}/l/${link.slug}` : null;
                 return (
-                  <tr key={app.id} className="hover:bg-zinc-50">
-                    <td className="px-4 py-3">
+                  <tr
+                    key={app.id}
+                    className="border-b border-black/5 transition last:border-0 hover:bg-black/[0.015]"
+                  >
+                    <td className="px-5 py-4">
                       <div className="font-medium text-zinc-900">
                         {app.company_name}
                       </div>
@@ -105,16 +120,16 @@ export default async function DashboardPage() {
                         <div className="text-xs text-zinc-500">{app.role}</div>
                       )}
                     </td>
-                    <td className="px-4 py-3">
+                    <td className="px-5 py-4">
                       <StatusSelect
                         id={app.id}
                         status={app.status as ApplicationStatus}
                       />
                     </td>
-                    <td className="px-4 py-3">
+                    <td className="px-5 py-4">
                       {shortUrl ? (
                         <div className="flex items-center gap-2">
-                          <code className="rounded bg-zinc-100 px-1.5 py-0.5 text-xs">
+                          <code className="rounded-md bg-zinc-100 px-1.5 py-0.5 text-xs text-zinc-600">
                             /l/{link!.slug}
                           </code>
                           <CopyButton value={shortUrl} />
@@ -123,7 +138,7 @@ export default async function DashboardPage() {
                         <span className="text-xs text-zinc-400">aucun</span>
                       )}
                     </td>
-                    <td className="px-4 py-3 text-center">
+                    <td className="px-5 py-4 text-center">
                       <span className="font-semibold">{stats?.human ?? 0}</span>
                       {stats && stats.bot > 0 && (
                         <span
@@ -134,15 +149,15 @@ export default async function DashboardPage() {
                         </span>
                       )}
                     </td>
-                    <td className="px-4 py-3 text-xs text-zinc-500">
+                    <td className="px-5 py-4 text-xs text-zinc-500">
                       {formatDate(stats?.last ?? null)}
                     </td>
-                    <td className="px-4 py-3 text-right">
+                    <td className="px-5 py-4 text-right">
                       <Link
                         href={`/dashboard/a/${app.id}`}
-                        className="text-sm font-medium text-zinc-700 underline-offset-2 hover:underline"
+                        className="text-sm font-medium text-zinc-500 transition hover:text-zinc-900"
                       >
-                        Détail
+                        Détail →
                       </Link>
                     </td>
                   </tr>
@@ -159,67 +174,66 @@ export default async function DashboardPage() {
 }
 
 function NewApplicationForm() {
-  const field =
-    "w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm outline-none focus:border-zinc-900";
   return (
-    <details className="rounded-xl border border-zinc-200 bg-white p-4">
-      <summary className="cursor-pointer font-medium text-zinc-900">
-        + Nouvelle candidature
+    <details className="group">
+      <summary className="btn-primary cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+        <span className="transition group-open:rotate-45">+</span>
+        <span>Nouvelle candidature</span>
       </summary>
-      <form action={createApplication} className="mt-4 grid gap-4 sm:grid-cols-2">
-        <div className="space-y-1">
-          <label className="text-xs font-medium text-zinc-600">
-            Entreprise *
-          </label>
-          <input name="company_name" required className={field} />
-        </div>
-        <div className="space-y-1">
-          <label className="text-xs font-medium text-zinc-600">Poste</label>
-          <input name="role" className={field} placeholder="Alternance…" />
-        </div>
-        <div className="space-y-1 sm:col-span-2">
-          <label className="text-xs font-medium text-zinc-600">
-            Lien à traquer (destination)
-          </label>
-          <input
-            name="destination_url"
-            className={field}
-            placeholder="ex: mon-portfolio.com  ou  lien Google Drive du CV"
-          />
-          <p className="text-xs text-zinc-400">
-            Un lien traqué unique sera généré et redirigera vers cette adresse.
-          </p>
-        </div>
-        <div className="space-y-1">
-          <label className="text-xs font-medium text-zinc-600">Contact</label>
-          <input name="contact_name" className={field} />
-        </div>
-        <div className="space-y-1">
-          <label className="text-xs font-medium text-zinc-600">
-            Email du contact
-          </label>
-          <input name="contact_email" type="email" className={field} />
-        </div>
-        <div className="space-y-1 sm:col-span-2">
-          <label className="text-xs font-medium text-zinc-600">Notes</label>
-          <textarea name="notes" rows={2} className={field} />
-        </div>
-        <div className="sm:col-span-2">
-          <button
-            type="submit"
-            className="rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-zinc-700"
-          >
-            Créer
-          </button>
-        </div>
-      </form>
+      <div className="card mt-4 p-6">
+        <form action={createApplication} className="grid gap-4 sm:grid-cols-2">
+          <div className="space-y-1.5">
+            <label className="text-xs font-medium text-zinc-600">
+              Entreprise *
+            </label>
+            <input name="company_name" required className="input" />
+          </div>
+          <div className="space-y-1.5">
+            <label className="text-xs font-medium text-zinc-600">Poste</label>
+            <input name="role" className="input" placeholder="Alternance…" />
+          </div>
+          <div className="space-y-1.5 sm:col-span-2">
+            <label className="text-xs font-medium text-zinc-600">
+              Lien à traquer (destination)
+            </label>
+            <input
+              name="destination_url"
+              className="input"
+              placeholder="ex: mon-portfolio.com  ou  lien Google Drive du CV"
+            />
+            <p className="text-xs text-zinc-400">
+              Un lien traqué unique sera généré et redirigera vers cette adresse.
+            </p>
+          </div>
+          <div className="space-y-1.5">
+            <label className="text-xs font-medium text-zinc-600">Contact</label>
+            <input name="contact_name" className="input" />
+          </div>
+          <div className="space-y-1.5">
+            <label className="text-xs font-medium text-zinc-600">
+              Email du contact
+            </label>
+            <input name="contact_email" type="email" className="input" />
+          </div>
+          <div className="space-y-1.5 sm:col-span-2">
+            <label className="text-xs font-medium text-zinc-600">Notes</label>
+            <textarea name="notes" rows={2} className="input" />
+          </div>
+          <div className="sm:col-span-2">
+            <button type="submit" className="btn-primary">
+              Créer la candidature
+            </button>
+          </div>
+        </form>
+      </div>
     </details>
   );
 }
 
 function StatusLegend() {
   return (
-    <div className="flex flex-wrap gap-2">
+    <div className="flex flex-wrap items-center gap-2 pt-2">
+      <span className="text-xs text-zinc-400">Statuts :</span>
       {Object.entries(STATUS_LABELS).map(([key, label]) => (
         <span
           key={key}

@@ -23,25 +23,27 @@ export default async function PublicationsPage() {
 
   return (
     <div className="space-y-8">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold">Publications</h1>
-        <Link
-          href="/dashboard/publications/nouveau"
-          className="rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-zinc-700"
-        >
+      <div className="flex items-center justify-between gap-4">
+        <h1 className="text-3xl font-semibold tracking-tight">Publications</h1>
+        <Link href="/dashboard/publications/nouveau" className="btn-primary">
           + Ajouter
         </Link>
       </div>
 
       {pubs.length === 0 ? (
-        <p className="rounded-xl border border-dashed border-zinc-300 p-8 text-center text-sm text-zinc-500">
-          Aucune publication. Ajoute ton premier article, son ou reportage.
-        </p>
+        <div className="card flex flex-col items-center gap-2 px-6 py-16 text-center">
+          <p className="text-base font-medium text-zinc-700">
+            Aucune publication
+          </p>
+          <p className="text-sm text-zinc-500">
+            Ajoute ton premier article, son ou reportage.
+          </p>
+        </div>
       ) : (
-        <div className="overflow-x-auto rounded-xl border border-zinc-200 bg-white">
+        <div className="card overflow-hidden">
           <table className="w-full text-sm">
-            <thead className="bg-zinc-50 text-left text-xs uppercase tracking-wide text-zinc-500">
-              <tr>
+            <thead className="text-left text-xs font-medium uppercase tracking-wide text-zinc-400">
+              <tr className="border-b border-black/5">
                 <th className="px-4 py-3">Titre</th>
                 <th className="px-4 py-3">Type</th>
                 <th className="px-4 py-3">Média</th>
