@@ -8,7 +8,7 @@ export default function Home() {
           Portfolio
         </p>
         <h1 className="text-4xl font-semibold text-zinc-900 sm:text-5xl">
-          Svetlana
+          Lana Hervé
         </h1>
         <p className="max-w-md text-zinc-500">Site en cours de construction.</p>
       </div>

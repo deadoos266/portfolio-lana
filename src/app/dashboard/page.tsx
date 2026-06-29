@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { getOrigin } from "@/lib/origin";
 import { CopyButton } from "@/components/CopyButton";
 import { StatusSelect } from "@/components/StatusSelect";
@@ -23,7 +23,7 @@ function formatDate(value: string | null): string {
 }
 
 export default async function DashboardPage() {
-  const supabase = await createClient();
+  const supabase = createAdminClient();
   const origin = await getOrigin();
 
   const [{ data: applications }, { data: links }, { data: opens }] =

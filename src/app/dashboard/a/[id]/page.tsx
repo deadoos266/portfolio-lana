@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { getOrigin } from "@/lib/origin";
 import { CopyButton } from "@/components/CopyButton";
 import { StatusSelect } from "@/components/StatusSelect";
@@ -39,7 +39,7 @@ export default async function ApplicationDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const supabase = await createClient();
+  const supabase = createAdminClient();
   const origin = await getOrigin();
 
   const { data: application } = await supabase

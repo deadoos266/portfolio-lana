@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/server";
+import { isAuthed } from "@/lib/auth";
 import { logout } from "./actions";
 
 export default async function DashboardLayout({
@@ -8,12 +8,7 @@ export default async function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
+  if (!(await isAuthed())) {
     redirect("/login");
   }
 
@@ -25,7 +20,6 @@ export default async function DashboardLayout({
             Suivi des candidatures
           </Link>
           <div className="flex items-center gap-3 text-sm text-zinc-500">
-            <span className="hidden sm:inline">{user.email}</span>
             <form action={logout}>
               <button
                 type="submit"

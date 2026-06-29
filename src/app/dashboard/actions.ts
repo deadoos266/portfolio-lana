@@ -2,7 +2,8 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
+import { clearSession } from "@/lib/auth";
 import { generateSlug, normalizeUrl } from "@/lib/slug";
 import { isApplicationStatus } from "@/lib/types";
 
@@ -23,7 +24,7 @@ export async function createApplication(formData: FormData) {
     throw new Error("Le nom de l'entreprise est obligatoire.");
   }
 
-  const supabase = await createClient();
+  const supabase = createAdminClient();
 
   const { data: application, error } = await supabase
     .from("applications")
@@ -66,7 +67,7 @@ interface LinkInput {
 }
 
 async function insertLinkWithRetry(
-  supabase: Awaited<ReturnType<typeof createClient>>,
+  supabase: ReturnType<typeof createAdminClient>,
   input: LinkInput,
   attempts = 3,
 ): Promise<void> {
@@ -87,21 +88,20 @@ export async function updateStatus(id: string, status: string) {
   if (!isApplicationStatus(status)) {
     throw new Error("Statut invalide.");
   }
-  const supabase = await createClient();
+  const supabase = createAdminClient();
   await supabase.from("applications").update({ status }).eq("id", id);
   revalidatePath("/dashboard");
   revalidatePath(`/dashboard/a/${id}`);
 }
 
 export async function deleteApplication(id: string) {
-  const supabase = await createClient();
+  const supabase = createAdminClient();
   await supabase.from("applications").delete().eq("id", id);
   revalidatePath("/dashboard");
   redirect("/dashboard");
 }
 
 export async function logout() {
-  const supabase = await createClient();
-  await supabase.auth.signOut();
+  await clearSession();
   redirect("/login");
 }
