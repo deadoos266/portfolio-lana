@@ -1,7 +1,20 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Racine du projet explicite (évite l'avertissement de lockfile dû à OneDrive)
+  turbopack: {
+    root: __dirname,
+  },
+  images: {
+    // Autorise les images servies depuis Supabase Storage
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "kitkltjhslfrdsfopqac.supabase.co",
+        pathname: "/storage/v1/object/public/**",
+      },
+    ],
+  },
 };
 
 export default nextConfig;
