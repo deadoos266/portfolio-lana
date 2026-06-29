@@ -33,6 +33,6 @@ jobs:
           if git diff --staged --quiet; then
             echo "Aucun changement à sauvegarder."
           else
-            git commit -m "chore: sauvegarde automatique des données"
+            git commit -m "chore: sauvegarde automatique des données [skip ci]"
             git push
           fi
