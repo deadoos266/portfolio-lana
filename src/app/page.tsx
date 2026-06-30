@@ -265,7 +265,16 @@ function Section({ id, title, background, children }: SectionProps) {
     <section id={id} className={`scroll-mt-20 ${background ?? ""}`}>
       <div className="mx-auto max-w-6xl px-6 py-20">
         <div className="mb-10 flex items-center gap-4">
-          <h2 className="font-display text-3xl font-semibold tracking-tight text-zinc-900 md:text-4xl">
+          <h2
+            style={{
+              fontFamily: '"Times New Roman", Times, serif',
+              fontWeight: 700,
+              textDecoration: "underline",
+              textUnderlineOffset: "6px",
+              color: "#f9a8d4", // rose pastel
+            }}
+            className="text-3xl tracking-tight md:text-4xl"
+          >
             {title}
           </h2>
           <div className="h-px flex-1 bg-zinc-200" />
