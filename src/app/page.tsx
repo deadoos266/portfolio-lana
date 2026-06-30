@@ -234,6 +234,8 @@ export default async function Home() {
             style={{
               fontFamily: '"Times New Roman", Times, serif',
               fontStyle: "italic",
+              textDecoration: "underline",
+              textUnderlineOffset: "6px",
             }}
             className="text-3xl tracking-tight"
           >
@@ -287,6 +289,7 @@ function Section({ id, title, background, children }: SectionProps) {
             style={{
               fontFamily: '"Times New Roman", Times, serif',
               fontWeight: 700,
+              fontStyle: "italic",
               textDecoration: "underline",
               textUnderlineOffset: "6px",
               color: "#f9a8d4", // rose pastel
