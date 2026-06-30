@@ -63,11 +63,9 @@ export default async function Home() {
 
   return (
     <main className="min-h-screen bg-white text-zinc-900">
-      {/* ============================================================
-          ENTÊTE
-          ============================================================ */}
-      <header>
-        {/* Bandeau PORTFOLIO — full bleed, ultra-impactant */}
+      {/* ---------- En-tête + bandeau ---------- */}
+      <header className="relative">
+        {/* Bandeau PORTFOLIO — grand format style Apple */}
         <div className="relative h-[60vh] min-h-[420px] w-full overflow-hidden bg-stone-50 sm:h-[70vh]">
           {banner ? (
             <Image
@@ -89,19 +87,17 @@ export default async function Home() {
           )}
         </div>
 
-        {/* Bandeau identité — très épuré */}
-        <div className="border-b border-zinc-100 bg-white px-6 py-10 text-center">
-          <p className="font-display text-2xl text-pink-400 sm:text-3xl">
-            Lana Hervé
-          </p>
-          <p className="mx-auto mt-3 max-w-2xl text-sm font-medium text-zinc-600 sm:text-base">
+        {/* Sous-titre rose */}
+        <div className="border-y border-zinc-100 bg-white px-6 py-4 text-center">
+          <p className="font-display text-lg text-pink-400">Lana Hervé</p>
+          <p className="mx-auto mt-1 max-w-2xl text-sm font-medium text-zinc-700">
             {subtitle || DEFAULTS.subtitle}
           </p>
         </div>
 
-        {/* Menu sticky */}
-        <nav className="sticky top-0 z-30 border-b border-zinc-100 bg-white/85 backdrop-blur-xl">
-          <ul className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-10 gap-y-2 px-6 py-4 text-sm">
+        {/* Menu de navigation */}
+        <nav className="sticky top-0 z-30 border-b border-zinc-100 bg-white/85 backdrop-blur-md">
+          <ul className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-8 gap-y-2 px-6 py-3 text-sm">
             {NAV.map((item) => (
               <li key={item.id}>
                 <a
@@ -116,25 +112,26 @@ export default async function Home() {
         </nav>
       </header>
 
-      {/* ============================================================
-          PRÉSENTATION : 3 photos + texte
-          ============================================================ */}
-      <section className="border-b border-zinc-100">
-        <div className="mx-auto grid max-w-6xl gap-16 px-6 py-28 md:grid-cols-[auto_1fr] md:items-center md:gap-24 md:py-36">
-          {/* Pellicule de 3 photos */}
-          <div className="flex flex-row gap-4 md:flex-col md:gap-5">
+      {/* ---------- Présentation (photos + texte) ---------- */}
+      <section className="relative overflow-hidden">
+        <div className="pointer-events-none absolute -left-32 top-20 h-72 w-72 rounded-full bg-pink-100/60 blur-3xl" />
+        <div className="pointer-events-none absolute -right-32 bottom-10 h-72 w-72 rounded-full bg-sky-100/60 blur-3xl" />
+
+        <div className="relative mx-auto grid max-w-6xl gap-10 px-6 py-16 md:grid-cols-[auto_1fr] md:items-center md:gap-16">
+          {/* Colonne photos (les 3 en pellicule verticale) */}
+          <div className="flex flex-row gap-3 md:flex-col md:gap-4">
             {photos.length > 0
               ? photos.map((src, i) => (
                   <div
                     key={i}
-                    className="overflow-hidden rounded-md border-[3px] border-zinc-900 bg-zinc-100 shadow-lg"
+                    className="overflow-hidden rounded-md border-[3px] border-zinc-900 bg-zinc-100 shadow-md"
                   >
                     <Image
                       src={src}
                       alt={`Lana ${i + 1}`}
-                      width={200}
-                      height={250}
-                      className="h-36 w-28 object-cover sm:h-52 sm:w-40"
+                      width={180}
+                      height={220}
+                      className="h-32 w-24 object-cover sm:h-44 sm:w-36"
                       priority={i === 0}
                     />
                   </div>
@@ -144,18 +141,15 @@ export default async function Home() {
                 ))}
           </div>
 
-          {/* Texte : très grand, aéré */}
-          <div className="space-y-8">
-            <p
-              className="font-display leading-[1.3] text-zinc-900"
-              style={{ fontSize: "clamp(1.5rem, 2.4vw, 2.25rem)" }}
-            >
+          {/* Colonne texte de présentation */}
+          <div className="space-y-4">
+            <p className="font-display text-2xl leading-relaxed text-zinc-800 md:text-[1.6rem]">
               {intro || DEFAULTS.intro}
             </p>
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-3 pt-2">
               <a
                 href={`mailto:${contactEmail}`}
-                className="rounded-full bg-zinc-900 px-7 py-3.5 text-base font-medium text-white transition hover:bg-black"
+                className="rounded-full bg-zinc-900 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-black"
               >
                 Me contacter
               </a>
@@ -164,7 +158,7 @@ export default async function Home() {
                   href={cvUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-full border border-pink-200 bg-pink-50 px-7 py-3.5 text-base font-medium text-pink-700 transition hover:bg-pink-100"
+                  className="rounded-full border border-pink-200 bg-pink-50 px-5 py-2.5 text-sm font-medium text-pink-700 transition hover:bg-pink-100"
                 >
                   Mon CV
                 </a>
@@ -174,12 +168,10 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* ============================================================
-          MON PROJET PROFESSIONNEL
-          ============================================================ */}
+      {/* ---------- Mon projet professionnel ---------- */}
       <Section id="projet" title="Mon projet professionnel">
-        <div className="grid gap-16 md:grid-cols-[1.3fr_1fr] md:items-start md:gap-20">
-          <div className="space-y-6 text-lg leading-relaxed text-zinc-700 md:text-xl md:leading-[1.7]">
+        <div className="grid gap-10 md:grid-cols-[1.2fr_1fr] md:items-start md:gap-12">
+          <div className="space-y-4 text-base leading-relaxed text-zinc-700 md:text-lg">
             {(projet || DEFAULTS.projet)
               .split("\n")
               .filter(Boolean)
@@ -188,48 +180,43 @@ export default async function Home() {
               ))}
           </div>
 
-          {/* Carte + synopsis */}
-          <div className="overflow-hidden rounded-3xl bg-gradient-to-br from-pink-50 to-sky-50 p-10">
-            <p className="text-xs font-medium uppercase tracking-[0.25em] text-pink-400">
+          {/* Carte + synopsis (placeholder en attendant Lana) */}
+          <div className="overflow-hidden rounded-2xl border border-zinc-100 bg-gradient-to-br from-pink-50 to-sky-50 p-6 shadow-sm">
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-pink-400">
               Carte &amp; synopsis
             </p>
-            <p className="font-display mt-5 text-2xl text-zinc-700">
+            <p className="font-display mt-3 text-xl text-zinc-700">
               Espace réservé
             </p>
-            <p className="mt-4 text-sm leading-relaxed text-zinc-500">
-              Ici viendra ma carte et son synopsis, très bientôt.
+            <p className="mt-3 text-sm text-zinc-500">
+              Ici viendra ta carte et son synopsis, dès que tu seras prête.
             </p>
           </div>
         </div>
       </Section>
 
-      {/* ============================================================
-          MA VISION DU JOURNALISME
-          ============================================================ */}
+      {/* ---------- Ma vision du journalisme ---------- */}
       <Section
         id="vision"
         title="Ma vision du journalisme"
-        background="bg-gradient-to-b from-white via-sky-50/30 to-white"
+        background="bg-gradient-to-b from-white to-sky-50/40"
       >
-        <div className="mx-auto max-w-4xl">
+        <div className="mx-auto max-w-3xl space-y-5 text-center">
           {(vision || DEFAULTS.vision)
             .split("\n")
             .filter(Boolean)
             .map((p, i) => (
               <p
                 key={i}
-                className="font-display text-center leading-[1.4] text-zinc-800"
-                style={{ fontSize: "clamp(1.5rem, 2.6vw, 2.5rem)" }}
+                className="font-display text-xl leading-relaxed text-zinc-700 md:text-2xl"
               >
-                «&nbsp;{p}&nbsp;»
+                « {p} »
               </p>
             ))}
         </div>
       </Section>
 
-      {/* ============================================================
-          MON PARCOURS — carrousel
-          ============================================================ */}
+      {/* ---------- Mon parcours (carrousel 7 cartes) ---------- */}
       <Section id="parcours" title="Mon parcours">
         {cards.length === 0 ? (
           <p className="text-center text-sm text-zinc-500">
@@ -240,21 +227,16 @@ export default async function Home() {
         )}
       </Section>
 
-      {/* ============================================================
-          CONTACT
-          ============================================================ */}
+      {/* ---------- Contact ---------- */}
       <section className="border-t border-zinc-100 bg-gradient-to-b from-white to-pink-50/40">
-        <div className="mx-auto max-w-3xl px-6 py-32 text-center">
-          <h2
-            className="font-display tracking-tight"
-            style={{ fontSize: "clamp(2.25rem, 4vw, 3.75rem)" }}
-          >
+        <div className="mx-auto max-w-3xl px-6 py-20 text-center">
+          <h2 className="font-display text-3xl font-semibold tracking-tight">
             Travaillons ensemble
           </h2>
-          <p className="mx-auto mt-6 max-w-md text-lg text-zinc-600">
+          <p className="mx-auto mt-3 max-w-md text-zinc-600">
             Une question, une proposition d&apos;alternance ? Contactez-moi.
           </p>
-          <div className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-base">
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm">
             <a
               href={`mailto:${contactEmail}`}
               className="font-medium text-zinc-900 underline-offset-4 hover:underline"
@@ -266,7 +248,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <footer className="py-10 text-center text-xs text-zinc-400">
+      <footer className="py-8 text-center text-xs text-zinc-400">
         © {new Date().getFullYear()} Lana Hervé
       </footer>
     </main>
@@ -283,21 +265,21 @@ interface SectionProps {
 function Section({ id, title, background, children }: SectionProps) {
   return (
     <section id={id} className={`scroll-mt-20 ${background ?? ""}`}>
-      <div className="mx-auto max-w-6xl px-6 py-28 md:py-36">
-        <div className="mb-16">
+      <div className="mx-auto max-w-6xl px-6 py-20">
+        <div className="mb-10 flex items-center gap-4">
           <h2
             style={{
               fontFamily: '"Times New Roman", Times, serif',
               fontWeight: 700,
               textDecoration: "underline",
-              textUnderlineOffset: "8px",
-              color: "#f9a8d4",
-              fontSize: "clamp(2rem, 3.6vw, 3.25rem)",
+              textUnderlineOffset: "6px",
+              color: "#f9a8d4", // rose pastel
             }}
-            className="tracking-tight"
+            className="text-3xl tracking-tight md:text-4xl"
           >
             {title}
           </h2>
+          <div className="h-px flex-1 bg-zinc-200" />
         </div>
         {children}
       </div>
@@ -307,7 +289,7 @@ function Section({ id, title, background, children }: SectionProps) {
 
 function PhotoPlaceholder() {
   return (
-    <div className="flex h-36 w-28 items-center justify-center rounded-md border-[3px] border-zinc-900 bg-gradient-to-br from-pink-50 to-sky-50 text-xs text-zinc-400 shadow-lg sm:h-52 sm:w-40">
+    <div className="flex h-32 w-24 items-center justify-center rounded-md border-[3px] border-zinc-900 bg-gradient-to-br from-pink-50 to-sky-50 text-xs text-zinc-400 sm:h-44 sm:w-36">
       Photo
     </div>
   );
