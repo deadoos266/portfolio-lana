@@ -146,6 +146,25 @@ export async function changePin(
   return { error: "", success: true };
 }
 
+/** Enregistre le contenu de la page d'accueil (photo, textes, contact). */
+export async function saveSiteSettings(formData: FormData) {
+  const photo = formData.get("photo");
+  if (photo instanceof File && photo.size > 0) {
+    const url = await uploadFile(photo, "profil");
+    if (url) await setSetting("profile_photo_url", url);
+  }
+
+  for (const key of ["tagline", "intro_text", "contact_email", "contact_phone"]) {
+    const value = formData.get(key);
+    if (typeof value === "string") {
+      await setSetting(key, value.trim());
+    }
+  }
+
+  revalidatePath("/");
+  revalidatePath("/dashboard/mon-site");
+}
+
 /** Upload du CV (PDF) -> Supabase Storage, URL stockée dans les réglages. */
 export async function uploadCv(formData: FormData) {
   const file = formData.get("cv");

@@ -22,6 +22,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Police titre chaleureuse pour le site public */
+.font-display {
+  font-family: var(--font-display), Georgia, "Times New Roman", serif;
+}
+
 @layer components {
   /* Carte : coins doux, bordure fine, ombre subtile */
   .card {
