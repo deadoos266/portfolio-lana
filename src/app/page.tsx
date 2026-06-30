@@ -1,117 +1,228 @@
 import Image from "next/image";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getSetting } from "@/lib/settings";
-import { MEDIA_LABELS, type MediaType, type Publication } from "@/lib/types";
+import { ParcoursCarousel, type ParcoursCard } from "@/components/ParcoursCarousel";
 
 export const dynamic = "force-dynamic";
 
 const DEFAULTS = {
-  tagline: "Journaliste — à la recherche d'une alternance",
+  subtitle:
+    "Entrée en Master 1 Journalisme, spécialisation « Presse Magazine » à l'IEJ (Paris) dès Septembre 2026.",
   intro:
-    "Bonjour, moi c'est Lana. Passionnée par le journalisme et les histoires qui comptent, je cherche une alternance pour mettre ma curiosité et ma plume au service d'une rédaction.",
+    "Curieuse et passionnée par les histoires qui font vibrer, je m'apprête à entrer en Master 1 Journalisme à l'IEJ. À travers ce portfolio, je partage mon parcours artistique et scolaire, mes premiers pas en rédaction et la vision du journalisme qui m'anime.",
+  projet:
+    "Mon projet professionnel se construit autour d'une conviction : raconter le monde en restant proche des gens. La presse magazine est pour moi un terrain idéal pour explorer en profondeur les sujets de société, de culture et d'art qui me touchent.",
+  vision:
+    "Je crois en un journalisme qui prend le temps, qui écoute, qui regarde, qui met en lumière les voix qu'on entend peu. Un journalisme honnête, sensible et exigeant — c'est celui que je veux pratiquer.",
   email: "lanaherve5@icloud.com",
 };
 
-function formatDate(value: string | null): string {
-  if (!value) return "";
-  return new Intl.DateTimeFormat("fr-FR", {
-    month: "long",
-    year: "numeric",
-  }).format(new Date(value));
-}
+const NAV = [
+  { id: "projet", label: "Mon projet professionnel" },
+  { id: "vision", label: "Ma vision du journalisme" },
+  { id: "parcours", label: "Mon parcours" },
+];
 
 export default async function Home() {
   const supabase = createAdminClient();
 
-  const [photo, tagline, intro, email, phone, cvUrl, { data: pubData }] =
-    await Promise.all([
-      getSetting("profile_photo_url"),
-      getSetting("tagline"),
-      getSetting("intro_text"),
-      getSetting("contact_email"),
-      getSetting("contact_phone"),
-      getSetting("cv_url"),
-      supabase
-        .from("publications")
-        .select("*")
-        .eq("published", true)
-        .order("display_order", { ascending: true })
-        .order("published_date", { ascending: false }),
-    ]);
+  const [
+    banner,
+    photo1,
+    photo2,
+    photo3,
+    subtitle,
+    intro,
+    projet,
+    vision,
+    email,
+    phone,
+    cvUrl,
+    { data: cardsData },
+  ] = await Promise.all([
+    getSetting("banner_url"),
+    getSetting("photo_1_url"),
+    getSetting("photo_2_url"),
+    getSetting("photo_3_url"),
+    getSetting("hero_subtitle"),
+    getSetting("hero_intro"),
+    getSetting("projet_text"),
+    getSetting("vision_text"),
+    getSetting("contact_email"),
+    getSetting("contact_phone"),
+    getSetting("cv_url"),
+    supabase
+      .from("parcours_cards")
+      .select("id, title, description, image_url, link_url")
+      .order("display_order", { ascending: true }),
+  ]);
 
-  const publications = (pubData ?? []) as Publication[];
+  const cards = (cardsData ?? []) as ParcoursCard[];
+  const photos = [photo1, photo2, photo3].filter(Boolean) as string[];
   const contactEmail = email || DEFAULTS.email;
 
   return (
     <main className="min-h-screen bg-white text-zinc-900">
-      {/* ---------- Hero ---------- */}
+      {/* ---------- En-tête + bandeau ---------- */}
+      <header className="relative">
+        {/* Bandeau PORTFOLIO */}
+        <div className="relative h-56 w-full overflow-hidden bg-stone-50 sm:h-72 md:h-80">
+          {banner ? (
+            <Image
+              src={banner}
+              alt="Portfolio — Lana Hervé"
+              fill
+              priority
+              className="object-cover object-center"
+            />
+          ) : (
+            <div className="flex h-full w-full items-center justify-center">
+              <span className="font-display text-6xl font-bold tracking-tight text-zinc-900 sm:text-7xl">
+                PORTFOLIO
+              </span>
+            </div>
+          )}
+        </div>
+
+        {/* Sous-titre rose */}
+        <div className="border-y border-zinc-100 bg-white px-6 py-4 text-center">
+          <p className="font-display text-lg text-pink-400">Lana Hervé</p>
+          <p className="mx-auto mt-1 max-w-2xl text-sm font-medium text-zinc-700">
+            {subtitle || DEFAULTS.subtitle}
+          </p>
+        </div>
+
+        {/* Menu de navigation */}
+        <nav className="sticky top-0 z-30 border-b border-zinc-100 bg-white/85 backdrop-blur-md">
+          <ul className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-8 gap-y-2 px-6 py-3 text-sm">
+            {NAV.map((item) => (
+              <li key={item.id}>
+                <a
+                  href={`#${item.id}`}
+                  className="font-medium text-zinc-500 transition hover:text-zinc-900"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </header>
+
+      {/* ---------- Présentation (photos + texte) ---------- */}
       <section className="relative overflow-hidden">
-        {/* halos pastel doux */}
-        <div className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-pink-200/50 blur-3xl" />
-        <div className="pointer-events-none absolute -right-20 top-10 h-72 w-72 rounded-full bg-sky-200/50 blur-3xl" />
+        <div className="pointer-events-none absolute -left-32 top-20 h-72 w-72 rounded-full bg-pink-100/60 blur-3xl" />
+        <div className="pointer-events-none absolute -right-32 bottom-10 h-72 w-72 rounded-full bg-sky-100/60 blur-3xl" />
 
-        <div className="relative mx-auto flex max-w-3xl flex-col items-center px-6 py-24 text-center sm:py-28">
-          <PhotoOrPlaceholder photo={photo} />
+        <div className="relative mx-auto grid max-w-6xl gap-10 px-6 py-16 md:grid-cols-[auto_1fr] md:items-center md:gap-16">
+          {/* Colonne photos (les 3 en pellicule verticale) */}
+          <div className="flex flex-row gap-3 md:flex-col md:gap-4">
+            {photos.length > 0
+              ? photos.map((src, i) => (
+                  <div
+                    key={i}
+                    className="overflow-hidden rounded-md border-[3px] border-zinc-900 bg-zinc-100 shadow-md"
+                  >
+                    <Image
+                      src={src}
+                      alt={`Lana ${i + 1}`}
+                      width={180}
+                      height={220}
+                      className="h-32 w-24 object-cover sm:h-44 sm:w-36"
+                      priority={i === 0}
+                    />
+                  </div>
+                ))
+              : Array.from({ length: 3 }).map((_, i) => (
+                  <PhotoPlaceholder key={i} />
+                ))}
+          </div>
 
-          <p className="mt-8 text-xs font-medium uppercase tracking-[0.3em] text-pink-400">
-            Portfolio
-          </p>
-          <h1 className="font-display mt-3 text-5xl font-semibold tracking-tight sm:text-6xl">
-            Lana Hervé
-          </h1>
-          <p className="mt-4 text-lg text-zinc-500">{tagline || DEFAULTS.tagline}</p>
-
-          <p className="mt-8 max-w-xl text-base leading-relaxed text-zinc-600">
-            {intro || DEFAULTS.intro}
-          </p>
-
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-            <a
-              href={`mailto:${contactEmail}`}
-              className="rounded-full bg-zinc-900 px-6 py-3 text-sm font-medium text-white transition hover:bg-black"
-            >
-              Me contacter
-            </a>
-            {cvUrl && (
+          {/* Colonne texte de présentation */}
+          <div className="space-y-4">
+            <p className="font-display text-2xl leading-relaxed text-zinc-800 md:text-[1.6rem]">
+              {intro || DEFAULTS.intro}
+            </p>
+            <div className="flex flex-wrap gap-3 pt-2">
               <a
-                href={cvUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-full border border-pink-200 bg-pink-50 px-6 py-3 text-sm font-medium text-pink-700 transition hover:bg-pink-100"
+                href={`mailto:${contactEmail}`}
+                className="rounded-full bg-zinc-900 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-black"
               >
-                Mon CV
+                Me contacter
               </a>
-            )}
-            {phone && (
-              <a
-                href={`tel:${phone.replace(/\s+/g, "")}`}
-                className="rounded-full border border-sky-200 bg-sky-50 px-6 py-3 text-sm font-medium text-sky-700 transition hover:bg-sky-100"
-              >
-                {phone}
-              </a>
-            )}
+              {cvUrl && (
+                <a
+                  href={cvUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full border border-pink-200 bg-pink-50 px-5 py-2.5 text-sm font-medium text-pink-700 transition hover:bg-pink-100"
+                >
+                  Mon CV
+                </a>
+              )}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ---------- Publications ---------- */}
-      <section className="mx-auto max-w-5xl px-6 pb-24">
-        <h2 className="font-display mb-8 text-3xl font-semibold tracking-tight">
-          Mon travail
-        </h2>
+      {/* ---------- Mon projet professionnel ---------- */}
+      <Section id="projet" title="Mon projet professionnel">
+        <div className="grid gap-10 md:grid-cols-[1.2fr_1fr] md:items-start md:gap-12">
+          <div className="space-y-4 text-base leading-relaxed text-zinc-700 md:text-lg">
+            {(projet || DEFAULTS.projet)
+              .split("\n")
+              .filter(Boolean)
+              .map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
+          </div>
 
-        {publications.length === 0 ? (
-          <div className="rounded-3xl border border-dashed border-zinc-200 bg-zinc-50/50 px-6 py-16 text-center text-zinc-500">
-            Mes articles et reportages arrivent très bientôt. ✨
+          {/* Carte + synopsis (placeholder en attendant Lana) */}
+          <div className="overflow-hidden rounded-2xl border border-zinc-100 bg-gradient-to-br from-pink-50 to-sky-50 p-6 shadow-sm">
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-pink-400">
+              Carte &amp; synopsis
+            </p>
+            <p className="font-display mt-3 text-xl text-zinc-700">
+              Espace réservé
+            </p>
+            <p className="mt-3 text-sm text-zinc-500">
+              Ici viendra ta carte et son synopsis, dès que tu seras prête.
+            </p>
           </div>
-        ) : (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {publications.map((p) => (
-              <PublicationCard key={p.id} publication={p} />
+        </div>
+      </Section>
+
+      {/* ---------- Ma vision du journalisme ---------- */}
+      <Section
+        id="vision"
+        title="Ma vision du journalisme"
+        background="bg-gradient-to-b from-white to-sky-50/40"
+      >
+        <div className="mx-auto max-w-3xl space-y-5 text-center">
+          {(vision || DEFAULTS.vision)
+            .split("\n")
+            .filter(Boolean)
+            .map((p, i) => (
+              <p
+                key={i}
+                className="font-display text-xl leading-relaxed text-zinc-700 md:text-2xl"
+              >
+                « {p} »
+              </p>
             ))}
-          </div>
+        </div>
+      </Section>
+
+      {/* ---------- Mon parcours (carrousel 7 cartes) ---------- */}
+      <Section id="parcours" title="Mon parcours">
+        {cards.length === 0 ? (
+          <p className="text-center text-sm text-zinc-500">
+            Mes étapes arrivent bientôt.
+          </p>
+        ) : (
+          <ParcoursCarousel cards={cards} />
         )}
-      </section>
+      </Section>
 
       {/* ---------- Contact ---------- */}
       <section className="border-t border-zinc-100 bg-gradient-to-b from-white to-pink-50/40">
@@ -142,74 +253,33 @@ export default async function Home() {
   );
 }
 
-function PhotoOrPlaceholder({ photo }: { photo: string | null }) {
-  if (photo) {
-    return (
-      <Image
-        src={photo}
-        alt="Lana Hervé"
-        width={160}
-        height={160}
-        priority
-        className="h-40 w-40 rounded-full border-4 border-white object-cover shadow-[0_8px_30px_rgba(0,0,0,0.08)] ring-4 ring-pink-100"
-      />
-    );
-  }
+interface SectionProps {
+  id: string;
+  title: string;
+  background?: string;
+  children: React.ReactNode;
+}
+
+function Section({ id, title, background, children }: SectionProps) {
   return (
-    <div className="flex h-40 w-40 items-center justify-center rounded-full bg-gradient-to-br from-pink-100 to-sky-100 ring-4 ring-pink-100">
-      <span className="font-display text-4xl font-semibold text-zinc-400">
-        LH
-      </span>
-    </div>
+    <section id={id} className={`scroll-mt-20 ${background ?? ""}`}>
+      <div className="mx-auto max-w-6xl px-6 py-20">
+        <div className="mb-10 flex items-center gap-4">
+          <h2 className="font-display text-3xl font-semibold tracking-tight text-zinc-900 md:text-4xl">
+            {title}
+          </h2>
+          <div className="h-px flex-1 bg-zinc-200" />
+        </div>
+        {children}
+      </div>
+    </section>
   );
 }
 
-function PublicationCard({ publication }: { publication: Publication }) {
-  const p = publication;
-  const inner = (
-    <article className="group flex h-full flex-col overflow-hidden rounded-3xl border border-zinc-100 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-md">
-      {p.cover_image_url ? (
-        <div className="relative aspect-[16/10] overflow-hidden">
-          <Image
-            src={p.cover_image_url}
-            alt={p.title}
-            fill
-            sizes="(max-width: 768px) 100vw, 33vw"
-            className="object-cover transition duration-500 group-hover:scale-105"
-          />
-        </div>
-      ) : (
-        <div className="aspect-[16/10] bg-gradient-to-br from-pink-50 to-sky-50" />
-      )}
-      <div className="flex flex-1 flex-col p-5">
-        <div className="flex items-center gap-2 text-xs text-zinc-400">
-          <span className="rounded-full bg-pink-50 px-2 py-0.5 font-medium text-pink-500">
-            {MEDIA_LABELS[p.media_type as MediaType] ?? p.media_type}
-          </span>
-          {p.outlet && <span>{p.outlet}</span>}
-          {p.published_date && <span>· {formatDate(p.published_date)}</span>}
-        </div>
-        <h3 className="font-display mt-2 text-lg font-semibold leading-snug text-zinc-900">
-          {p.title}
-        </h3>
-        {p.excerpt && (
-          <p className="mt-2 line-clamp-3 text-sm text-zinc-600">{p.excerpt}</p>
-        )}
-        {p.url && (
-          <span className="mt-4 inline-block text-sm font-medium text-sky-500 transition group-hover:text-sky-600">
-            Découvrir →
-          </span>
-        )}
-      </div>
-    </article>
+function PhotoPlaceholder() {
+  return (
+    <div className="flex h-32 w-24 items-center justify-center rounded-md border-[3px] border-zinc-900 bg-gradient-to-br from-pink-50 to-sky-50 text-xs text-zinc-400 sm:h-44 sm:w-36">
+      Photo
+    </div>
   );
-
-  if (p.url) {
-    return (
-      <a href={p.url} target="_blank" rel="noopener noreferrer">
-        {inner}
-      </a>
-    );
-  }
-  return inner;
 }

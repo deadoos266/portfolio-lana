@@ -27,6 +27,15 @@ body {
   font-family: var(--font-display), Georgia, "Times New Roman", serif;
 }
 
+/* Masque la scrollbar des carrousels (mais le scroll reste actif) */
+.hide-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 @layer components {
   /* Carte : coins doux, bordure fine, ombre subtile */
   .card {

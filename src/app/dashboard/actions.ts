@@ -146,15 +146,33 @@ export async function changePin(
   return { error: "", success: true };
 }
 
-/** Enregistre le contenu de la page d'accueil (photo, textes, contact). */
+/** Enregistre le contenu de la page d'accueil (photos, banderole, textes, contact). */
 export async function saveSiteSettings(formData: FormData) {
-  const photo = formData.get("photo");
-  if (photo instanceof File && photo.size > 0) {
-    const url = await uploadFile(photo, "profil");
-    if (url) await setSetting("profile_photo_url", url);
+  // Banderole "PORTFOLIO"
+  const banner = formData.get("banner");
+  if (banner instanceof File && banner.size > 0) {
+    const url = await uploadFile(banner, "site");
+    if (url) await setSetting("banner_url", url);
   }
 
-  for (const key of ["tagline", "intro_text", "contact_email", "contact_phone"]) {
+  // Les 3 photos
+  for (const key of ["photo_1", "photo_2", "photo_3"]) {
+    const file = formData.get(key);
+    if (file instanceof File && file.size > 0) {
+      const url = await uploadFile(file, "profil");
+      if (url) await setSetting(key + "_url", url);
+    }
+  }
+
+  // Textes
+  for (const key of [
+    "hero_subtitle",
+    "hero_intro",
+    "projet_text",
+    "vision_text",
+    "contact_email",
+    "contact_phone",
+  ]) {
     const value = formData.get(key);
     if (typeof value === "string") {
       await setSetting(key, value.trim());

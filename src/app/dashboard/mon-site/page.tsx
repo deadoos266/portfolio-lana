@@ -3,11 +3,30 @@ import Link from "next/link";
 import { getSetting } from "@/lib/settings";
 import { saveSiteSettings } from "../actions";
 
+const labelClass = "text-sm font-medium text-zinc-700";
+const helpClass = "text-xs text-zinc-400";
+
 export default async function MonSitePage() {
-  const [photo, tagline, intro, email, phone] = await Promise.all([
-    getSetting("profile_photo_url"),
-    getSetting("tagline"),
-    getSetting("intro_text"),
+  const [
+    banner,
+    photo1,
+    photo2,
+    photo3,
+    subtitle,
+    intro,
+    projet,
+    vision,
+    email,
+    phone,
+  ] = await Promise.all([
+    getSetting("banner_url"),
+    getSetting("photo_1_url"),
+    getSetting("photo_2_url"),
+    getSetting("photo_3_url"),
+    getSetting("hero_subtitle"),
+    getSetting("hero_intro"),
+    getSetting("projet_text"),
+    getSetting("vision_text"),
     getSetting("contact_email"),
     getSetting("contact_phone"),
   ]);
@@ -18,8 +37,8 @@ export default async function MonSitePage() {
         <div>
           <h1 className="text-3xl font-semibold tracking-tight">Mon site</h1>
           <p className="mt-1 text-sm text-zinc-500">
-            Personnalise ta page d&apos;accueil : ta photo, ta présentation, ton
-            contact.
+            Personnalise ton portfolio : ta banderole, tes photos, tes textes et
+            ton contact.
           </p>
         </div>
         <Link href="/" target="_blank" className="btn-ghost">
@@ -27,88 +46,158 @@ export default async function MonSitePage() {
         </Link>
       </div>
 
-      <form action={saveSiteSettings} className="card space-y-6 p-6">
-        {/* Photo */}
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-zinc-700">Ta photo</label>
-          {photo && (
+      <form action={saveSiteSettings} className="space-y-6">
+        {/* Banderole PORTFOLIO */}
+        <section className="card space-y-3 p-6">
+          <h2 className="font-display text-xl font-semibold">
+            Ta banderole &laquo;&nbsp;PORTFOLIO&nbsp;&raquo;
+          </h2>
+          <p className={helpClass}>
+            L&apos;image en haut de la page d&apos;accueil (papier journal +
+            ton titre).
+          </p>
+          {banner && (
             <Image
-              src={photo}
-              alt="Ta photo"
-              width={96}
-              height={96}
-              className="h-24 w-24 rounded-full border border-black/10 object-cover"
+              src={banner}
+              alt="Banderole"
+              width={400}
+              height={200}
+              className="rounded-lg border border-black/10"
             />
           )}
-          <input name="photo" type="file" accept="image/*" className="input" />
-          <p className="text-xs text-zinc-400">
-            Une belle photo de toi, de préférence carrée. Laisse vide pour
-            garder l&apos;actuelle.
-          </p>
-        </div>
+          <input name="banner" type="file" accept="image/*" className="input" />
+        </section>
 
-        {/* Accroche */}
-        <div className="space-y-1.5">
-          <label className="text-sm font-medium text-zinc-700">
-            Petite phrase sous ton nom
-          </label>
-          <input
-            name="tagline"
-            defaultValue={tagline ?? ""}
-            placeholder="Journaliste — à la recherche d'une alternance"
-            className="input"
-          />
-        </div>
+        {/* Tes 3 photos */}
+        <section className="card space-y-4 p-6">
+          <div>
+            <h2 className="font-display text-xl font-semibold">Tes 3 photos</h2>
+            <p className={helpClass}>
+              Tes portraits noir &amp; blanc. Laisse vide pour conserver
+              celles d&apos;avant.
+            </p>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-3">
+            {[
+              { key: "photo_1", value: photo1, label: "Photo 1" },
+              { key: "photo_2", value: photo2, label: "Photo 2" },
+              { key: "photo_3", value: photo3, label: "Photo 3" },
+            ].map((p) => (
+              <div key={p.key} className="space-y-2">
+                <label className={labelClass}>{p.label}</label>
+                {p.value && (
+                  <Image
+                    src={p.value}
+                    alt={p.label}
+                    width={120}
+                    height={160}
+                    className="rounded-lg border border-black/10 object-cover"
+                  />
+                )}
+                <input
+                  name={p.key}
+                  type="file"
+                  accept="image/*"
+                  className="input"
+                />
+              </div>
+            ))}
+          </div>
+        </section>
 
-        {/* Présentation */}
-        <div className="space-y-1.5">
-          <label className="text-sm font-medium text-zinc-700">
-            Ta présentation
-          </label>
-          <textarea
-            name="intro_text"
-            rows={5}
-            defaultValue={intro ?? ""}
-            placeholder="Quelques phrases sur toi : qui tu es, ce qui te passionne dans le journalisme, ce que tu recherches…"
-            className="input"
-          />
-          <p className="text-xs text-zinc-400">
-            Pas d&apos;inquiétude, tu peux écrire simplement — ou me demander de
-            t&apos;aider à la rédiger.
-          </p>
-        </div>
+        {/* Textes */}
+        <section className="card space-y-5 p-6">
+          <h2 className="font-display text-xl font-semibold">Tes textes</h2>
+
+          <div className="space-y-1.5">
+            <label className={labelClass}>
+              Petite phrase sous le titre PORTFOLIO
+            </label>
+            <input
+              name="hero_subtitle"
+              defaultValue={subtitle ?? ""}
+              placeholder="Entrée en Master 1 Journalisme…"
+              className="input"
+            />
+          </div>
+
+          <div className="space-y-1.5">
+            <label className={labelClass}>
+              Ta présentation (à côté de tes photos)
+            </label>
+            <textarea
+              name="hero_intro"
+              rows={5}
+              defaultValue={intro ?? ""}
+              className="input"
+            />
+          </div>
+
+          <div className="space-y-1.5">
+            <label className={labelClass}>
+              Section &laquo;&nbsp;Mon projet professionnel&nbsp;&raquo;
+            </label>
+            <textarea
+              name="projet_text"
+              rows={5}
+              defaultValue={projet ?? ""}
+              className="input"
+            />
+          </div>
+
+          <div className="space-y-1.5">
+            <label className={labelClass}>
+              Section &laquo;&nbsp;Ma vision du journalisme&nbsp;&raquo;
+            </label>
+            <textarea
+              name="vision_text"
+              rows={5}
+              defaultValue={vision ?? ""}
+              className="input"
+            />
+          </div>
+        </section>
 
         {/* Contact */}
-        <div className="grid gap-4 sm:grid-cols-2">
-          <div className="space-y-1.5">
-            <label className="text-sm font-medium text-zinc-700">
-              Email de contact
-            </label>
-            <input
-              name="contact_email"
-              type="email"
-              defaultValue={email ?? ""}
-              placeholder="ton.email@exemple.com"
-              className="input"
-            />
+        <section className="card space-y-4 p-6">
+          <h2 className="font-display text-xl font-semibold">Ton contact</h2>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="space-y-1.5">
+              <label className={labelClass}>Email</label>
+              <input
+                name="contact_email"
+                type="email"
+                defaultValue={email ?? ""}
+                className="input"
+              />
+            </div>
+            <div className="space-y-1.5">
+              <label className={labelClass}>Téléphone (optionnel)</label>
+              <input
+                name="contact_phone"
+                defaultValue={phone ?? ""}
+                placeholder="06 12 34 56 78"
+                className="input"
+              />
+            </div>
           </div>
-          <div className="space-y-1.5">
-            <label className="text-sm font-medium text-zinc-700">
-              Téléphone (optionnel)
-            </label>
-            <input
-              name="contact_phone"
-              defaultValue={phone ?? ""}
-              placeholder="06 12 34 56 78"
-              className="input"
-            />
-          </div>
-        </div>
+        </section>
 
-        <button type="submit" className="btn-primary">
-          Enregistrer
-        </button>
+        <div>
+          <button type="submit" className="btn-primary">
+            Enregistrer
+          </button>
+        </div>
       </form>
+
+      <p className="text-center text-sm text-zinc-400">
+        💡 Pour les cartes de la section &laquo;&nbsp;Mon
+        parcours&nbsp;&raquo;, va dans{" "}
+        <Link href="/dashboard/parcours" className="underline">
+          Mon parcours
+        </Link>
+        .
+      </p>
     </div>
   );
 }
