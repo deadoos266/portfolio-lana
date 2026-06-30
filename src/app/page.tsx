@@ -230,8 +230,14 @@ export default async function Home() {
       {/* ---------- Contact ---------- */}
       <section className="border-t border-zinc-100 bg-gradient-to-b from-white to-pink-50/40">
         <div className="mx-auto max-w-3xl px-6 py-20 text-center">
-          <h2 className="font-display text-3xl font-semibold tracking-tight">
-            Travaillons ensemble
+          <h2
+            style={{
+              fontFamily: '"Times New Roman", Times, serif',
+              fontStyle: "italic",
+            }}
+            className="text-3xl tracking-tight"
+          >
+            Contact
           </h2>
           <p className="mx-auto mt-3 max-w-md text-zinc-600">
             Une question, une proposition d&apos;alternance ? Contactez-moi.
