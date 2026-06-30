@@ -239,17 +239,27 @@ export default async function Home() {
           >
             Contact
           </h2>
-          <p className="mx-auto mt-3 max-w-md text-zinc-600">
-            Une question, une proposition d&apos;alternance ? Contactez-moi.
-          </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm">
-            <a
-              href={`mailto:${contactEmail}`}
-              className="font-medium text-zinc-900 underline-offset-4 hover:underline"
-            >
-              {contactEmail}
-            </a>
-            {phone && <span className="text-zinc-600">{phone}</span>}
+          <div className="mt-5 space-y-2 text-zinc-800">
+            <p>
+              <span className="text-zinc-500">Adresse mail :</span>{" "}
+              <a
+                href={`mailto:${contactEmail}`}
+                className="font-medium text-zinc-900 underline-offset-4 hover:underline"
+              >
+                {contactEmail}
+              </a>
+            </p>
+            {phone && (
+              <p>
+                <span className="text-zinc-500">Numéro de téléphone :</span>{" "}
+                <a
+                  href={`tel:${phone.replace(/[^0-9+]/g, "")}`}
+                  className="font-medium text-zinc-900 underline-offset-4 hover:underline"
+                >
+                  {phone}
+                </a>
+              </p>
+            )}
           </div>
         </div>
       </section>
