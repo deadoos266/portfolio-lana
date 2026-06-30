@@ -231,8 +231,7 @@ export default async function Home() {
             Travaillons ensemble
           </h2>
           <p className="mx-auto mt-3 max-w-md text-zinc-600">
-            Une question, une proposition d&apos;alternance ? Contactez-moi, je
-            vous réponds avec plaisir.
+            Une question, une proposition d&apos;alternance ? Contactez-moi.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm">
             <a
