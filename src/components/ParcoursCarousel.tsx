@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useRef, useState, useEffect } from "react";
 
 export interface ParcoursCard {
@@ -9,6 +10,7 @@ export interface ParcoursCard {
   description: string | null;
   image_url: string | null;
   link_url: string | null;
+  slug: string | null;
 }
 
 interface ParcoursCarouselProps {
@@ -152,23 +154,27 @@ function ParcoursCardView({ card }: { card: ParcoursCard }) {
     </article>
   );
 
-  const cardEl = (
-    <div className="w-[80%] shrink-0 snap-start sm:w-[calc(25%-12px)]">
-      {inner}
-    </div>
-  );
+  // Priorité : page interne /parcours/<slug>. Repli : lien externe si défini.
+  const wrapperClass = "w-[80%] shrink-0 snap-start sm:w-[calc(25%-12px)]";
 
+  if (card.slug) {
+    return (
+      <Link href={`/parcours/${card.slug}`} className={wrapperClass}>
+        {inner}
+      </Link>
+    );
+  }
   if (card.link_url) {
     return (
       <a
         href={card.link_url}
         target="_blank"
         rel="noopener noreferrer"
-        className="w-[80%] shrink-0 snap-start sm:w-[calc(25%-12px)]"
+        className={wrapperClass}
       >
         {inner}
       </a>
     );
   }
-  return cardEl;
+  return <div className={wrapperClass}>{inner}</div>;
 }

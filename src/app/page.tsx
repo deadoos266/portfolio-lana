@@ -56,7 +56,7 @@ export default async function Home() {
     getSetting("cv_url"),
     supabase
       .from("parcours_cards")
-      .select("id, title, description, image_url, link_url")
+      .select("id, title, description, image_url, link_url, slug")
       .order("display_order", { ascending: true }),
   ]);
 
