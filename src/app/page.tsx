@@ -172,7 +172,10 @@ export default async function Home() {
       {/* ---------- Mon projet professionnel ---------- */}
       <Section id="projet" title="Mon projet professionnel">
         <div className="grid gap-10 md:grid-cols-[1.2fr_1fr] md:items-start md:gap-12">
-          <div className="space-y-4 text-base leading-relaxed text-zinc-700 md:text-lg">
+          <div
+            style={{ fontFamily: '"Times New Roman", Times, serif' }}
+            className="space-y-4 text-xs leading-relaxed text-zinc-700 md:text-sm"
+          >
             {(projet || DEFAULTS.projet)
               .split("\n")
               .filter(Boolean)
