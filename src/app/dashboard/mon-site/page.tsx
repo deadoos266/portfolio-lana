@@ -6,7 +6,14 @@ import { saveSiteSettings } from "../actions";
 const labelClass = "text-sm font-medium text-zinc-700";
 const helpClass = "text-xs text-zinc-400";
 
-export default async function MonSitePage() {
+interface MonSitePageProps {
+  searchParams: Promise<{ saved?: string }>;
+}
+
+export default async function MonSitePage({ searchParams }: MonSitePageProps) {
+  const { saved } = await searchParams;
+  const justSaved = saved === "1";
+
   const [
     banner,
     photomaton,
@@ -41,6 +48,12 @@ export default async function MonSitePage() {
           Voir le résultat ↗
         </Link>
       </div>
+
+      {justSaved && (
+        <div className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-700">
+          ✓ Enregistré ! Va voir ton site et fais <b>Ctrl + Maj + R</b> pour voir les changements.
+        </div>
+      )}
 
       <form action={saveSiteSettings} className="space-y-6">
         {/* Banderole PORTFOLIO */}

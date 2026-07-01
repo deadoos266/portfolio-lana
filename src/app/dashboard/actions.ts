@@ -179,6 +179,7 @@ export async function saveSiteSettings(formData: FormData) {
 
   revalidatePath("/");
   revalidatePath("/dashboard/mon-site");
+  redirect("/dashboard/mon-site?saved=1");
 }
 
 /** Upload du CV (PDF) -> Supabase Storage, URL stockée dans les réglages. */

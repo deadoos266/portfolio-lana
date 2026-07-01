@@ -6,9 +6,9 @@ const nextConfig: NextConfig = {
     root: __dirname,
   },
   experimental: {
-    // Permet l'upload de fichiers (CV / images) via les Server Actions.
+    // Permet l'upload de gros fichiers (photomaton, CV, images) via les Server Actions.
     serverActions: {
-      bodySizeLimit: "4mb",
+      bodySizeLimit: "15mb",
     },
   },
   images: {
