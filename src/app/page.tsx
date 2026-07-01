@@ -24,6 +24,12 @@ const NAV = [
   { id: "parcours", label: "Mon parcours" },
 ];
 
+// Toutes les couleurs viennent des variables CSS injectées par le layout,
+// elles-mêmes issues de la palette configurable par Lana (dashboard > Couleurs).
+const softGradient = "linear-gradient(135deg, var(--c-halo-warm), var(--c-halo-cool))";
+const visionBg = "linear-gradient(to bottom, var(--c-bg-main), color-mix(in oklab, var(--c-halo-cool) 40%, var(--c-bg-main)))";
+const contactBg = "linear-gradient(to bottom, var(--c-bg-main), color-mix(in oklab, var(--c-halo-warm) 40%, var(--c-bg-main)))";
+
 export default async function Home() {
   const supabase = createAdminClient();
 
@@ -63,11 +69,17 @@ export default async function Home() {
   const contactEmail = email || DEFAULTS.email;
 
   return (
-    <main className="min-h-screen bg-white text-zinc-900">
+    <main
+      className="min-h-screen"
+      style={{ background: "var(--c-bg-main)", color: "var(--c-text-body)" }}
+    >
       {/* ---------- En-tête + bandeau ---------- */}
       <header className="relative">
         {/* Bandeau PORTFOLIO — grand format style Apple */}
-        <div className="relative h-[60vh] min-h-[420px] w-full overflow-hidden bg-stone-50 sm:h-[70vh]">
+        <div
+          className="relative h-[60vh] min-h-[420px] w-full overflow-hidden sm:h-[70vh]"
+          style={{ background: "var(--c-bg-hero)" }}
+        >
           {banner ? (
             <Image
               src={banner}
@@ -79,8 +91,11 @@ export default async function Home() {
           ) : (
             <div className="flex h-full w-full items-center justify-center">
               <span
-                className="font-display font-bold tracking-tight text-zinc-900"
-                style={{ fontSize: "clamp(4rem, 14vw, 12rem)" }}
+                className="font-display font-bold tracking-tight"
+                style={{
+                  fontSize: "clamp(4rem, 14vw, 12rem)",
+                  color: "var(--c-text-body)",
+                }}
               >
                 PORTFOLIO
               </span>
@@ -88,16 +103,33 @@ export default async function Home() {
           )}
         </div>
 
-        {/* Sous-titre rose */}
-        <div className="border-y border-zinc-100 bg-white px-6 py-4 text-center">
-          <p className="font-display text-lg text-pink-400">Lana Hervé</p>
-          <p className="mx-auto mt-1 max-w-2xl text-sm font-medium text-zinc-700">
+        {/* Sous-titre nom + phrase */}
+        <div
+          className="border-y border-zinc-100 px-6 py-4 text-center"
+          style={{ background: "var(--c-bg-main)" }}
+        >
+          <p
+            className="font-display text-lg"
+            style={{ color: "var(--c-text-name)" }}
+          >
+            Lana Hervé
+          </p>
+          <p
+            className="mx-auto mt-1 max-w-2xl text-sm font-medium"
+            style={{ color: "var(--c-text-body)" }}
+          >
             {subtitle || DEFAULTS.subtitle}
           </p>
         </div>
 
         {/* Menu de navigation */}
-        <nav className="sticky top-0 z-30 border-b border-zinc-100 bg-white/85 backdrop-blur-md">
+        <nav
+          className="sticky top-0 z-30 border-b border-zinc-100 backdrop-blur-md"
+          style={{
+            background:
+              "color-mix(in oklab, var(--c-bg-main) 85%, transparent)",
+          }}
+        >
           <ul className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-8 gap-y-2 px-6 py-3 text-sm">
             {NAV.map((item) => (
               <li key={item.id}>
@@ -115,8 +147,14 @@ export default async function Home() {
 
       {/* ---------- Présentation (photos + texte) ---------- */}
       <section className="relative overflow-hidden">
-        <div className="pointer-events-none absolute -left-32 top-20 h-72 w-72 rounded-full bg-pink-100/60 blur-3xl" />
-        <div className="pointer-events-none absolute -right-32 bottom-10 h-72 w-72 rounded-full bg-sky-100/60 blur-3xl" />
+        <div
+          className="pointer-events-none absolute -left-32 top-20 h-72 w-72 rounded-full opacity-60 blur-3xl"
+          style={{ background: "var(--c-halo-warm)" }}
+        />
+        <div
+          className="pointer-events-none absolute -right-32 bottom-10 h-72 w-72 rounded-full opacity-60 blur-3xl"
+          style={{ background: "var(--c-halo-cool)" }}
+        />
 
         <div className="relative mx-auto grid max-w-6xl gap-10 px-6 py-16 md:grid-cols-[auto_1fr] md:items-center md:gap-16">
           {/* Colonne photos (les 3 en pellicule verticale) */}
@@ -125,7 +163,8 @@ export default async function Home() {
               ? photos.map((src, i) => (
                   <div
                     key={i}
-                    className="overflow-hidden rounded-md border-[3px] border-zinc-900 bg-zinc-100 shadow-md"
+                    className="overflow-hidden rounded-md border-[3px] bg-zinc-100 shadow-md"
+                    style={{ borderColor: "var(--c-button-bg)" }}
                   >
                     <Image
                       src={src}
@@ -144,13 +183,20 @@ export default async function Home() {
 
           {/* Colonne texte de présentation */}
           <div className="space-y-4">
-            <p className="font-display text-2xl leading-relaxed text-zinc-800 md:text-[1.6rem]">
+            <p
+              className="font-display text-2xl leading-relaxed md:text-[1.6rem]"
+              style={{ color: "var(--c-text-body)" }}
+            >
               {renderInline(intro || DEFAULTS.intro)}
             </p>
             <div className="flex flex-wrap gap-3 pt-2">
               <a
                 href={`mailto:${contactEmail}`}
-                className="rounded-full bg-zinc-900 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-black"
+                className="rounded-full px-5 py-2.5 text-sm font-medium transition hover:opacity-90"
+                style={{
+                  background: "var(--c-button-bg)",
+                  color: "var(--c-button-text)",
+                }}
               >
                 Me contacter
               </a>
@@ -159,7 +205,14 @@ export default async function Home() {
                   href={cvUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-full border border-pink-200 bg-pink-50 px-5 py-2.5 text-sm font-medium text-pink-700 transition hover:bg-pink-100"
+                  className="rounded-full border px-5 py-2.5 text-sm font-medium transition hover:opacity-90"
+                  style={{
+                    background:
+                      "color-mix(in oklab, var(--c-accent-warm) 15%, var(--c-bg-main))",
+                    borderColor:
+                      "color-mix(in oklab, var(--c-accent-warm) 40%, transparent)",
+                    color: "var(--c-accent-warm)",
+                  }}
                 >
                   Mon CV
                 </a>
@@ -173,8 +226,11 @@ export default async function Home() {
       <Section id="projet" title="Mon projet professionnel">
         <div className="grid gap-10 md:grid-cols-[1.2fr_1fr] md:items-start md:gap-12">
           <div
-            style={{ fontFamily: '"Times New Roman", Times, serif' }}
-            className="space-y-4 text-sm leading-relaxed text-zinc-700 md:text-base"
+            style={{
+              fontFamily: '"Times New Roman", Times, serif',
+              color: "var(--c-text-body)",
+            }}
+            className="space-y-4 text-sm leading-relaxed md:text-base"
           >
             {(projet || DEFAULTS.projet)
               .split("\n")
@@ -185,11 +241,20 @@ export default async function Home() {
           </div>
 
           {/* Carte + synopsis (placeholder en attendant Lana) */}
-          <div className="overflow-hidden rounded-2xl border border-zinc-100 bg-gradient-to-br from-pink-50 to-sky-50 p-6 shadow-sm">
-            <p className="text-xs font-medium uppercase tracking-[0.2em] text-pink-400">
+          <div
+            className="overflow-hidden rounded-2xl border border-zinc-100 p-6 shadow-sm"
+            style={{ background: softGradient }}
+          >
+            <p
+              className="text-xs font-medium uppercase tracking-[0.2em]"
+              style={{ color: "var(--c-accent-warm)" }}
+            >
               Carte &amp; synopsis
             </p>
-            <p className="font-display mt-3 text-xl text-zinc-700">
+            <p
+              className="font-display mt-3 text-xl"
+              style={{ color: "var(--c-text-body)" }}
+            >
               Espace réservé
             </p>
             <p className="mt-3 text-sm text-zinc-500">
@@ -203,7 +268,7 @@ export default async function Home() {
       <Section
         id="vision"
         title="Ma vision du journalisme"
-        background="bg-gradient-to-b from-white to-sky-50/40"
+        backgroundStyle={{ background: visionBg }}
       >
         <div className="mx-auto max-w-3xl space-y-5 text-center">
           {(vision || DEFAULTS.vision)
@@ -212,7 +277,8 @@ export default async function Home() {
             .map((p, i) => (
               <p
                 key={i}
-                className="font-display text-xl leading-relaxed text-zinc-700 md:text-2xl"
+                className="font-display text-xl leading-relaxed md:text-2xl"
+                style={{ color: "var(--c-text-body)" }}
               >
                 « {renderInline(p)} »
               </p>
@@ -232,7 +298,10 @@ export default async function Home() {
       </Section>
 
       {/* ---------- Contact ---------- */}
-      <section className="border-t border-zinc-100 bg-gradient-to-b from-white to-pink-50/40">
+      <section
+        className="border-t border-zinc-100"
+        style={{ background: contactBg }}
+      >
         <div className="mx-auto max-w-3xl px-6 py-20 text-center">
           <h2
             style={{
@@ -240,17 +309,22 @@ export default async function Home() {
               fontStyle: "italic",
               textDecoration: "underline",
               textUnderlineOffset: "6px",
+              color: "var(--c-text-contact-title)",
             }}
             className="text-3xl tracking-tight"
           >
             Contact
           </h2>
-          <div className="mt-5 space-y-2 text-zinc-800">
+          <div
+            className="mt-5 space-y-2"
+            style={{ color: "var(--c-text-body)" }}
+          >
             <p>
               <span className="text-zinc-500">Adresse mail :</span>{" "}
               <a
                 href={`mailto:${contactEmail}`}
-                className="font-medium text-zinc-900 underline-offset-4 hover:underline"
+                className="font-medium underline-offset-4 hover:underline"
+                style={{ color: "var(--c-text-body)" }}
               >
                 {contactEmail}
               </a>
@@ -260,7 +334,8 @@ export default async function Home() {
                 <span className="text-zinc-500">Numéro de téléphone :</span>{" "}
                 <a
                   href={`tel:${phone.replace(/[^0-9+]/g, "")}`}
-                  className="font-medium text-zinc-900 underline-offset-4 hover:underline"
+                  className="font-medium underline-offset-4 hover:underline"
+                  style={{ color: "var(--c-text-body)" }}
                 >
                   {phone}
                 </a>
@@ -280,13 +355,13 @@ export default async function Home() {
 interface SectionProps {
   id: string;
   title: string;
-  background?: string;
+  backgroundStyle?: React.CSSProperties;
   children: React.ReactNode;
 }
 
-function Section({ id, title, background, children }: SectionProps) {
+function Section({ id, title, backgroundStyle, children }: SectionProps) {
   return (
-    <section id={id} className={`scroll-mt-20 ${background ?? ""}`}>
+    <section id={id} className="scroll-mt-20" style={backgroundStyle}>
       <div className="mx-auto max-w-6xl px-6 py-20">
         <div className="mb-10 flex items-center gap-4">
           <h2
@@ -296,7 +371,7 @@ function Section({ id, title, background, children }: SectionProps) {
               fontStyle: "italic",
               textDecoration: "underline",
               textUnderlineOffset: "6px",
-              color: "#8A9A5B", // vert olive doux
+              color: "var(--c-text-titles)",
             }}
             className="text-3xl tracking-tight md:text-4xl"
           >
@@ -312,7 +387,13 @@ function Section({ id, title, background, children }: SectionProps) {
 
 function PhotoPlaceholder() {
   return (
-    <div className="flex h-32 w-24 items-center justify-center rounded-md border-[3px] border-zinc-900 bg-gradient-to-br from-pink-50 to-sky-50 text-xs text-zinc-400 sm:h-44 sm:w-36">
+    <div
+      className="flex h-32 w-24 items-center justify-center rounded-md border-[3px] text-xs text-zinc-400 sm:h-44 sm:w-36"
+      style={{
+        borderColor: "var(--c-button-bg)",
+        background: "linear-gradient(135deg, var(--c-halo-warm), var(--c-halo-cool))",
+      }}
+    >
       Photo
     </div>
   );
