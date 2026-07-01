@@ -174,7 +174,7 @@ export default async function Home() {
         <div className="grid gap-10 md:grid-cols-[1.2fr_1fr] md:items-start md:gap-12">
           <div
             style={{ fontFamily: '"Times New Roman", Times, serif' }}
-            className="space-y-4 text-xs leading-relaxed text-zinc-700 md:text-sm"
+            className="space-y-4 text-sm leading-relaxed text-zinc-700 md:text-base"
           >
             {(projet || DEFAULTS.projet)
               .split("\n")
