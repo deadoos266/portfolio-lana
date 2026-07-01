@@ -9,9 +9,7 @@ const helpClass = "text-xs text-zinc-400";
 export default async function MonSitePage() {
   const [
     banner,
-    photo1,
-    photo2,
-    photo3,
+    photomaton,
     subtitle,
     intro,
     projet,
@@ -20,9 +18,7 @@ export default async function MonSitePage() {
     phone,
   ] = await Promise.all([
     getSetting("banner_url"),
-    getSetting("photo_1_url"),
-    getSetting("photo_2_url"),
-    getSetting("photo_3_url"),
+    getSetting("photomaton_url"),
     getSetting("hero_subtitle"),
     getSetting("hero_intro"),
     getSetting("projet_text"),
@@ -68,41 +64,33 @@ export default async function MonSitePage() {
           <input name="banner" type="file" accept="image/*" className="input" />
         </section>
 
-        {/* Tes 3 photos */}
+        {/* Ton photomaton */}
         <section className="card space-y-4 p-6">
           <div>
-            <h2 className="font-display text-xl font-semibold">Tes 3 photos</h2>
+            <h2 className="font-display text-xl font-semibold">
+              Ton photomaton
+            </h2>
             <p className={helpClass}>
-              Tes portraits noir &amp; blanc. Laisse vide pour conserver
-              celles d&apos;avant.
+              Une seule image, format long/vertical (comme un vrai photomaton
+              avec 3-4 photos empilées). Elle s&apos;affichera à gauche de ton
+              texte de présentation.
             </p>
           </div>
-          <div className="grid gap-4 sm:grid-cols-3">
-            {[
-              { key: "photo_1", value: photo1, label: "Photo 1" },
-              { key: "photo_2", value: photo2, label: "Photo 2" },
-              { key: "photo_3", value: photo3, label: "Photo 3" },
-            ].map((p) => (
-              <div key={p.key} className="space-y-2">
-                <label className={labelClass}>{p.label}</label>
-                {p.value && (
-                  <Image
-                    src={p.value}
-                    alt={p.label}
-                    width={120}
-                    height={160}
-                    className="rounded-lg border border-black/10 object-cover"
-                  />
-                )}
-                <input
-                  name={p.key}
-                  type="file"
-                  accept="image/*"
-                  className="input"
-                />
-              </div>
-            ))}
-          </div>
+          {photomaton && (
+            <Image
+              src={photomaton}
+              alt="Photomaton actuel"
+              width={140}
+              height={420}
+              className="rounded-lg border border-black/10 object-cover"
+            />
+          )}
+          <input
+            name="photomaton"
+            type="file"
+            accept="image/*"
+            className="input"
+          />
         </section>
 
         {/* Textes */}

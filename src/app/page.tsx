@@ -35,9 +35,7 @@ export default async function Home() {
 
   const [
     banner,
-    photo1,
-    photo2,
-    photo3,
+    photomaton,
     subtitle,
     intro,
     projet,
@@ -48,9 +46,7 @@ export default async function Home() {
     { data: cardsData },
   ] = await Promise.all([
     getSetting("banner_url"),
-    getSetting("photo_1_url"),
-    getSetting("photo_2_url"),
-    getSetting("photo_3_url"),
+    getSetting("photomaton_url"),
     getSetting("hero_subtitle"),
     getSetting("hero_intro"),
     getSetting("projet_text"),
@@ -65,7 +61,6 @@ export default async function Home() {
   ]);
 
   const cards = (cardsData ?? []) as ParcoursCard[];
-  const photos = [photo1, photo2, photo3].filter(Boolean) as string[];
   const contactEmail = email || DEFAULTS.email;
 
   return (
@@ -157,28 +152,33 @@ export default async function Home() {
         />
 
         <div className="relative mx-auto grid max-w-6xl gap-10 px-6 py-16 md:grid-cols-[auto_1fr] md:items-center md:gap-16">
-          {/* Colonne photos (les 3 en pellicule verticale) */}
-          <div className="flex flex-row gap-3 md:flex-col md:gap-4">
-            {photos.length > 0
-              ? photos.map((src, i) => (
-                  <div
-                    key={i}
-                    className="overflow-hidden rounded-md border-[3px] bg-zinc-100 shadow-md"
-                    style={{ borderColor: "var(--c-button-bg)" }}
-                  >
-                    <Image
-                      src={src}
-                      alt={`Lana ${i + 1}`}
-                      width={180}
-                      height={220}
-                      className="h-32 w-24 object-cover sm:h-44 sm:w-36"
-                      priority={i === 0}
-                    />
-                  </div>
-                ))
-              : Array.from({ length: 3 }).map((_, i) => (
-                  <PhotoPlaceholder key={i} />
-                ))}
+          {/* Photomaton (une seule photo verticale longue) */}
+          <div className="mx-auto md:mx-0">
+            <div
+              className="overflow-hidden rounded-md border-[3px] bg-zinc-100 shadow-md"
+              style={{ borderColor: "var(--c-button-bg)" }}
+            >
+              {photomaton ? (
+                <Image
+                  src={photomaton}
+                  alt="Photomaton de Lana"
+                  width={220}
+                  height={660}
+                  priority
+                  className="h-[360px] w-[120px] object-cover sm:h-[540px] sm:w-[180px]"
+                />
+              ) : (
+                <div
+                  className="flex h-[360px] w-[120px] items-center justify-center text-xs text-zinc-400 sm:h-[540px] sm:w-[180px]"
+                  style={{
+                    background:
+                      "linear-gradient(135deg, var(--c-halo-warm), var(--c-halo-cool))",
+                  }}
+                >
+                  Photomaton
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Colonne texte de présentation */}
@@ -382,16 +382,3 @@ function Section({ id, title, backgroundStyle, children }: SectionProps) {
   );
 }
 
-function PhotoPlaceholder() {
-  return (
-    <div
-      className="flex h-32 w-24 items-center justify-center rounded-md border-[3px] text-xs text-zinc-400 sm:h-44 sm:w-36"
-      style={{
-        borderColor: "var(--c-button-bg)",
-        background: "linear-gradient(135deg, var(--c-halo-warm), var(--c-halo-cool))",
-      }}
-    >
-      Photo
-    </div>
-  );
-}

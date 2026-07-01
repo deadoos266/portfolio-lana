@@ -155,13 +155,11 @@ export async function saveSiteSettings(formData: FormData) {
     if (url) await setSetting("banner_url", url);
   }
 
-  // Les 3 photos
-  for (const key of ["photo_1", "photo_2", "photo_3"]) {
-    const file = formData.get(key);
-    if (file instanceof File && file.size > 0) {
-      const url = await uploadFile(file, "profil");
-      if (url) await setSetting(key + "_url", url);
-    }
+  // Photomaton (une seule photo verticale longue)
+  const photomaton = formData.get("photomaton");
+  if (photomaton instanceof File && photomaton.size > 0) {
+    const url = await uploadFile(photomaton, "profil");
+    if (url) await setSetting("photomaton_url", url);
   }
 
   // Textes
