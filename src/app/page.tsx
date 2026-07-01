@@ -296,7 +296,7 @@ function Section({ id, title, background, children }: SectionProps) {
               fontStyle: "italic",
               textDecoration: "underline",
               textUnderlineOffset: "6px",
-              color: "#f9a8d4", // rose pastel
+              color: "#8A9A5B", // vert olive doux
             }}
             className="text-3xl tracking-tight md:text-4xl"
           >
