@@ -88,6 +88,61 @@ export interface SwatchInfo {
   description: string;
 }
 
+/**
+ * Nuances suggérées pour chaque pinceau — affichées comme boutons cliquables
+ * dans le dashboard. Choisies pour être adaptées au rôle de chaque pinceau.
+ */
+export const SUGGESTIONS: Record<keyof SiteTheme, ReadonlyArray<string>> = {
+  textTitles: [
+    "#8A9A5B", "#6B7C3B", "#94A165", "#4A5D23",
+    "#F472B6", "#EC4899", "#A855F7", "#1D1D1F",
+  ],
+  textContactTitle: [
+    "#1D1D1F", "#27272A", "#52525B", "#71717A",
+    "#8A9A5B", "#F472B6", "#3B82F6", "#A16207",
+  ],
+  textName: [
+    "#F472B6", "#F9A8D4", "#EC4899", "#FB7185",
+    "#8A9A5B", "#7DD3FC", "#FBBF24", "#1D1D1F",
+  ],
+  textBody: [
+    "#3F3F46", "#27272A", "#52525B", "#1D1D1F",
+    "#71717A", "#18181B", "#4A5D23", "#7C2D12",
+  ],
+  accentWarm: [
+    "#F472B6", "#F9A8D4", "#FB7185", "#EC4899",
+    "#FDA4AF", "#F97316", "#FBBF24", "#DC2626",
+  ],
+  accentCool: [
+    "#7DD3FC", "#A5F3FC", "#93C5FD", "#C4B5FD",
+    "#6EE7B7", "#86EFAC", "#A3E635", "#67E8F9",
+  ],
+  bgMain: [
+    "#FFFFFF", "#FBF9F4", "#FAF7F0", "#F8F4E9",
+    "#FCFCFA", "#F5F0E1", "#FFF8DC", "#F0F2F0",
+  ],
+  bgHero: [
+    "#FAFAF9", "#F5F5F4", "#FBF9F4", "#E7E5E4",
+    "#F0F0F0", "#1D1D1F", "#F8F4E9", "#FFFFFF",
+  ],
+  haloWarm: [
+    "#FCE7F3", "#FBCFE8", "#FED7AA", "#FEF3C7",
+    "#F9A8D4", "#FECACA", "#FFE4E6", "#FEF6E4",
+  ],
+  haloCool: [
+    "#E0F2FE", "#BAE6FD", "#DBEAFE", "#DDD6FE",
+    "#D1FAE5", "#ECFDF5", "#E0E7FF", "#F0F9FF",
+  ],
+  buttonBg: [
+    "#1D1D1F", "#000000", "#27272A", "#F472B6",
+    "#3B82F6", "#8A9A5B", "#7C3AED", "#DC2626",
+  ],
+  buttonText: [
+    "#FFFFFF", "#FBF9F4", "#1D1D1F", "#F5F5F4",
+    "#FCE7F3", "#E0F2FE", "#FEF3C7", "#000000",
+  ],
+};
+
 /** Liste des pinceaux affichés dans le dashboard, dans l'ordre. */
 export const SWATCHES: ReadonlyArray<SwatchInfo> = [
   { group: "Textes", key: "textTitles", label: "Grands titres", description: "Mon projet, Ma vision, Mon parcours" },
