@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getSetting } from "@/lib/settings";
+import { renderInline } from "@/lib/inline-markdown";
 import { ParcoursCarousel, type ParcoursCard } from "@/components/ParcoursCarousel";
 
 export const dynamic = "force-dynamic";
@@ -144,7 +145,7 @@ export default async function Home() {
           {/* Colonne texte de présentation */}
           <div className="space-y-4">
             <p className="font-display text-2xl leading-relaxed text-zinc-800 md:text-[1.6rem]">
-              {intro || DEFAULTS.intro}
+              {renderInline(intro || DEFAULTS.intro)}
             </p>
             <div className="flex flex-wrap gap-3 pt-2">
               <a
@@ -176,7 +177,7 @@ export default async function Home() {
               .split("\n")
               .filter(Boolean)
               .map((p, i) => (
-                <p key={i}>{p}</p>
+                <p key={i}>{renderInline(p)}</p>
               ))}
           </div>
 
@@ -210,7 +211,7 @@ export default async function Home() {
                 key={i}
                 className="font-display text-xl leading-relaxed text-zinc-700 md:text-2xl"
               >
-                « {p} »
+                « {renderInline(p)} »
               </p>
             ))}
         </div>
