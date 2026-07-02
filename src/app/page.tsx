@@ -230,7 +230,7 @@ export default async function Home() {
               fontFamily: '"Times New Roman", Times, serif',
               color: "var(--c-text-body)",
             }}
-            className="space-y-4 text-sm leading-relaxed md:text-base"
+            className="space-y-4 text-base leading-relaxed md:text-lg"
           >
             {(projet || DEFAULTS.projet)
               .split("\n")
