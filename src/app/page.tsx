@@ -238,8 +238,9 @@ export default async function Home() {
             style={{
               fontFamily: '"Times New Roman", Times, serif',
               color: "var(--c-text-body)",
+              fontSize: "18px",
+              lineHeight: 1.6,
             }}
-            className="space-y-4 text-base leading-relaxed md:text-lg"
           />
 
           {/* Carte + synopsis (placeholder en attendant Lana) */}
@@ -278,10 +279,12 @@ export default async function Home() {
         <RichContent
           html={vision}
           fallback={DEFAULTS.vision}
-          className="mx-auto max-w-3xl space-y-5 text-center text-xl leading-relaxed md:text-2xl"
+          className="mx-auto max-w-3xl"
           style={{
             fontFamily: '"Times New Roman", Times, serif',
             color: "var(--c-text-body)",
+            fontSize: "18px",
+            lineHeight: 1.6,
           }}
         />
       </Section>

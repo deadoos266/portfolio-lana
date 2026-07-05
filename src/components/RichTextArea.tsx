@@ -324,7 +324,7 @@ export function RichTextArea({
         </ToolButton>
       </div>
 
-      {/* Zone de saisie */}
+      {/* Zone de saisie — mêmes styles de base que le rendu du site pour WYSIWYG */}
       <div
         ref={editorRef}
         contentEditable
@@ -333,8 +333,13 @@ export function RichTextArea({
         onBlur={syncFromEditor}
         onPaste={handlePaste}
         data-placeholder={placeholder}
-        className="rich-editor rounded-b-lg border border-t-0 border-zinc-200 bg-white px-4 py-3 text-sm leading-relaxed outline-none focus:border-zinc-900"
-        style={{ minHeight }}
+        className="rich-editor rounded-b-lg border border-t-0 border-zinc-200 bg-white px-4 py-3 outline-none focus:border-zinc-900"
+        style={{
+          minHeight,
+          fontFamily: '"Times New Roman", Times, serif',
+          fontSize: "18px",
+          lineHeight: 1.6,
+        }}
       />
 
       {/* Valeur envoyée dans le form */}
