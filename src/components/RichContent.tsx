@@ -1,4 +1,4 @@
-import DOMPurify from "isomorphic-dompurify";
+import { sanitizeRich } from "@/lib/sanitize-rich";
 import { renderInline } from "@/lib/inline-markdown";
 
 interface RichContentProps {
@@ -34,10 +34,7 @@ export function RichContent({ html, fallback, className, style }: RichContentPro
     );
   }
 
-  const safe = DOMPurify.sanitize(value, {
-    ALLOWED_TAGS: ["p", "br", "strong", "b", "em", "i", "u", "span", "a"],
-    ALLOWED_ATTR: ["style", "href", "target", "rel"],
-  });
+  const safe = sanitizeRich(value);
 
   return (
     <div

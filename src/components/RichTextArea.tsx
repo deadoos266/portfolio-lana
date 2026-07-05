@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
-import DOMPurify from "isomorphic-dompurify";
+import { useEffect, useRef, useState } from "react";
 
 /**
  * Éditeur de texte enrichi utilisable dans les formulaires du dashboard.
@@ -133,12 +132,8 @@ export function RichTextArea({
     syncFromEditor();
   }
 
-  const sanitizedHtml = useMemo(() => {
-    return DOMPurify.sanitize(html, {
-      ALLOWED_TAGS: ["p", "br", "strong", "b", "em", "i", "u", "span", "a"],
-      ALLOWED_ATTR: ["style", "href", "target", "rel"],
-    });
-  }, [html]);
+  // Le HTML est nettoyé au moment de l'affichage sur le site public
+  // (via sanitizeRich dans RichContent). On envoie donc la valeur brute.
 
   return (
     <div className="space-y-2">
@@ -204,7 +199,7 @@ export function RichTextArea({
       />
 
       {/* Valeur envoyée dans le form */}
-      <input type="hidden" name={name} value={sanitizedHtml} />
+      <input type="hidden" name={name} value={html} />
 
       {helpText && <p className="text-xs text-zinc-400">{helpText}</p>}
     </div>
