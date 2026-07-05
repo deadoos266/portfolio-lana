@@ -141,6 +141,38 @@ export function RichTextArea({
   }
 
   /**
+   * Intercepte le collage pour éviter d'injecter le HTML « sale » de Word,
+   * Google Docs, un PDF, etc. On récupère le texte brut du presse-papier
+   * et on reconstruit un HTML propre : chaque ligne vide sépare les
+   * paragraphes, chaque ligne simple devient un saut à la ligne.
+   */
+  function handlePaste(event: React.ClipboardEvent<HTMLDivElement>) {
+    event.preventDefault();
+    const raw = event.clipboardData.getData("text/plain");
+    if (!raw) return;
+
+    const escaped = (s: string): string =>
+      s
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+
+    const html = raw
+      .split(/\n{2,}/) // paragraphes séparés par une ligne vide
+      .map((block) => {
+        const inner = block
+          .split(/\n/) // sauts de ligne simples dans un paragraphe
+          .map(escaped)
+          .join("<br>");
+        return `<p>${inner || "<br>"}</p>`;
+      })
+      .join("");
+
+    document.execCommand("insertHTML", false, html);
+    syncFromEditor();
+  }
+
+  /**
    * Applique un style CSS inline sur la sélection actuelle en enveloppant
    * son contenu dans un <span>. Utilisé pour la taille de police et
    * l'interligne, que execCommand ne gère pas proprement.
@@ -299,6 +331,7 @@ export function RichTextArea({
         suppressContentEditableWarning
         onInput={syncFromEditor}
         onBlur={syncFromEditor}
+        onPaste={handlePaste}
         data-placeholder={placeholder}
         className="rich-editor rounded-b-lg border border-t-0 border-zinc-200 bg-white px-4 py-3 text-sm leading-relaxed outline-none focus:border-zinc-900"
         style={{ minHeight }}

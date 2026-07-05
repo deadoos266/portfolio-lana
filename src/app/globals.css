@@ -43,19 +43,19 @@ body {
   pointer-events: none;
 }
 .rich-editor p {
-  margin: 0;
+  margin: 0 0 1em 0;
 }
-.rich-editor p + p {
-  margin-top: 0.75rem;
+.rich-editor p:last-child {
+  margin-bottom: 0;
 }
 
 /* Rendu HTML riche sur le site public : espacement des paragraphes,
    respect des styles inline (font-family/decoration) déjà présents. */
 .rich-content p {
-  margin: 0;
+  margin: 0 0 1em 0;
 }
-.rich-content p + p {
-  margin-top: 1em;
+.rich-content p:last-child {
+  margin-bottom: 0;
 }
 .rich-content strong,
 .rich-content b {
