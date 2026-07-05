@@ -142,11 +142,17 @@ function ParcoursCardView({ card }: { card: ParcoursCard }) {
         )}
       </div>
       <div className="flex flex-1 flex-col p-4">
-        <h3 className="font-display text-base font-semibold leading-snug text-zinc-900">
+        <h3
+          className="text-base font-semibold leading-snug text-zinc-900"
+          style={{ fontFamily: "var(--font-cardTitle)" }}
+        >
           {card.title}
         </h3>
         {card.description && (
-          <p className="mt-2 line-clamp-3 text-sm text-zinc-600">
+          <p
+            className="mt-2 line-clamp-3 text-sm text-zinc-600"
+            style={{ fontFamily: "var(--font-cardDescription)" }}
+          >
             {card.description}
           </p>
         )}

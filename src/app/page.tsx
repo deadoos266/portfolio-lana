@@ -86,8 +86,9 @@ export default async function Home() {
           ) : (
             <div className="flex h-full w-full items-center justify-center">
               <span
-                className="font-display font-bold tracking-tight"
+                className="font-bold tracking-tight"
                 style={{
+                  fontFamily: "var(--font-portfolio)",
                   fontSize: "clamp(4rem, 14vw, 12rem)",
                   color: "var(--c-text-body)",
                 }}
@@ -104,14 +105,20 @@ export default async function Home() {
           style={{ background: "var(--c-bg-main)" }}
         >
           <p
-            className="font-display text-lg"
-            style={{ color: "var(--c-text-name)" }}
+            className="text-lg"
+            style={{
+              fontFamily: "var(--font-name)",
+              color: "var(--c-text-name)",
+            }}
           >
             Lana Hervé
           </p>
           <p
             className="mx-auto mt-1 max-w-2xl text-sm font-medium"
-            style={{ color: "var(--c-text-body)" }}
+            style={{
+              fontFamily: "var(--font-heroSubtitle)",
+              color: "var(--c-text-body)",
+            }}
           >
             {subtitle || DEFAULTS.subtitle}
           </p>
@@ -125,7 +132,10 @@ export default async function Home() {
               "color-mix(in oklab, var(--c-bg-main) 85%, transparent)",
           }}
         >
-          <ul className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-8 gap-y-2 px-6 py-3 text-sm">
+          <ul
+            className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-8 gap-y-2 px-6 py-3 text-sm"
+            style={{ fontFamily: "var(--font-nav)" }}
+          >
             {NAV.map((item) => (
               <li key={item.id}>
                 <a
@@ -184,8 +194,11 @@ export default async function Home() {
           {/* Colonne texte de présentation */}
           <div className="space-y-4">
             <p
-              className="font-display text-2xl leading-relaxed md:text-[1.6rem]"
-              style={{ color: "var(--c-text-body)" }}
+              className="text-2xl leading-relaxed md:text-[1.6rem]"
+              style={{
+                fontFamily: "var(--font-heroIntro)",
+                color: "var(--c-text-body)",
+              }}
             >
               {renderInline(intro || DEFAULTS.intro)}
             </p>
@@ -227,7 +240,7 @@ export default async function Home() {
         <div className="grid gap-10 md:grid-cols-[1.2fr_1fr] md:items-start md:gap-12">
           <div
             style={{
-              fontFamily: '"Times New Roman", Times, serif',
+              fontFamily: "var(--font-body)",
               color: "var(--c-text-body)",
             }}
             className="space-y-4 text-base leading-relaxed md:text-lg"
@@ -252,8 +265,11 @@ export default async function Home() {
               Carte &amp; synopsis
             </p>
             <p
-              className="font-display mt-3 text-xl"
-              style={{ color: "var(--c-text-body)" }}
+              className="mt-3 text-xl"
+              style={{
+                fontFamily: "var(--font-cardTitle)",
+                color: "var(--c-text-body)",
+              }}
             >
               Espace réservé
             </p>
@@ -277,8 +293,11 @@ export default async function Home() {
             .map((p, i) => (
               <p
                 key={i}
-                className="font-display text-xl leading-relaxed md:text-2xl"
-                style={{ color: "var(--c-text-body)" }}
+                className="text-xl leading-relaxed md:text-2xl"
+                style={{
+                  fontFamily: "var(--font-body)",
+                  color: "var(--c-text-body)",
+                }}
               >
                 « {renderInline(p)} »
               </p>
@@ -305,7 +324,7 @@ export default async function Home() {
         <div className="mx-auto max-w-3xl px-6 py-20 text-center">
           <h2
             style={{
-              fontFamily: '"Times New Roman", Times, serif',
+              fontFamily: "var(--font-contactTitle)",
               fontStyle: "italic",
               textDecoration: "underline",
               textUnderlineOffset: "6px",
@@ -365,7 +384,7 @@ function Section({ id, title, backgroundStyle, children }: SectionProps) {
       <div className="mx-auto max-w-6xl px-6 py-20">
         <h2
           style={{
-            fontFamily: '"Times New Roman", Times, serif',
+            fontFamily: "var(--font-sectionTitles)",
             fontWeight: 700,
             fontStyle: "italic",
             textDecoration: "underline",

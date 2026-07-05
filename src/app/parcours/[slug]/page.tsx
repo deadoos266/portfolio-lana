@@ -59,7 +59,7 @@ export default async function ParcoursPage({ params }: PageProps) {
       <header className="mx-auto max-w-4xl px-6 pt-16">
         <h1
           style={{
-            fontFamily: '"Times New Roman", Times, serif',
+            fontFamily: "var(--font-sectionTitles)",
             fontWeight: 700,
             fontStyle: "italic",
             textDecoration: "underline",
@@ -100,7 +100,7 @@ export default async function ParcoursPage({ params }: PageProps) {
       <section
         className="mx-auto max-w-3xl px-6 py-16"
         style={{
-          fontFamily: '"Times New Roman", Times, serif',
+          fontFamily: "var(--font-body)",
           color: "var(--c-text-body)",
         }}
       >
