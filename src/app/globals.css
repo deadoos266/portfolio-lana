@@ -36,6 +36,39 @@ body {
   display: none;
 }
 
+/* Éditeur de texte enrichi : placeholder visible quand vide */
+.rich-editor:empty::before {
+  content: attr(data-placeholder);
+  color: #a1a1aa;
+  pointer-events: none;
+}
+.rich-editor p {
+  margin: 0;
+}
+.rich-editor p + p {
+  margin-top: 0.75rem;
+}
+
+/* Rendu HTML riche sur le site public : espacement des paragraphes,
+   respect des styles inline (font-family/decoration) déjà présents. */
+.rich-content p {
+  margin: 0;
+}
+.rich-content p + p {
+  margin-top: 1em;
+}
+.rich-content strong,
+.rich-content b {
+  font-weight: 700;
+}
+.rich-content em,
+.rich-content i {
+  font-style: italic;
+}
+.rich-content u {
+  text-decoration: underline;
+}
+
 @layer components {
   /* Carte : coins doux, bordure fine, ombre subtile */
   .card {

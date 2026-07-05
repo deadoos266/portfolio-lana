@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { renderInline } from "@/lib/inline-markdown";
+import { RichContent } from "@/components/RichContent";
 
 export const dynamic = "force-dynamic";
 
@@ -33,10 +33,7 @@ export default async function ParcoursPage({ params }: PageProps) {
   if (!data) notFound();
   const card = data as CardRow;
   const gallery = card.gallery_urls ?? [];
-  const paragraphs = (card.content ?? "")
-    .split("\n")
-    .map((p) => p.trim())
-    .filter(Boolean);
+  const hasContent = (card.content ?? "").trim().length > 0;
 
   return (
     <main
@@ -59,7 +56,7 @@ export default async function ParcoursPage({ params }: PageProps) {
       <header className="mx-auto max-w-4xl px-6 pt-16">
         <h1
           style={{
-            fontFamily: "var(--font-sectionTitles)",
+            fontFamily: '"Times New Roman", Times, serif',
             fontWeight: 700,
             fontStyle: "italic",
             textDecoration: "underline",
@@ -100,16 +97,15 @@ export default async function ParcoursPage({ params }: PageProps) {
       <section
         className="mx-auto max-w-3xl px-6 py-16"
         style={{
-          fontFamily: "var(--font-body)",
+          fontFamily: '"Times New Roman", Times, serif',
           color: "var(--c-text-body)",
         }}
       >
-        {paragraphs.length > 0 ? (
-          <div className="space-y-6 text-base leading-relaxed md:text-lg">
-            {paragraphs.map((p, i) => (
-              <p key={i}>{renderInline(p)}</p>
-            ))}
-          </div>
+        {hasContent ? (
+          <RichContent
+            html={card.content}
+            className="space-y-6 text-base leading-relaxed md:text-lg"
+          />
         ) : (
           <p className="text-center text-sm italic text-zinc-400">
             Contenu en cours d&apos;écriture…

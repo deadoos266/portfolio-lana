@@ -3,7 +3,6 @@ import { Geist, Geist_Mono, Fraunces } from "next/font/google";
 import "./globals.css";
 import { VisitTracker } from "@/components/VisitTracker";
 import { getTheme, themeToCssVariables } from "@/lib/theme";
-import { getFonts, fontsToCssVariables, googleFontsUrl } from "@/lib/fonts";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -46,10 +45,8 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [theme, fonts] = await Promise.all([getTheme(), getFonts()]);
+  const theme = await getTheme();
   const themeCss = themeToCssVariables(theme);
-  const fontsCss = fontsToCssVariables(fonts);
-  const gFontsHref = googleFontsUrl(fonts);
 
   return (
     <html
@@ -57,18 +54,7 @@ export default async function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} h-full antialiased`}
     >
       <head>
-        {gFontsHref && (
-          <>
-            <link rel="preconnect" href="https://fonts.googleapis.com" />
-            <link
-              rel="preconnect"
-              href="https://fonts.gstatic.com"
-              crossOrigin="anonymous"
-            />
-            <link rel="stylesheet" href={gFontsHref} />
-          </>
-        )}
-        <style dangerouslySetInnerHTML={{ __html: themeCss + "\n" + fontsCss }} />
+        <style dangerouslySetInnerHTML={{ __html: themeCss }} />
       </head>
       <body className="min-h-full flex flex-col">
         {children}

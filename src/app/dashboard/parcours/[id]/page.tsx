@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { updateParcoursCard } from "../actions";
 import { GalleryEditor } from "./GalleryEditor";
+import { RichTextArea } from "@/components/RichTextArea";
 
 interface CardRow {
   id: string;
@@ -168,20 +169,13 @@ export default async function EditParcoursPage({
 
         {/* Contenu texte */}
         <section className="card space-y-3 p-6">
-          <h2 className="font-display text-lg font-semibold">
-            Contenu de la page
-          </h2>
-          <p className={helpClass}>
-            Le texte affiché sur la page publique. Une ligne vide entre deux
-            paragraphes. Tu peux utiliser <code>*italique*</code> et{" "}
-            <code>**gras**</code>.
-          </p>
-          <textarea
+          <RichTextArea
             name="content"
-            rows={16}
+            label="Contenu de la page"
             defaultValue={card.content ?? ""}
             placeholder="Écris ici le contenu de cette rubrique…"
-            className="input font-mono text-sm"
+            minHeight={360}
+            helpText="Sélectionne du texte, puis clique sur la police / B / I / U pour le formater. Nouvelle ligne pour créer un paragraphe."
           />
         </section>
 

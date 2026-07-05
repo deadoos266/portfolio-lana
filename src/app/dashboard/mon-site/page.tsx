@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { getSetting } from "@/lib/settings";
 import { saveSiteSettings } from "../actions";
+import { RichTextArea } from "@/components/RichTextArea";
 
 const labelClass = "text-sm font-medium text-zinc-700";
 const helpClass = "text-xs text-zinc-400";
@@ -122,41 +123,30 @@ export default async function MonSitePage({ searchParams }: MonSitePageProps) {
             />
           </div>
 
-          <div className="space-y-1.5">
-            <label className={labelClass}>
-              Ta présentation (à côté de tes photos)
-            </label>
-            <textarea
-              name="hero_intro"
-              rows={5}
-              defaultValue={intro ?? ""}
-              className="input"
-            />
-          </div>
+          <RichTextArea
+            name="hero_intro"
+            label="Ta présentation (à côté de tes photos)"
+            defaultValue={intro ?? ""}
+            placeholder="Écris ici la phrase qui te présente…"
+            minHeight={140}
+          />
 
-          <div className="space-y-1.5">
-            <label className={labelClass}>
-              Section &laquo;&nbsp;Mon projet professionnel&nbsp;&raquo;
-            </label>
-            <textarea
-              name="projet_text"
-              rows={5}
-              defaultValue={projet ?? ""}
-              className="input"
-            />
-          </div>
+          <RichTextArea
+            name="projet_text"
+            label="Section « Mon projet professionnel »"
+            defaultValue={projet ?? ""}
+            placeholder="Écris ici le contenu de ton projet professionnel…"
+            minHeight={220}
+            helpText="Astuce : sélectionne du texte puis clique sur B / I / U ou choisis une autre police."
+          />
 
-          <div className="space-y-1.5">
-            <label className={labelClass}>
-              Section &laquo;&nbsp;Ma vision du journalisme&nbsp;&raquo;
-            </label>
-            <textarea
-              name="vision_text"
-              rows={5}
-              defaultValue={vision ?? ""}
-              className="input"
-            />
-          </div>
+          <RichTextArea
+            name="vision_text"
+            label="Section « Ma vision du journalisme »"
+            defaultValue={vision ?? ""}
+            placeholder="Écris ici ta vision du journalisme…"
+            minHeight={220}
+          />
         </section>
 
         {/* Contact */}
