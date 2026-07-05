@@ -6,17 +6,37 @@ import sanitizeHtml from "sanitize-html";
  * nécessaires au formatage utilisateur sont autorisés.
  */
 const OPTIONS: sanitizeHtml.IOptions = {
-  allowedTags: ["p", "br", "strong", "b", "em", "i", "u", "span", "a"],
+  allowedTags: [
+    "p",
+    "br",
+    "strong",
+    "b",
+    "em",
+    "i",
+    "u",
+    "span",
+    "a",
+    "div",
+    "blockquote",
+  ],
   allowedAttributes: {
     span: ["style"],
+    p: ["style"],
+    div: ["style"],
+    blockquote: ["style"],
     a: ["href", "target", "rel"],
   },
   allowedStyles: {
     "*": {
-      "font-family": [/^[^<>;]*$/i], // n'importe quelle famille sans caractères dangereux
+      "font-family": [/^[^<>;]*$/i],
       "text-decoration": [/^(underline|none|line-through)$/i],
       "font-weight": [/^(bold|normal|\d{3})$/i],
       "font-style": [/^(italic|normal)$/i],
+      "font-size": [/^\d{1,3}(px|pt|em|rem|%)$/i],
+      "line-height": [/^\d+(\.\d+)?$/i],
+      "text-align": [/^(left|center|right|justify)$/i],
+      "margin-left": [/^\d{1,3}(px|em|rem)$/i],
+      "padding-left": [/^\d{1,3}(px|em|rem)$/i],
     },
   },
   allowedSchemes: ["http", "https", "mailto", "tel"],

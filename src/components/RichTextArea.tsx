@@ -73,6 +73,14 @@ const GOOGLE_FONTS_HREF = (() => {
   return `https://fonts.googleapis.com/css2?${families}&display=swap`;
 })();
 
+const SIZES: ReadonlyArray<number> = [10, 12, 14, 16, 18, 20, 24, 28, 32, 40, 48];
+const LINE_HEIGHTS: ReadonlyArray<{ label: string; value: string }> = [
+  { label: "Simple", value: "1" },
+  { label: "1,15", value: "1.15" },
+  { label: "1,5", value: "1.5" },
+  { label: "Double", value: "2" },
+];
+
 /** Convertit un texte brut (avec syntaxe *italique* / **gras**) en HTML léger. */
 function textToHtml(input: string): string {
   if (!input) return "";
@@ -127,8 +135,38 @@ export function RichTextArea({
   function exec(command: string, value?: string) {
     editorRef.current?.focus();
     // execCommand est deprecated mais reste largement supporté et évite une
-    // grosse dépendance d'éditeur riche. On ne cible que 4 commandes basiques.
+    // grosse dépendance d'éditeur riche.
     document.execCommand(command, false, value);
+    syncFromEditor();
+  }
+
+  /**
+   * Applique un style CSS inline sur la sélection actuelle en enveloppant
+   * son contenu dans un <span>. Utilisé pour la taille de police et
+   * l'interligne, que execCommand ne gère pas proprement.
+   */
+  function wrapSelection(styleName: string, value: string) {
+    editorRef.current?.focus();
+    const selection = window.getSelection();
+    if (!selection || selection.rangeCount === 0) return;
+    const range = selection.getRangeAt(0);
+    if (range.collapsed) return;
+
+    const span = document.createElement("span");
+    span.style.setProperty(styleName, value);
+    try {
+      span.appendChild(range.extractContents());
+      range.insertNode(span);
+
+      // Restaure la sélection sur le contenu enveloppé
+      selection.removeAllRanges();
+      const newRange = document.createRange();
+      newRange.selectNodeContents(span);
+      selection.addRange(newRange);
+    } catch {
+      // La sélection couvre des nœuds non-modifiables : on abandonne
+      // silencieusement plutôt que de casser.
+    }
     syncFromEditor();
   }
 
@@ -146,6 +184,7 @@ export function RichTextArea({
 
       {/* Barre d'outils */}
       <div className="flex flex-wrap items-center gap-1 rounded-t-lg border border-zinc-200 bg-zinc-50 p-2">
+        {/* Police */}
         <select
           value={currentFont}
           onChange={(e) => {
@@ -164,8 +203,49 @@ export function RichTextArea({
           ))}
         </select>
 
+        {/* Taille */}
+        <select
+          defaultValue=""
+          onChange={(e) => {
+            if (!e.target.value) return;
+            wrapSelection("font-size", `${e.target.value}px`);
+            e.currentTarget.value = "";
+          }}
+          className="rounded-md border border-zinc-200 bg-white px-2 py-1 text-sm"
+          aria-label="Taille"
+          title="Taille du texte"
+        >
+          <option value="">Taille…</option>
+          {SIZES.map((s) => (
+            <option key={s} value={s}>
+              {s}
+            </option>
+          ))}
+        </select>
+
+        {/* Interligne */}
+        <select
+          defaultValue=""
+          onChange={(e) => {
+            if (!e.target.value) return;
+            wrapSelection("line-height", e.target.value);
+            e.currentTarget.value = "";
+          }}
+          className="rounded-md border border-zinc-200 bg-white px-2 py-1 text-sm"
+          aria-label="Interligne"
+          title="Interligne"
+        >
+          <option value="">Interligne…</option>
+          {LINE_HEIGHTS.map((lh) => (
+            <option key={lh.value} value={lh.value}>
+              {lh.label}
+            </option>
+          ))}
+        </select>
+
         <div className="mx-1 h-6 w-px bg-zinc-200" />
 
+        {/* B / I / U */}
         <ToolButton onClick={() => exec("bold")} label="Gras (Ctrl+B)">
           <b>B</b>
         </ToolButton>
@@ -178,11 +258,37 @@ export function RichTextArea({
 
         <div className="mx-1 h-6 w-px bg-zinc-200" />
 
+        {/* Alignement */}
+        <ToolButton onClick={() => exec("justifyLeft")} label="Aligner à gauche">
+          <AlignIcon type="left" />
+        </ToolButton>
+        <ToolButton onClick={() => exec("justifyCenter")} label="Centrer">
+          <AlignIcon type="center" />
+        </ToolButton>
+        <ToolButton onClick={() => exec("justifyRight")} label="Aligner à droite">
+          <AlignIcon type="right" />
+        </ToolButton>
+        <ToolButton onClick={() => exec("justifyFull")} label="Justifier">
+          <AlignIcon type="justify" />
+        </ToolButton>
+
+        <div className="mx-1 h-6 w-px bg-zinc-200" />
+
+        {/* Retraits */}
+        <ToolButton onClick={() => exec("outdent")} label="Diminuer le retrait">
+          <span className="text-sm">←</span>
+        </ToolButton>
+        <ToolButton onClick={() => exec("indent")} label="Augmenter le retrait">
+          <span className="text-sm">→</span>
+        </ToolButton>
+
+        <div className="mx-1 h-6 w-px bg-zinc-200" />
+
         <ToolButton
           onClick={() => exec("removeFormat")}
           label="Retirer le formatage"
         >
-          <span className="text-xs">✕ format</span>
+          <span className="text-xs">✕</span>
         </ToolButton>
       </div>
 
@@ -203,6 +309,55 @@ export function RichTextArea({
 
       {helpText && <p className="text-xs text-zinc-400">{helpText}</p>}
     </div>
+  );
+}
+
+function AlignIcon({ type }: { type: "left" | "center" | "right" | "justify" }) {
+  // Trois lignes horizontales dont la longueur/position dépend du type
+  const lines: ReadonlyArray<{ x1: number; x2: number }> = (() => {
+    switch (type) {
+      case "left":
+        return [
+          { x1: 3, x2: 21 },
+          { x1: 3, x2: 15 },
+          { x1: 3, x2: 19 },
+        ];
+      case "center":
+        return [
+          { x1: 3, x2: 21 },
+          { x1: 6, x2: 18 },
+          { x1: 5, x2: 19 },
+        ];
+      case "right":
+        return [
+          { x1: 3, x2: 21 },
+          { x1: 9, x2: 21 },
+          { x1: 5, x2: 21 },
+        ];
+      case "justify":
+      default:
+        return [
+          { x1: 3, x2: 21 },
+          { x1: 3, x2: 21 },
+          { x1: 3, x2: 21 },
+        ];
+    }
+  })();
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+      {lines.map((l, i) => (
+        <line
+          key={i}
+          x1={l.x1}
+          x2={l.x2}
+          y1={6 + i * 6}
+          y2={6 + i * 6}
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+      ))}
+    </svg>
   );
 }
 
