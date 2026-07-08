@@ -279,7 +279,6 @@ export default async function Home() {
         <RichContent
           html={vision}
           fallback={DEFAULTS.vision}
-          className="mx-auto max-w-3xl"
           style={{
             fontFamily: '"Times New Roman", Times, serif',
             color: "var(--c-text-body)",
