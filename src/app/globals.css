@@ -69,6 +69,17 @@ body {
   text-decoration: underline;
 }
 
+/* Liens hypertextes dans le contenu (dashboard + site public) */
+.rich-editor a,
+.rich-content a {
+  color: #1d4ed8;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.rich-content a:hover {
+  color: #1e3a8a;
+}
+
 @layer components {
   /* Carte : coins doux, bordure fine, ombre subtile */
   .card {

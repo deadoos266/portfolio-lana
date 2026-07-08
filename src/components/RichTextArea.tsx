@@ -143,6 +143,48 @@ export function RichTextArea({
   }
 
   /**
+   * Transforme la sélection en lien hypertexte (ou retire le lien si l'URL
+   * est vide). Ouvre dans un nouvel onglet par défaut.
+   */
+  function insertLink() {
+    editorRef.current?.focus();
+    const selection = window.getSelection();
+    if (!selection || selection.rangeCount === 0) {
+      window.alert("Sélectionne d'abord le texte que tu veux transformer en lien.");
+      return;
+    }
+    const range = selection.getRangeAt(0);
+    if (range.collapsed) {
+      window.alert("Sélectionne d'abord le texte que tu veux transformer en lien.");
+      return;
+    }
+    const input = window.prompt(
+      "Colle l'adresse (URL) du lien :\n(laisse vide pour retirer le lien)",
+      "https://",
+    );
+    if (input === null) return;
+    const url = input.trim();
+    if (!url) {
+      document.execCommand("unlink");
+      syncFromEditor();
+      return;
+    }
+    // Ajoute https:// si l'utilisatrice a oublié
+    const normalized = /^https?:\/\//i.test(url) ? url : `https://${url}`;
+    document.execCommand("createLink", false, normalized);
+    // execCommand ne pose pas target="_blank" ; on le rajoute manuellement
+    // à l'ancre nouvellement créée.
+    const anchors = editorRef.current?.querySelectorAll<HTMLAnchorElement>(
+      `a[href="${normalized}"]`,
+    );
+    anchors?.forEach((a) => {
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+    });
+    syncFromEditor();
+  }
+
+  /**
    * Intercepte le collage pour éviter d'injecter le HTML « sale » de Word,
    * Google Docs, un PDF, etc. On récupère le texte brut du presse-papier
    * et on reconstruit un HTML propre : chaque ligne vide sépare les
@@ -288,6 +330,18 @@ export function RichTextArea({
         </ToolButton>
         <ToolButton onClick={() => exec("underline")} label="Souligné (Ctrl+U)">
           <span className="underline">U</span>
+        </ToolButton>
+
+        <ToolButton onClick={insertLink} label="Insérer un lien">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+            <path
+              d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 1 0-7.07-7.07l-1 1M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 1 0 7.07 7.07l1-1"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
         </ToolButton>
 
         <div className="mx-1 h-6 w-px bg-zinc-200" />
