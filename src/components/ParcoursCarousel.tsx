@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState, useEffect } from "react";
+import { aspectClass, type ImageAspect } from "@/lib/image-aspect";
 
 export interface ParcoursCard {
   id: string;
@@ -11,6 +12,7 @@ export interface ParcoursCard {
   image_url: string | null;
   link_url: string | null;
   slug: string | null;
+  image_aspect: ImageAspect | null;
 }
 
 interface ParcoursCarouselProps {
@@ -109,7 +111,9 @@ export function ParcoursCarousel({ cards }: ParcoursCarouselProps) {
 function ParcoursCardView({ card }: { card: ParcoursCard }) {
   const inner = (
     <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-zinc-100 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-md">
-      <div className="relative aspect-square overflow-hidden bg-gradient-to-br from-pink-50 to-sky-50">
+      <div
+        className={`relative ${aspectClass(card.image_aspect)} overflow-hidden bg-gradient-to-br from-pink-50 to-sky-50`}
+      >
         {card.image_url ? (
           <Image
             src={card.image_url}

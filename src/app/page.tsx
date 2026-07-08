@@ -66,7 +66,7 @@ export default async function Home() {
     getVisionLayout(),
     supabase
       .from("parcours_cards")
-      .select("id, title, description, image_url, link_url, slug")
+      .select("id, title, description, image_url, link_url, slug, image_aspect")
       .order("display_order", { ascending: true }),
   ]);
 

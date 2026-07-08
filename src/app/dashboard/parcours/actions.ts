@@ -20,6 +20,7 @@ interface UpdatePayload {
   link_url: string | null;
   image_url?: string;
   gallery_urls?: string[];
+  image_aspect?: "square" | "landscape" | "portrait";
 }
 
 /** Met à jour une carte du parcours : infos + image de couverture + contenu + galerie. */
@@ -37,6 +38,12 @@ export async function updateParcoursCard(id: string, formData: FormData) {
 
   const rawLink = str(formData, "link_url");
   updates.link_url = rawLink ? normalizeUrl(rawLink) : null;
+
+  // Format de l'image (carré / paysage / portrait)
+  const aspect = str(formData, "image_aspect");
+  if (aspect === "square" || aspect === "landscape" || aspect === "portrait") {
+    updates.image_aspect = aspect;
+  }
 
   // Image de couverture (remplace l'existante si nouvelle)
   const cover = formData.get("image");

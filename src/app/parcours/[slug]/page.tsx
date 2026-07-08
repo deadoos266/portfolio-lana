@@ -3,6 +3,12 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { RichContent } from "@/components/RichContent";
+import {
+  aspectClass,
+  imageDims,
+  normalizeAspect,
+  type ImageAspect,
+} from "@/lib/image-aspect";
 
 export const dynamic = "force-dynamic";
 
@@ -14,6 +20,7 @@ interface CardRow {
   image_url: string | null;
   gallery_urls: string[] | null;
   slug: string | null;
+  image_aspect: ImageAspect | null;
 }
 
 interface PageProps {
@@ -26,7 +33,9 @@ export default async function ParcoursPage({ params }: PageProps) {
 
   const { data } = await supabase
     .from("parcours_cards")
-    .select("id, title, description, content, image_url, gallery_urls, slug")
+    .select(
+      "id, title, description, content, image_url, gallery_urls, slug, image_aspect",
+    )
     .eq("slug", slug)
     .maybeSingle();
 
@@ -34,6 +43,8 @@ export default async function ParcoursPage({ params }: PageProps) {
   const card = data as CardRow;
   const gallery = card.gallery_urls ?? [];
   const hasContent = (card.content ?? "").trim().length > 0;
+  const aspect = normalizeAspect(card.image_aspect);
+  const dims = imageDims(aspect);
 
   return (
     <main
@@ -78,15 +89,15 @@ export default async function ParcoursPage({ params }: PageProps) {
 
         {card.image_url && (
           <div
-            className="mt-10 overflow-hidden rounded-2xl border-[3px] shadow-md"
+            className={`mt-10 relative w-full ${aspectClass(aspect)} overflow-hidden rounded-2xl border-[3px] shadow-md`}
             style={{ borderColor: "var(--c-button-bg)" }}
           >
             <Image
               src={card.image_url}
               alt={card.title}
-              width={1200}
-              height={800}
-              className="w-full object-cover"
+              width={dims.width}
+              height={dims.height}
+              className="h-full w-full object-cover"
               priority
             />
           </div>

@@ -5,6 +5,11 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { updateParcoursCard } from "../actions";
 import { GalleryEditor } from "./GalleryEditor";
 import { RichTextArea } from "@/components/RichTextArea";
+import {
+  IMAGE_ASPECT_OPTIONS,
+  normalizeAspect,
+  type ImageAspect,
+} from "@/lib/image-aspect";
 
 interface CardRow {
   id: string;
@@ -16,6 +21,7 @@ interface CardRow {
   gallery_urls: string[] | null;
   slug: string | null;
   display_order: number;
+  image_aspect: ImageAspect | null;
 }
 
 interface PageProps {
@@ -37,7 +43,7 @@ export default async function EditParcoursPage({
   const { data } = await supabase
     .from("parcours_cards")
     .select(
-      "id, title, description, content, image_url, link_url, gallery_urls, slug, display_order",
+      "id, title, description, content, image_url, link_url, gallery_urls, slug, display_order, image_aspect",
     )
     .eq("id", id)
     .maybeSingle();
@@ -45,6 +51,7 @@ export default async function EditParcoursPage({
   if (!data) notFound();
   const card = data as CardRow;
   const gallery = card.gallery_urls ?? [];
+  const currentAspect = normalizeAspect(card.image_aspect);
 
   return (
     <div className="space-y-6">
@@ -165,6 +172,26 @@ export default async function EditParcoursPage({
           <p className={helpClass}>
             Laisse vide pour conserver l&apos;image actuelle.
           </p>
+
+          <div className="space-y-1.5 border-t border-zinc-100 pt-4">
+            <label className={labelClass}>Format de la photo</label>
+            <select
+              name="image_aspect"
+              defaultValue={currentAspect}
+              className="input"
+            >
+              {IMAGE_ASPECT_OPTIONS.map((o) => (
+                <option key={o.value} value={o.value}>
+                  {o.label}
+                </option>
+              ))}
+            </select>
+            <p className={helpClass}>
+              Impacte l&apos;affichage sur la carte du carrousel ET sur la page
+              publique de cette rubrique. Le fichier de l&apos;image reste le
+              même — c&apos;est le cadre qui change de forme.
+            </p>
+          </div>
         </section>
 
         {/* Contenu texte */}
