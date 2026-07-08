@@ -98,23 +98,45 @@ export default async function ParcoursPage({ params }: PageProps) {
 
       {/* Galerie d'images supplémentaires */}
       {gallery.length > 0 && (
-        <section className="mx-auto max-w-5xl px-6 pb-20">
-          <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-            {gallery.map((src, i) => (
-              <div
-                key={i}
-                className="overflow-hidden rounded-xl border border-zinc-100 shadow-sm"
-              >
-                <Image
-                  src={src}
-                  alt={`${card.title} — image ${i + 1}`}
-                  width={800}
-                  height={800}
-                  className="h-full w-full object-cover"
-                />
-              </div>
-            ))}
-          </div>
+        <section className="mx-auto max-w-6xl px-6 pb-20">
+          {gallery.length === 1 ? (
+            // Une seule image : affichage GRAND, pleine largeur, sans rognage
+            <div className="overflow-hidden rounded-2xl border border-zinc-100 shadow-md">
+              <Image
+                src={gallery[0]}
+                alt={card.title}
+                width={2400}
+                height={1600}
+                sizes="(max-width: 1152px) 100vw, 1152px"
+                className="h-auto w-full"
+                priority
+              />
+            </div>
+          ) : (
+            // Plusieurs images : grille (2 puis 3 colonnes)
+            <div
+              className={`grid gap-4 ${
+                gallery.length === 2
+                  ? "sm:grid-cols-2"
+                  : "sm:grid-cols-2 md:grid-cols-3"
+              }`}
+            >
+              {gallery.map((src, i) => (
+                <div
+                  key={i}
+                  className="overflow-hidden rounded-xl border border-zinc-100 shadow-sm"
+                >
+                  <Image
+                    src={src}
+                    alt={`${card.title} — image ${i + 1}`}
+                    width={1200}
+                    height={1200}
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+              ))}
+            </div>
+          )}
         </section>
       )}
 
