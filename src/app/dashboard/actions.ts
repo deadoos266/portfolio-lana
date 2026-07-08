@@ -183,6 +183,9 @@ export async function saveSiteSettings(formData: FormData) {
     "photomaton_pos_y",
     "article_section_title",
     "article_button_label",
+    "projet_title",
+    "vision_title",
+    "parcours_title",
   ]) {
     const value = formData.get(key);
     if (typeof value === "string") {

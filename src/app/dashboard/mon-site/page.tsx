@@ -43,6 +43,9 @@ export default async function MonSitePage({ searchParams }: MonSitePageProps) {
     photomatonPosY,
     articleSectionTitle,
     articleButtonLabel,
+    projetTitle,
+    visionTitle,
+    parcoursTitle,
   ] = await Promise.all([
     getSetting("banner_url"),
     getSetting("banner_text"),
@@ -63,6 +66,9 @@ export default async function MonSitePage({ searchParams }: MonSitePageProps) {
     getSetting("photomaton_pos_y"),
     getSetting("article_section_title"),
     getSetting("article_button_label"),
+    getSetting("projet_title"),
+    getSetting("vision_title"),
+    getSetting("parcours_title"),
   ]);
   const bannerPos = normalizePosition({
     zoom: bannerZoom,
@@ -229,6 +235,48 @@ export default async function MonSitePage({ searchParams }: MonSitePageProps) {
             defaultValue={vision ?? ""}
             placeholder="Écris ici ta vision du journalisme…"
             minHeight={220}
+          />
+        </section>
+
+        {/* Titres des sections */}
+        <section className="card space-y-5 p-6">
+          <div>
+            <h2 className="font-display text-xl font-semibold">
+              Titres des sections
+            </h2>
+            <p className={helpClass}>
+              Modifie le texte, la police, la taille, le retrait, gras/italique/souligné…
+              de chaque grand titre, comme pour les autres cadres. La{" "}
+              <b>couleur</b> de ces titres reste réglée depuis{" "}
+              <Link href="/dashboard/couleurs" className="underline">
+                Couleurs → Grands titres
+              </Link>{" "}
+              (pas besoin de la retoucher ici).
+            </p>
+          </div>
+
+          <RichTextArea
+            name="projet_title"
+            label="Titre « Mon projet professionnel »"
+            defaultValue={projetTitle ?? ""}
+            placeholder="Mon projet professionnel"
+            minHeight={60}
+          />
+
+          <RichTextArea
+            name="vision_title"
+            label="Titre « Ma vision du journalisme »"
+            defaultValue={visionTitle ?? ""}
+            placeholder="Ma vision du journalisme"
+            minHeight={60}
+          />
+
+          <RichTextArea
+            name="parcours_title"
+            label="Titre « Mon parcours »"
+            defaultValue={parcoursTitle ?? ""}
+            placeholder="Mon parcours"
+            minHeight={60}
           />
         </section>
 

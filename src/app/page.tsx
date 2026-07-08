@@ -59,6 +59,9 @@ export default async function Home() {
     photomatonZoom,
     photomatonPosX,
     photomatonPosY,
+    projetTitle,
+    visionTitle,
+    parcoursTitle,
     { data: cardsData },
   ] = await Promise.all([
     getSetting("banner_url"),
@@ -79,6 +82,9 @@ export default async function Home() {
     getSetting("photomaton_zoom"),
     getSetting("photomaton_pos_x"),
     getSetting("photomaton_pos_y"),
+    getSetting("projet_title"),
+    getSetting("vision_title"),
+    getSetting("parcours_title"),
     supabase
       .from("parcours_cards")
       .select(
@@ -287,7 +293,7 @@ export default async function Home() {
       </section>
 
       {/* ---------- Mon projet professionnel ---------- */}
-      <Section id="projet" title="Mon projet professionnel">
+      <Section id="projet" title="Mon projet professionnel" titleOverride={projetTitle}>
         <div className="grid gap-10 md:grid-cols-[1.2fr_1fr] md:items-start md:gap-12">
           <RichContent
             html={projet}
@@ -332,6 +338,7 @@ export default async function Home() {
       <Section
         id="vision"
         title="Ma vision du journalisme"
+        titleOverride={visionTitle}
         backgroundStyle={{ background: visionBg }}
       >
         <RichContent
@@ -348,7 +355,7 @@ export default async function Home() {
       </Section>
 
       {/* ---------- Mon parcours (carrousel 7 cartes) ---------- */}
-      <Section id="parcours" title="Mon parcours">
+      <Section id="parcours" title="Mon parcours" titleOverride={parcoursTitle}>
         {cards.length === 0 ? (
           <p className="text-center text-sm text-zinc-500">
             Mes étapes arrivent bientôt.
@@ -416,27 +423,39 @@ export default async function Home() {
 interface SectionProps {
   id: string;
   title: string;
+  titleOverride?: string | null;
   backgroundStyle?: React.CSSProperties;
   children: React.ReactNode;
 }
 
-function Section({ id, title, backgroundStyle, children }: SectionProps) {
+const SECTION_TITLE_STYLE: React.CSSProperties = {
+  fontFamily: '"Times New Roman", Times, serif',
+  fontWeight: 700,
+  fontStyle: "italic",
+  textDecoration: "underline",
+  textUnderlineOffset: "6px",
+  color: "var(--c-text-titles)",
+};
+const SECTION_TITLE_CLASS = "mb-10 text-3xl tracking-tight md:text-4xl";
+
+function Section({ id, title, titleOverride, backgroundStyle, children }: SectionProps) {
+  const custom = (titleOverride ?? "").trim();
+  const isRich = custom.length > 0 && /<\/?[a-z][^>]*>/i.test(custom);
+
   return (
     <section id={id} className="scroll-mt-20" style={backgroundStyle}>
       <div className="mx-auto max-w-6xl px-6 py-20">
-        <h2
-          style={{
-            fontFamily: '"Times New Roman", Times, serif',
-            fontWeight: 700,
-            fontStyle: "italic",
-            textDecoration: "underline",
-            textUnderlineOffset: "6px",
-            color: "var(--c-text-titles)",
-          }}
-          className="mb-10 text-3xl tracking-tight md:text-4xl"
-        >
-          {title}
-        </h2>
+        {isRich ? (
+          <RichContent
+            html={custom}
+            className={SECTION_TITLE_CLASS}
+            style={SECTION_TITLE_STYLE}
+          />
+        ) : (
+          <h2 style={SECTION_TITLE_STYLE} className={SECTION_TITLE_CLASS}>
+            {title}
+          </h2>
+        )}
         {children}
       </div>
     </section>
