@@ -23,6 +23,7 @@ export default async function MonSitePage({ searchParams }: MonSitePageProps) {
 
   const [
     banner,
+    bannerText,
     photomaton,
     subtitle,
     intro,
@@ -34,6 +35,7 @@ export default async function MonSitePage({ searchParams }: MonSitePageProps) {
     visionLayout,
   ] = await Promise.all([
     getSetting("banner_url"),
+    getSetting("banner_text"),
     getSetting("photomaton_url"),
     getSetting("hero_subtitle"),
     getSetting("hero_intro"),
@@ -68,24 +70,55 @@ export default async function MonSitePage({ searchParams }: MonSitePageProps) {
 
       <form action={saveSiteSettings} className="space-y-6">
         {/* Banderole PORTFOLIO */}
-        <section className="card space-y-3 p-6">
-          <h2 className="font-display text-xl font-semibold">
-            Ta banderole &laquo;&nbsp;PORTFOLIO&nbsp;&raquo;
-          </h2>
-          <p className={helpClass}>
-            L&apos;image en haut de la page d&apos;accueil (papier journal +
-            ton titre).
-          </p>
-          {banner && (
-            <Image
-              src={banner}
-              alt="Banderole"
-              width={400}
-              height={200}
-              className="rounded-lg border border-black/10"
+        <section className="card space-y-5 p-6">
+          <div>
+            <h2 className="font-display text-xl font-semibold">
+              Ta banderole &laquo;&nbsp;PORTFOLIO&nbsp;&raquo;
+            </h2>
+            <p className={helpClass}>
+              La zone tout en haut de la page d&apos;accueil. Tu peux mettre
+              une image, un texte écrit, ou les deux (texte par-dessus
+              l&apos;image).
+            </p>
+          </div>
+
+          {/* Image de la banderole */}
+          <div className="space-y-2 border-t border-zinc-100 pt-4">
+            <label className={labelClass}>
+              Image de la banderole (optionnel)
+            </label>
+            {banner && (
+              <Image
+                src={banner}
+                alt="Banderole"
+                width={400}
+                height={200}
+                className="rounded-lg border border-black/10"
+              />
+            )}
+            <input
+              name="banner"
+              type="file"
+              accept="image/*"
+              className="input"
             />
-          )}
-          <input name="banner" type="file" accept="image/*" className="input" />
+            <p className={helpClass}>
+              Laisse vide pour conserver l&apos;image actuelle. Retire-la depuis
+              Supabase si tu veux repartir de zéro.
+            </p>
+          </div>
+
+          {/* Texte de la banderole (RichTextArea) */}
+          <div className="border-t border-zinc-100 pt-4">
+            <RichTextArea
+              name="banner_text"
+              label="Texte de la banderole (optionnel)"
+              defaultValue={bannerText ?? ""}
+              placeholder="PORTFOLIO"
+              minHeight={140}
+              helpText="Sélectionne ton texte, puis mets une TRÈS grosse taille (48, 72…) et la police que tu aimes depuis la barre d'outils. Si tu ne mets pas d'image, ce texte s'affiche seul. Si tu mets une image ET du texte, le texte apparaît par-dessus."
+            />
+          </div>
         </section>
 
         {/* Ton photomaton */}

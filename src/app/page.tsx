@@ -41,6 +41,7 @@ export default async function Home() {
 
   const [
     banner,
+    bannerText,
     photomaton,
     subtitle,
     intro,
@@ -54,6 +55,7 @@ export default async function Home() {
     { data: cardsData },
   ] = await Promise.all([
     getSetting("banner_url"),
+    getSetting("banner_text"),
     getSetting("photomaton_url"),
     getSetting("hero_subtitle"),
     getSetting("hero_intro"),
@@ -69,6 +71,8 @@ export default async function Home() {
       .select("id, title, description, image_url, link_url, slug, image_aspect")
       .order("display_order", { ascending: true }),
   ]);
+
+  const hasBannerText = ((bannerText ?? "").trim()).replace(/<[^>]+>/g, "").trim().length > 0;
 
   const cards = (cardsData ?? []) as ParcoursCard[];
   const contactEmail = email || DEFAULTS.email;
@@ -87,7 +91,8 @@ export default async function Home() {
           className="relative h-[60vh] min-h-[420px] w-full overflow-hidden sm:h-[70vh]"
           style={{ background: "var(--c-bg-hero)" }}
         >
-          {banner ? (
+          {/* Image de fond (si fournie) */}
+          {banner && (
             <Image
               src={banner}
               alt="Portfolio — Lana Hervé"
@@ -95,7 +100,21 @@ export default async function Home() {
               priority
               className="object-cover object-center"
             />
-          ) : (
+          )}
+
+          {/* Texte de la banderole superposé (si fourni) */}
+          {hasBannerText && (
+            <div className="absolute inset-0 flex items-center justify-center px-6">
+              <RichContent
+                html={bannerText}
+                className="max-w-5xl text-center"
+                style={{ color: "var(--c-text-body)" }}
+              />
+            </div>
+          )}
+
+          {/* Placeholder par défaut si ni image ni texte */}
+          {!banner && !hasBannerText && (
             <div className="flex h-full w-full items-center justify-center">
               <span
                 className="font-bold tracking-tight"

@@ -164,6 +164,7 @@ export async function saveSiteSettings(formData: FormData) {
 
   // Textes + réglages de mise en page (largeur / alignement des blocs)
   for (const key of [
+    "banner_text",
     "hero_subtitle",
     "hero_intro",
     "projet_text",
