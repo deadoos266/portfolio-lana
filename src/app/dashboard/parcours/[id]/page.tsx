@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { getSetting } from "@/lib/settings";
 import { updateParcoursCard } from "../actions";
 import { GalleryEditor } from "./GalleryEditor";
 import { RichTextArea } from "@/components/RichTextArea";
@@ -46,13 +47,17 @@ export default async function EditParcoursPage({
   const { saved } = await searchParams;
   const supabase = createAdminClient();
 
-  const { data } = await supabase
-    .from("parcours_cards")
-    .select(
-      "id, title, description, content, image_url, link_url, gallery_urls, slug, display_order, image_aspect, image_zoom, image_pos_x, image_pos_y, article_urls",
-    )
-    .eq("id", id)
-    .maybeSingle();
+  const [{ data }, articleSectionTitle, articleButtonLabel] = await Promise.all([
+    supabase
+      .from("parcours_cards")
+      .select(
+        "id, title, description, content, image_url, link_url, gallery_urls, slug, display_order, image_aspect, image_zoom, image_pos_x, image_pos_y, article_urls",
+      )
+      .eq("id", id)
+      .maybeSingle(),
+    getSetting("article_section_title"),
+    getSetting("article_button_label"),
+  ]);
 
   if (!data) notFound();
   const card = data as CardRow;
@@ -98,13 +103,6 @@ export default async function EditParcoursPage({
           </code>
         </p>
       </div>
-
-      {saved === "1" && (
-        <div className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-700">
-          ✓ Enregistré ! Fais Ctrl + Maj + R sur la page publique pour voir tes
-          changements.
-        </div>
-      )}
 
       <form
         action={updateParcoursCard.bind(null, card.id)}
@@ -247,7 +245,7 @@ export default async function EditParcoursPage({
         </section>
 
         {/* Articles externes */}
-        <section className="card space-y-3 p-6">
+        <section className="card space-y-5 p-6">
           <div>
             <h2 className="font-display text-lg font-semibold">
               Liens d&apos;articles externes
@@ -259,17 +257,39 @@ export default async function EditParcoursPage({
               un blog, une revue, etc.
             </p>
           </div>
-          <textarea
-            name="article_urls"
-            rows={5}
-            defaultValue={(card.article_urls ?? []).join("\n")}
-            placeholder="https://www.mouvement.net/scenes/…"
-            className="input font-mono text-xs"
-            spellCheck={false}
+
+          <RichTextArea
+            name="article_section_title"
+            label="Titre de la section (au-dessus des cartes-aperçu)"
+            defaultValue={articleSectionTitle ?? ""}
+            placeholder="Mes articles publiés"
+            minHeight={80}
+            helpText="Commun à toutes les cartes. Laisse vide pour utiliser « Mes articles publiés »."
           />
-          <p className={helpClass}>
-            Chaque ligne = un lien. Laisse vide pour ne rien afficher.
-          </p>
+
+          <RichTextArea
+            name="article_button_label"
+            label="Texte du bouton (sur chaque carte-aperçu)"
+            defaultValue={articleButtonLabel ?? ""}
+            placeholder="Lire l'article →"
+            minHeight={60}
+            helpText="Commun à toutes les cartes. Laisse vide pour utiliser « Lire l'article → »."
+          />
+
+          <div className="border-t border-zinc-100 pt-4">
+            <label className={labelClass}>Liens d&apos;articles de cette carte</label>
+            <textarea
+              name="article_urls"
+              rows={5}
+              defaultValue={(card.article_urls ?? []).join("\n")}
+              placeholder="https://www.mouvement.net/scenes/…"
+              className="input mt-1.5 font-mono text-xs"
+              spellCheck={false}
+            />
+            <p className={`${helpClass} mt-1.5`}>
+              Chaque ligne = un lien. Laisse vide pour ne rien afficher.
+            </p>
+          </div>
         </section>
 
         <div className="sticky bottom-4 z-10 flex flex-wrap items-center gap-3 rounded-2xl border border-black/5 bg-white/90 p-3 shadow-lg backdrop-blur-md">
@@ -282,6 +302,11 @@ export default async function EditParcoursPage({
           >
             Annuler
           </Link>
+          {saved === "1" && (
+            <span className="text-sm font-medium text-emerald-700">
+              ✓ Enregistré !
+            </span>
+          )}
         </div>
       </form>
     </div>

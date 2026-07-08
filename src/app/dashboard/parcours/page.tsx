@@ -1,9 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { getSetting } from "@/lib/settings";
-import { RichTextArea } from "@/components/RichTextArea";
-import { saveArticleCardTexts } from "./actions";
 
 interface CardRow {
   id: string;
@@ -16,27 +13,14 @@ interface CardRow {
   display_order: number;
 }
 
-interface ParcoursListPageProps {
-  searchParams: Promise<{ saved?: string }>;
-}
-
-export default async function ParcoursListPage({
-  searchParams,
-}: ParcoursListPageProps) {
-  const { saved } = await searchParams;
-  const justSaved = saved === "1";
-
+export default async function ParcoursListPage() {
   const supabase = createAdminClient();
-  const [{ data }, articleSectionTitle, articleButtonLabel] = await Promise.all([
-    supabase
-      .from("parcours_cards")
-      .select(
-        "id, title, description, content, image_url, gallery_urls, slug, display_order",
-      )
-      .order("display_order", { ascending: true }),
-    getSetting("article_section_title"),
-    getSetting("article_button_label"),
-  ]);
+  const { data } = await supabase
+    .from("parcours_cards")
+    .select(
+      "id, title, description, content, image_url, gallery_urls, slug, display_order",
+    )
+    .order("display_order", { ascending: true });
 
   const cards = (data ?? []) as CardRow[];
 
@@ -54,50 +38,6 @@ export default async function ParcoursListPage({
           Voir le carrousel ↗
         </Link>
       </div>
-
-      {justSaved && (
-        <div className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-700">
-          ✓ Enregistré ! Va voir une page de carte avec des liens d&apos;articles pour vérifier.
-        </div>
-      )}
-
-      {/* Textes des cartes-aperçu d'articles */}
-      <form action={saveArticleCardTexts} className="card space-y-5 p-6">
-        <div>
-          <h2 className="font-display text-xl font-semibold">
-            Textes des cartes d&apos;articles
-          </h2>
-          <p className="text-xs text-zinc-400">
-            Ces textes apparaissent sur les pages de carte dès que tu ajoutes
-            des liens d&apos;articles externes. Tu peux les styliser comme les
-            autres textes (police, taille, gras, italique, couleur…).
-          </p>
-        </div>
-
-        <RichTextArea
-          name="article_section_title"
-          label="Titre de la section"
-          defaultValue={articleSectionTitle ?? ""}
-          placeholder="Mes articles publiés"
-          minHeight={80}
-          helpText="Titre qui apparaît au-dessus des cartes-aperçu. Laisse vide pour utiliser « Mes articles publiés »."
-        />
-
-        <RichTextArea
-          name="article_button_label"
-          label="Texte du bouton"
-          defaultValue={articleButtonLabel ?? ""}
-          placeholder="Lire l'article →"
-          minHeight={60}
-          helpText="Texte cliquable sur chaque carte. Ex : « Lien vers l'article », « Voir la publication », « Découvrir ». Laisse vide pour utiliser « Lire l'article → »."
-        />
-
-        <div>
-          <button type="submit" className="btn-primary">
-            Enregistrer
-          </button>
-        </div>
-      </form>
 
       <div className="grid gap-4 sm:grid-cols-2">
         {cards.map((card) => {

@@ -104,27 +104,22 @@ export async function updateParcoursCard(id: string, formData: FormData) {
   }
 
   await supabase.from("parcours_cards").update(updates).eq("id", id);
-  revalidatePath("/");
-  revalidatePath("/dashboard/parcours");
-  const slug = str(formData, "slug");
-  if (slug) revalidatePath(`/parcours/${slug}`);
-  redirect(`/dashboard/parcours/${id}?saved=1`);
-}
 
-/**
- * Enregistre les textes des cartes-aperçu d'articles externes (titre de
- * section + texte du bouton), utilisés uniquement sur les pages dédiées du
- * parcours dès qu'une carte a des liens d'articles.
- */
-export async function saveArticleCardTexts(formData: FormData) {
+  // Titre de la section articles + texte du bouton : réglages communs à
+  // toutes les cartes (pas propres à celle-ci), édités ici par commodité
+  // puisque c'est juste au-dessus des liens d'articles de cette carte.
   for (const key of ["article_section_title", "article_button_label"]) {
     const value = formData.get(key);
     if (typeof value === "string") {
       await setSetting(key, value.trim());
     }
   }
+
+  revalidatePath("/");
   revalidatePath("/dashboard/parcours");
-  redirect("/dashboard/parcours?saved=1");
+  const slug = str(formData, "slug");
+  if (slug) revalidatePath(`/parcours/${slug}`);
+  redirect(`/dashboard/parcours/${id}?saved=1`);
 }
 
 /** Supprime une image spécifique de la galerie d'une carte. */
