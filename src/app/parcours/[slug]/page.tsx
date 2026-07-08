@@ -76,9 +76,9 @@ export default async function ParcoursPage({ params }: PageProps) {
         )}
       </header>
 
-      {/* Contenu texte */}
+      {/* Contenu texte — aligné avec le titre (max-w-4xl) */}
       <section
-        className="mx-auto max-w-3xl px-6 py-16"
+        className="mx-auto max-w-4xl px-6 py-16"
         style={{
           fontFamily: '"Times New Roman", Times, serif',
           color: "var(--c-text-body)",

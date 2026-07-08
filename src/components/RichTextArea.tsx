@@ -73,7 +73,9 @@ const GOOGLE_FONTS_HREF = (() => {
   return `https://fonts.googleapis.com/css2?${families}&display=swap`;
 })();
 
-const SIZES: ReadonlyArray<number> = [10, 12, 14, 16, 18, 20, 24, 28, 32, 40, 48];
+const SIZES: ReadonlyArray<number> = [
+  10, 12, 14, 16, 18, 20, 24, 28, 32, 40, 48, 64, 80, 96, 128, 160, 200, 250,
+];
 const LINE_HEIGHTS: ReadonlyArray<{ label: string; value: string }> = [
   { label: "Simple", value: "1" },
   { label: "1,15", value: "1.15" },
