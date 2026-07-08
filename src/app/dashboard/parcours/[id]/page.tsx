@@ -145,14 +145,16 @@ export default async function EditParcoursPage({
           </div>
         </section>
 
-        {/* Image de couverture */}
+        {/* Image de couverture — carrousel uniquement */}
         <section className="card space-y-3 p-6">
           <h2 className="font-display text-lg font-semibold">
-            Image de couverture
+            Image de la carte (carrousel)
           </h2>
           <p className={helpClass}>
-            L&apos;image principale de la carte + le grand visuel en haut de la
-            page publique.
+            Cette image s&apos;affiche <b>uniquement sur la carte du carrousel</b>{" "}
+            de la page d&apos;accueil. La page dédiée, elle, se construit
+            librement avec le texte et la galerie plus bas — c&apos;est toi qui
+            décides quoi y mettre.
           </p>
           {card.image_url && (
             <Image
@@ -187,9 +189,8 @@ export default async function EditParcoursPage({
               ))}
             </select>
             <p className={helpClass}>
-              Impacte l&apos;affichage sur la carte du carrousel ET sur la page
-              publique de cette rubrique. Le fichier de l&apos;image reste le
-              même — c&apos;est le cadre qui change de forme.
+              Forme du cadre de l&apos;image sur la carte du carrousel. Le
+              fichier de l&apos;image reste le même.
             </p>
           </div>
         </section>
@@ -198,22 +199,23 @@ export default async function EditParcoursPage({
         <section className="card space-y-3 p-6">
           <RichTextArea
             name="content"
-            label="Contenu de la page"
+            label="Texte de la page dédiée"
             defaultValue={card.content ?? ""}
-            placeholder="Écris ici le contenu de cette rubrique…"
+            placeholder="Écris ici ce que tu veux raconter dans cette rubrique. Laisse vide si tu ne veux pas de texte."
             minHeight={360}
-            helpText="Sélectionne du texte, puis clique sur la police / B / I / U pour le formater. Nouvelle ligne pour créer un paragraphe."
+            helpText="Ce texte s'affiche sur la page dédiée (quand quelqu'un clique sur la carte). Sélectionne du texte puis clique sur B / I / U pour le formater. Nouvelle ligne pour créer un paragraphe."
           />
         </section>
 
         {/* Galerie */}
         <section className="card space-y-3 p-6">
           <h2 className="font-display text-lg font-semibold">
-            Galerie d&apos;images
+            Images de la page dédiée
           </h2>
           <p className={helpClass}>
-            Ajoute autant d&apos;images que tu veux : elles s&apos;afficheront
-            en grille sous ton texte sur la page publique.
+            Ces images s&apos;affichent sur la page dédiée (sous le texte, en
+            grille). Ajoute-en autant que tu veux, ou aucune si tu ne veux que
+            du texte.
           </p>
           <GalleryEditor id={card.id} images={gallery} />
           <label className={labelClass}>Ajouter des images</label>
