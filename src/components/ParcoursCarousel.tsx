@@ -11,7 +11,6 @@ export interface ParcoursCard {
   title: string;
   description: string | null;
   image_url: string | null;
-  link_url: string | null;
   slug: string | null;
   image_aspect: ImageAspect | null;
   image_zoom: number | null;
@@ -172,7 +171,6 @@ function ParcoursCardView({ card }: { card: ParcoursCard }) {
     </article>
   );
 
-  // Priorité : page interne /parcours/<slug>. Repli : lien externe si défini.
   const wrapperClass = "w-[80%] shrink-0 snap-start sm:w-[calc(25%-12px)]";
 
   if (card.slug) {
@@ -180,18 +178,6 @@ function ParcoursCardView({ card }: { card: ParcoursCard }) {
       <Link href={`/parcours/${card.slug}`} className={wrapperClass}>
         {inner}
       </Link>
-    );
-  }
-  if (card.link_url) {
-    return (
-      <a
-        href={card.link_url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={wrapperClass}
-      >
-        {inner}
-      </a>
     );
   }
   return <div className={wrapperClass}>{inner}</div>;

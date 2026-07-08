@@ -20,7 +20,6 @@ interface CardRow {
   description: string | null;
   content: string | null;
   image_url: string | null;
-  link_url: string | null;
   gallery_urls: string[] | null;
   slug: string | null;
   display_order: number;
@@ -51,7 +50,7 @@ export default async function EditParcoursPage({
     supabase
       .from("parcours_cards")
       .select(
-        "id, title, description, content, image_url, link_url, gallery_urls, slug, display_order, image_aspect, image_zoom, image_pos_x, image_pos_y, article_urls",
+        "id, title, description, content, image_url, gallery_urls, slug, display_order, image_aspect, image_zoom, image_pos_x, image_pos_y, article_urls",
       )
       .eq("id", id)
       .maybeSingle(),
@@ -135,22 +134,6 @@ export default async function EditParcoursPage({
               placeholder="Une phrase courte pour donner envie de cliquer…"
               className="input"
             />
-          </div>
-
-          <div className="space-y-1.5">
-            <label className={labelClass}>
-              Lien externe (optionnel, remplace la page interne)
-            </label>
-            <input
-              name="link_url"
-              defaultValue={card.link_url ?? ""}
-              placeholder="https://…"
-              className="input"
-            />
-            <p className={helpClass}>
-              Laisse vide pour que la carte pointe vers ta page interne
-              /parcours/{card.slug}.
-            </p>
           </div>
         </section>
 

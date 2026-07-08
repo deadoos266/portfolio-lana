@@ -93,7 +93,7 @@ export default async function Home() {
     supabase
       .from("parcours_cards")
       .select(
-        "id, title, description, image_url, link_url, slug, image_aspect, image_zoom, image_pos_x, image_pos_y",
+        "id, title, description, image_url, slug, image_aspect, image_zoom, image_pos_x, image_pos_y",
       )
       .order("display_order", { ascending: true }),
   ]);

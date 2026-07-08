@@ -18,7 +18,6 @@ interface UpdatePayload {
   title: string;
   description: string | null;
   content: string | null;
-  link_url: string | null;
   image_url?: string;
   gallery_urls?: string[];
   image_aspect?: "square" | "landscape" | "portrait";
@@ -49,11 +48,7 @@ export async function updateParcoursCard(id: string, formData: FormData) {
     content: formData.get("content") instanceof File
       ? null
       : (formData.get("content") as string | null)?.trim() || null,
-    link_url: null,
   };
-
-  const rawLink = str(formData, "link_url");
-  updates.link_url = rawLink ? normalizeUrl(rawLink) : null;
 
   // Format de l'image (carré / paysage / portrait)
   const aspect = str(formData, "image_aspect");
