@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { RichContent } from "@/components/RichContent";
+import { ArticlePreview } from "@/components/ArticlePreview";
 
 export const dynamic = "force-dynamic";
 
@@ -13,6 +14,7 @@ interface CardRow {
   content: string | null;
   gallery_urls: string[] | null;
   slug: string | null;
+  article_urls: string[] | null;
 }
 
 interface PageProps {
@@ -25,13 +27,14 @@ export default async function ParcoursPage({ params }: PageProps) {
 
   const { data } = await supabase
     .from("parcours_cards")
-    .select("id, title, description, content, gallery_urls, slug")
+    .select("id, title, description, content, gallery_urls, slug, article_urls")
     .eq("slug", slug)
     .maybeSingle();
 
   if (!data) notFound();
   const card = data as CardRow;
   const gallery = card.gallery_urls ?? [];
+  const articles = card.article_urls ?? [];
   const hasContent = (card.content ?? "").trim().length > 0;
 
   return (
@@ -137,6 +140,28 @@ export default async function ParcoursPage({ params }: PageProps) {
               ))}
             </div>
           )}
+        </section>
+      )}
+
+      {/* Articles externes */}
+      {articles.length > 0 && (
+        <section className="mx-auto max-w-4xl px-6 pb-20">
+          <h2
+            style={{
+              fontFamily: '"Times New Roman", Times, serif',
+              fontWeight: 700,
+              fontStyle: "italic",
+              color: "var(--c-text-titles)",
+            }}
+            className="mb-6 text-2xl tracking-tight"
+          >
+            Mes articles publiés
+          </h2>
+          <div className="space-y-4">
+            {articles.map((url) => (
+              <ArticlePreview key={url} url={url} />
+            ))}
+          </div>
         </section>
       )}
 

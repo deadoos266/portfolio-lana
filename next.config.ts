@@ -12,13 +12,15 @@ const nextConfig: NextConfig = {
     },
   },
   images: {
-    // Autorise les images servies depuis Supabase Storage
+    // Autorise Supabase Storage + n'importe quelle image externe pour les
+    // aperçus d'articles (Open Graph). On accepte tous les domaines HTTPS.
     remotePatterns: [
       {
         protocol: "https",
         hostname: "kitkltjhslfrdsfopqac.supabase.co",
         pathname: "/storage/v1/object/public/**",
       },
+      { protocol: "https", hostname: "**" },
     ],
   },
 };

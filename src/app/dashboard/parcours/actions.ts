@@ -24,6 +24,7 @@ interface UpdatePayload {
   image_zoom?: number;
   image_pos_x?: number;
   image_pos_y?: number;
+  article_urls?: string[];
 }
 
 function clampInt(
@@ -63,6 +64,16 @@ export async function updateParcoursCard(id: string, formData: FormData) {
   updates.image_zoom = clampInt(str(formData, "image_zoom"), 100, 100, 250);
   updates.image_pos_x = clampInt(str(formData, "image_pos_x"), 50, 0, 100);
   updates.image_pos_y = clampInt(str(formData, "image_pos_y"), 50, 0, 100);
+
+  // Liens d'articles externes (une URL par ligne dans la textarea)
+  const rawArticles = str(formData, "article_urls") ?? "";
+  const articleUrls = rawArticles
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter((line) => line.length > 0)
+    .map((line) => normalizeUrl(line))
+    .filter((line): line is string => line !== null);
+  updates.article_urls = articleUrls;
 
   // Image de couverture (remplace l'existante si nouvelle)
   const cover = formData.get("image");

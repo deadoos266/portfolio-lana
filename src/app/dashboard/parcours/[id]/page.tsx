@@ -27,6 +27,7 @@ interface CardRow {
   image_zoom: number | null;
   image_pos_x: number | null;
   image_pos_y: number | null;
+  article_urls: string[] | null;
 }
 
 interface PageProps {
@@ -48,7 +49,7 @@ export default async function EditParcoursPage({
   const { data } = await supabase
     .from("parcours_cards")
     .select(
-      "id, title, description, content, image_url, link_url, gallery_urls, slug, display_order, image_aspect, image_zoom, image_pos_x, image_pos_y",
+      "id, title, description, content, image_url, link_url, gallery_urls, slug, display_order, image_aspect, image_zoom, image_pos_x, image_pos_y, article_urls",
     )
     .eq("id", id)
     .maybeSingle();
@@ -243,6 +244,32 @@ export default async function EditParcoursPage({
             multiple
             className="input"
           />
+        </section>
+
+        {/* Articles externes */}
+        <section className="card space-y-3 p-6">
+          <div>
+            <h2 className="font-display text-lg font-semibold">
+              Liens d&apos;articles externes
+            </h2>
+            <p className={helpClass}>
+              Colle une URL par ligne. Sur la page dédiée, chaque URL devient
+              une carte-aperçu avec l&apos;image, le titre et un extrait de
+              l&apos;article — utile pour tes publications sur mouvement.net,
+              un blog, une revue, etc.
+            </p>
+          </div>
+          <textarea
+            name="article_urls"
+            rows={5}
+            defaultValue={(card.article_urls ?? []).join("\n")}
+            placeholder="https://www.mouvement.net/scenes/…"
+            className="input font-mono text-xs"
+            spellCheck={false}
+          />
+          <p className={helpClass}>
+            Chaque ligne = un lien. Laisse vide pour ne rien afficher.
+          </p>
         </section>
 
         <div className="sticky bottom-4 z-10 flex flex-wrap items-center gap-3 rounded-2xl border border-black/5 bg-white/90 p-3 shadow-lg backdrop-blur-md">
