@@ -3,6 +3,7 @@ import { fetchOgTags } from "@/lib/og-fetch";
 
 interface ArticlePreviewProps {
   url: string;
+  buttonLabel?: string;
 }
 
 /**
@@ -10,7 +11,10 @@ interface ArticlePreviewProps {
  * « Lire l'article ». Server component qui fetche les meta tags Open Graph
  * avec un cache d'1h.
  */
-export async function ArticlePreview({ url }: ArticlePreviewProps) {
+export async function ArticlePreview({
+  url,
+  buttonLabel = "Lire l'article →",
+}: ArticlePreviewProps) {
   const og = await fetchOgTags(url);
 
   // Fallback minimaliste si l'article n'a pas pu être récupéré
@@ -29,7 +33,7 @@ export async function ArticlePreview({ url }: ArticlePreviewProps) {
           {url}
         </p>
         <p className="mt-3 text-sm font-medium text-zinc-600">
-          Lire l&apos;article →
+          {buttonLabel}
         </p>
       </a>
     );
@@ -72,7 +76,7 @@ export async function ArticlePreview({ url }: ArticlePreviewProps) {
           )}
         </div>
         <p className="mt-4 text-sm font-medium text-zinc-700 group-hover:underline">
-          Lire l&apos;article →
+          {buttonLabel}
         </p>
       </div>
     </a>

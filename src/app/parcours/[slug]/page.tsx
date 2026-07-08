@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { getSetting } from "@/lib/settings";
 import { RichContent } from "@/components/RichContent";
 import { ArticlePreview } from "@/components/ArticlePreview";
 
@@ -25,17 +26,23 @@ export default async function ParcoursPage({ params }: PageProps) {
   const { slug } = await params;
   const supabase = createAdminClient();
 
-  const { data } = await supabase
-    .from("parcours_cards")
-    .select("id, title, description, content, gallery_urls, slug, article_urls")
-    .eq("slug", slug)
-    .maybeSingle();
+  const [{ data }, articleSectionTitle, articleButtonLabel] = await Promise.all([
+    supabase
+      .from("parcours_cards")
+      .select("id, title, description, content, gallery_urls, slug, article_urls")
+      .eq("slug", slug)
+      .maybeSingle(),
+    getSetting("article_section_title"),
+    getSetting("article_button_label"),
+  ]);
 
   if (!data) notFound();
   const card = data as CardRow;
   const gallery = card.gallery_urls ?? [];
   const articles = card.article_urls ?? [];
   const hasContent = (card.content ?? "").trim().length > 0;
+  const sectionTitle = articleSectionTitle?.trim() || "Mes articles publiés";
+  const buttonLabel = articleButtonLabel?.trim() || "Lire l'article →";
 
   return (
     <main
@@ -155,11 +162,11 @@ export default async function ParcoursPage({ params }: PageProps) {
             }}
             className="mb-6 text-2xl tracking-tight"
           >
-            Mes articles publiés
+            {sectionTitle}
           </h2>
           <div className="space-y-4">
             {articles.map((url) => (
-              <ArticlePreview key={url} url={url} />
+              <ArticlePreview key={url} url={url} buttonLabel={buttonLabel} />
             ))}
           </div>
         </section>

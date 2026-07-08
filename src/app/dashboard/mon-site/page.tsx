@@ -41,6 +41,8 @@ export default async function MonSitePage({ searchParams }: MonSitePageProps) {
     photomatonZoom,
     photomatonPosX,
     photomatonPosY,
+    articleSectionTitle,
+    articleButtonLabel,
   ] = await Promise.all([
     getSetting("banner_url"),
     getSetting("banner_text"),
@@ -59,6 +61,8 @@ export default async function MonSitePage({ searchParams }: MonSitePageProps) {
     getSetting("photomaton_zoom"),
     getSetting("photomaton_pos_x"),
     getSetting("photomaton_pos_y"),
+    getSetting("article_section_title"),
+    getSetting("article_button_label"),
   ]);
   const bannerPos = normalizePosition({
     zoom: bannerZoom,
@@ -312,6 +316,50 @@ export default async function MonSitePage({ searchParams }: MonSitePageProps) {
                 </select>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* Textes des cartes-aperçu d'articles */}
+        <section className="card space-y-4 p-6">
+          <div>
+            <h2 className="font-display text-xl font-semibold">
+              Textes des cartes d&apos;articles
+            </h2>
+            <p className={helpClass}>
+              Ces textes apparaissent sur les pages du parcours dès que tu
+              ajoutes des liens d&apos;articles externes.
+            </p>
+          </div>
+
+          <div className="space-y-1.5">
+            <label className={labelClass}>Titre de la section</label>
+            <input
+              name="article_section_title"
+              defaultValue={articleSectionTitle ?? ""}
+              placeholder="Mes articles publiés"
+              className="input"
+            />
+            <p className={helpClass}>
+              Titre qui apparaît au-dessus des cartes-aperçu. Laisse vide pour
+              utiliser &laquo;&nbsp;Mes articles publiés&nbsp;&raquo;.
+            </p>
+          </div>
+
+          <div className="space-y-1.5">
+            <label className={labelClass}>Texte du bouton</label>
+            <input
+              name="article_button_label"
+              defaultValue={articleButtonLabel ?? ""}
+              placeholder="Lire l'article →"
+              className="input"
+            />
+            <p className={helpClass}>
+              Texte cliquable sur chaque carte. Ex : &laquo;&nbsp;Lien vers
+              l&apos;article&nbsp;&raquo;, &laquo;&nbsp;Voir la
+              publication&nbsp;&raquo;, &laquo;&nbsp;D&eacute;couvrir&nbsp;&raquo;.
+              Laisse vide pour utiliser &laquo;&nbsp;Lire l&apos;article
+              →&nbsp;&raquo;.
+            </p>
           </div>
         </section>
 
