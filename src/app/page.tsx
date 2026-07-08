@@ -31,11 +31,8 @@ const NAV = [
   { id: "parcours", label: "Mon parcours" },
 ];
 
-// Toutes les couleurs viennent des variables CSS injectées par le layout,
-// elles-mêmes issues de la palette configurable par Lana (dashboard > Couleurs).
+// Accent décoratif fixe (carte "Carte & synopsis") — pas un fond de section.
 const softGradient = "linear-gradient(135deg, var(--c-halo-warm), var(--c-halo-cool))";
-const visionBg = "linear-gradient(to bottom, var(--c-bg-main), color-mix(in oklab, var(--c-halo-cool) 40%, var(--c-bg-main)))";
-const contactBg = "linear-gradient(to bottom, var(--c-bg-main), color-mix(in oklab, var(--c-halo-warm) 40%, var(--c-bg-main)))";
 
 export default async function Home() {
   const supabase = createAdminClient();
@@ -62,6 +59,10 @@ export default async function Home() {
     projetTitle,
     visionTitle,
     parcoursTitle,
+    bgProjet,
+    bgVision,
+    bgParcours,
+    bgContact,
     { data: cardsData },
   ] = await Promise.all([
     getSetting("banner_url"),
@@ -85,6 +86,10 @@ export default async function Home() {
     getSetting("projet_title"),
     getSetting("vision_title"),
     getSetting("parcours_title"),
+    getSetting("bg_projet"),
+    getSetting("bg_vision"),
+    getSetting("bg_parcours"),
+    getSetting("bg_contact"),
     supabase
       .from("parcours_cards")
       .select(
@@ -109,6 +114,12 @@ export default async function Home() {
   const contactEmail = email || DEFAULTS.email;
   const projetLayoutClass = `${widthClass(projetLayout.width)} ${alignClass(projetLayout.align)}`.trim();
   const visionLayoutClass = `${widthClass(visionLayout.width)} ${alignClass(visionLayout.align)}`.trim();
+
+  // Fond de chaque section — indépendant, réglable depuis Mon site > Fond.
+  const projetBg = bgProjet ?? "#FBF9F4";
+  const parcoursBg = bgParcours ?? "#FBF9F4";
+  const visionBg = `linear-gradient(to bottom, var(--c-bg-main), color-mix(in oklab, ${bgVision ?? "#EAE0CD"} 40%, var(--c-bg-main)))`;
+  const contactBg = `linear-gradient(to bottom, var(--c-bg-main), color-mix(in oklab, ${bgContact ?? "#FEF6E4"} 40%, var(--c-bg-main)))`;
 
   return (
     <main
@@ -293,7 +304,12 @@ export default async function Home() {
       </section>
 
       {/* ---------- Mon projet professionnel ---------- */}
-      <Section id="projet" title="Mon projet professionnel" titleOverride={projetTitle}>
+      <Section
+        id="projet"
+        title="Mon projet professionnel"
+        titleOverride={projetTitle}
+        backgroundStyle={{ background: projetBg }}
+      >
         <div className="grid gap-10 md:grid-cols-[1.2fr_1fr] md:items-start md:gap-12">
           <RichContent
             html={projet}
@@ -355,7 +371,12 @@ export default async function Home() {
       </Section>
 
       {/* ---------- Mon parcours (carrousel 7 cartes) ---------- */}
-      <Section id="parcours" title="Mon parcours" titleOverride={parcoursTitle}>
+      <Section
+        id="parcours"
+        title="Mon parcours"
+        titleOverride={parcoursTitle}
+        backgroundStyle={{ background: parcoursBg }}
+      >
         {cards.length === 0 ? (
           <p className="text-center text-sm text-zinc-500">
             Mes étapes arrivent bientôt.

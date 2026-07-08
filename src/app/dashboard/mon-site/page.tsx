@@ -4,6 +4,7 @@ import { getSetting } from "@/lib/settings";
 import { saveSiteSettings } from "../actions";
 import { RichTextArea } from "@/components/RichTextArea";
 import { ImagePositionControl } from "@/components/ImagePositionControl";
+import { ColorField } from "@/components/ColorField";
 import {
   ALIGN_OPTIONS,
   WIDTH_OPTIONS,
@@ -41,11 +42,15 @@ export default async function MonSitePage({ searchParams }: MonSitePageProps) {
     photomatonZoom,
     photomatonPosX,
     photomatonPosY,
-    articleSectionTitle,
-    articleButtonLabel,
     projetTitle,
     visionTitle,
     parcoursTitle,
+    bgMain,
+    bgHero,
+    bgProjet,
+    bgVision,
+    bgParcours,
+    bgContact,
   ] = await Promise.all([
     getSetting("banner_url"),
     getSetting("banner_text"),
@@ -64,11 +69,15 @@ export default async function MonSitePage({ searchParams }: MonSitePageProps) {
     getSetting("photomaton_zoom"),
     getSetting("photomaton_pos_x"),
     getSetting("photomaton_pos_y"),
-    getSetting("article_section_title"),
-    getSetting("article_button_label"),
     getSetting("projet_title"),
     getSetting("vision_title"),
     getSetting("parcours_title"),
+    getSetting("bg_main"),
+    getSetting("bg_hero"),
+    getSetting("bg_projet"),
+    getSetting("bg_vision"),
+    getSetting("bg_parcours"),
+    getSetting("bg_contact"),
   ]);
   const bannerPos = normalizePosition({
     zoom: bannerZoom,
@@ -348,37 +357,49 @@ export default async function MonSitePage({ searchParams }: MonSitePageProps) {
           </div>
         </section>
 
-        {/* Textes des cartes-aperçu d'articles */}
+        {/* Fond : couleur de fond de chaque section, indépendantes les unes des autres */}
         <section className="card space-y-5 p-6">
           <div>
-            <h2 className="font-display text-xl font-semibold">
-              Textes des cartes d&apos;articles
-            </h2>
+            <h2 className="font-display text-xl font-semibold">Fond</h2>
             <p className={helpClass}>
-              Ces textes apparaissent sur les pages du parcours dès que tu
-              ajoutes des liens d&apos;articles externes. Tu peux les styliser
-              comme les autres textes (police, taille, gras, italique,
-              couleur…).
+              La couleur de fond de chaque endroit du site, réglable
+              indépendamment des autres.
             </p>
           </div>
 
-          <RichTextArea
-            name="article_section_title"
-            label="Titre de la section"
-            defaultValue={articleSectionTitle ?? ""}
-            placeholder="Mes articles publiés"
-            minHeight={80}
-            helpText="Titre qui apparaît au-dessus des cartes-aperçu. Laisse vide pour utiliser « Mes articles publiés »."
-          />
-
-          <RichTextArea
-            name="article_button_label"
-            label="Texte du bouton"
-            defaultValue={articleButtonLabel ?? ""}
-            placeholder="Lire l'article →"
-            minHeight={60}
-            helpText="Texte cliquable sur chaque carte. Ex : « Lien vers l'article », « Voir la publication », « Découvrir ». Laisse vide pour utiliser « Lire l'article → »."
-          />
+          <div className="grid gap-5 sm:grid-cols-2">
+            <ColorField
+              name="bg_main"
+              label="Fond général du site"
+              defaultValue={bgMain ?? "#FBF9F4"}
+              helpText="Utilisé partout où aucune couleur spécifique n'est réglée."
+            />
+            <ColorField
+              name="bg_hero"
+              label="Fond de la banderole PORTFOLIO"
+              defaultValue={bgHero ?? "#FAFAF9"}
+            />
+            <ColorField
+              name="bg_projet"
+              label="Fond « Mon projet professionnel »"
+              defaultValue={bgProjet ?? "#FBF9F4"}
+            />
+            <ColorField
+              name="bg_vision"
+              label="Fond « Ma vision du journalisme »"
+              defaultValue={bgVision ?? "#EAE0CD"}
+            />
+            <ColorField
+              name="bg_parcours"
+              label="Fond « Mon parcours »"
+              defaultValue={bgParcours ?? "#FBF9F4"}
+            />
+            <ColorField
+              name="bg_contact"
+              label="Fond « Contact »"
+              defaultValue={bgContact ?? "#FEF6E4"}
+            />
+          </div>
         </section>
 
         {/* Contact */}

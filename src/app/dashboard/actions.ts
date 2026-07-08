@@ -181,8 +181,6 @@ export async function saveSiteSettings(formData: FormData) {
     "photomaton_zoom",
     "photomaton_pos_x",
     "photomaton_pos_y",
-    "article_section_title",
-    "article_button_label",
     "projet_title",
     "vision_title",
     "parcours_title",
@@ -193,7 +191,22 @@ export async function saveSiteSettings(formData: FormData) {
     }
   }
 
-  revalidatePath("/");
+  // Couleurs de fond (une par section) — uniquement si un code hex valide.
+  for (const key of [
+    "bg_main",
+    "bg_hero",
+    "bg_projet",
+    "bg_vision",
+    "bg_parcours",
+    "bg_contact",
+  ]) {
+    const value = formData.get(key);
+    if (typeof value === "string" && /^#[0-9a-fA-F]{6}$/.test(value.trim())) {
+      await setSetting(key, value.trim());
+    }
+  }
+
+  revalidatePath("/", "layout");
   revalidatePath("/dashboard/mon-site");
   redirect("/dashboard/mon-site?saved=1");
 }

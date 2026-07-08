@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { uploadFile } from "@/lib/storage";
 import { normalizeUrl } from "@/lib/slug";
+import { setSetting } from "@/lib/settings";
 
 function str(formData: FormData, key: string): string | null {
   const value = formData.get(key);
@@ -108,6 +109,22 @@ export async function updateParcoursCard(id: string, formData: FormData) {
   const slug = str(formData, "slug");
   if (slug) revalidatePath(`/parcours/${slug}`);
   redirect(`/dashboard/parcours/${id}?saved=1`);
+}
+
+/**
+ * Enregistre les textes des cartes-aperçu d'articles externes (titre de
+ * section + texte du bouton), utilisés uniquement sur les pages dédiées du
+ * parcours dès qu'une carte a des liens d'articles.
+ */
+export async function saveArticleCardTexts(formData: FormData) {
+  for (const key of ["article_section_title", "article_button_label"]) {
+    const value = formData.get(key);
+    if (typeof value === "string") {
+      await setSetting(key, value.trim());
+    }
+  }
+  revalidatePath("/dashboard/parcours");
+  redirect("/dashboard/parcours?saved=1");
 }
 
 /** Supprime une image spécifique de la galerie d'une carte. */
