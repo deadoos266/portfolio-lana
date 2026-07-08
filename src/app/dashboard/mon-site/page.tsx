@@ -245,13 +245,9 @@ export default async function MonSitePage({ searchParams }: MonSitePageProps) {
               Titres des sections
             </h2>
             <p className={helpClass}>
-              Modifie le texte, la police, la taille, le retrait, gras/italique/souligné…
-              de chaque grand titre, comme pour les autres cadres. La{" "}
-              <b>couleur</b> de ces titres reste réglée depuis{" "}
-              <Link href="/dashboard/couleurs" className="underline">
-                Couleurs → Grands titres
-              </Link>{" "}
-              (pas besoin de la retoucher ici).
+              Modifie le texte, la police, la taille, le retrait,
+              gras/italique/souligné… et la <b>couleur</b> (bouton 🎨) de
+              chaque grand titre, indépendamment des autres.
             </p>
           </div>
 

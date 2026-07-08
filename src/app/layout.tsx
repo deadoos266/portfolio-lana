@@ -2,7 +2,26 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Fraunces } from "next/font/google";
 import "./globals.css";
 import { VisitTracker } from "@/components/VisitTracker";
-import { getTheme, themeToCssVariables } from "@/lib/theme";
+
+/**
+ * Couleurs du site. Fixées dans le code (l'ancienne page dashboard
+ * "Couleurs" a été retirée) — pour changer une couleur, modifie les
+ * valeurs ci-dessous directement.
+ */
+const SITE_COLORS_CSS = `:root {
+  --c-text-titles: #6A2020;
+  --c-text-contact-title: #1D1D1F;
+  --c-text-name: #751E15;
+  --c-text-body: #3F3F46;
+  --c-accent-warm: #550C0C;
+  --c-accent-cool: #C9A876;
+  --c-bg-main: #FBF9F4;
+  --c-bg-hero: #FAFAF9;
+  --c-halo-warm: #FEF6E4;
+  --c-halo-cool: #EAE0CD;
+  --c-button-bg: #000000;
+  --c-button-text: #FFFFFF;
+}`;
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,21 +59,18 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const theme = await getTheme();
-  const themeCss = themeToCssVariables(theme);
-
   return (
     <html
       lang="fr"
       className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} h-full antialiased`}
     >
       <head>
-        <style dangerouslySetInnerHTML={{ __html: themeCss }} />
+        <style dangerouslySetInnerHTML={{ __html: SITE_COLORS_CSS }} />
       </head>
       <body className="min-h-full flex flex-col">
         {children}
