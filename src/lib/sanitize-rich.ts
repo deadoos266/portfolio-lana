@@ -18,13 +18,15 @@ const OPTIONS: sanitizeHtml.IOptions = {
     "a",
     "div",
     "blockquote",
+    "font",
   ],
   allowedAttributes: {
     span: ["style"],
     p: ["style"],
     div: ["style"],
     blockquote: ["style"],
-    a: ["href", "target", "rel"],
+    a: ["href", "target", "rel", "style"],
+    font: ["color", "face", "size"],
   },
   allowedStyles: {
     "*": {
@@ -37,6 +39,8 @@ const OPTIONS: sanitizeHtml.IOptions = {
       "text-align": [/^(left|center|right|justify)$/i],
       "margin-left": [/^\d{1,3}(px|em|rem)$/i],
       "padding-left": [/^\d{1,3}(px|em|rem)$/i],
+      color: [/^#[0-9a-f]{3,8}$/i, /^rgb\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*\)$/i, /^rgba\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*[\d.]+\s*\)$/i, /^[a-z]{3,20}$/i],
+      "background-color": [/^#[0-9a-f]{3,8}$/i, /^rgb\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*\)$/i, /^rgba\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*[\d.]+\s*\)$/i, /^[a-z]{3,20}$/i],
     },
   },
   allowedSchemes: ["http", "https", "mailto", "tel"],

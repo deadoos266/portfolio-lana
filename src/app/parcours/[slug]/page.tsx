@@ -153,17 +153,21 @@ export default async function ParcoursPage({ params }: PageProps) {
       {/* Articles externes */}
       {articles.length > 0 && (
         <section className="mx-auto max-w-4xl px-6 pb-20">
-          <h2
-            style={{
-              fontFamily: '"Times New Roman", Times, serif',
-              fontWeight: 700,
-              fontStyle: "italic",
-              color: "var(--c-text-titles)",
-            }}
-            className="mb-6 text-2xl tracking-tight"
-          >
-            {sectionTitle}
-          </h2>
+          {/^<\/?[a-z][^>]*>/i.test(sectionTitle) ? (
+            <RichContent html={sectionTitle} className="mb-6" />
+          ) : (
+            <h2
+              style={{
+                fontFamily: '"Times New Roman", Times, serif',
+                fontWeight: 700,
+                fontStyle: "italic",
+                color: "var(--c-text-titles)",
+              }}
+              className="mb-6 text-2xl tracking-tight"
+            >
+              {sectionTitle}
+            </h2>
+          )}
           <div className="space-y-4">
             {articles.map((url) => (
               <ArticlePreview key={url} url={url} buttonLabel={buttonLabel} />

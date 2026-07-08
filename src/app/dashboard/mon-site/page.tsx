@@ -320,47 +320,36 @@ export default async function MonSitePage({ searchParams }: MonSitePageProps) {
         </section>
 
         {/* Textes des cartes-aperçu d'articles */}
-        <section className="card space-y-4 p-6">
+        <section className="card space-y-5 p-6">
           <div>
             <h2 className="font-display text-xl font-semibold">
               Textes des cartes d&apos;articles
             </h2>
             <p className={helpClass}>
               Ces textes apparaissent sur les pages du parcours dès que tu
-              ajoutes des liens d&apos;articles externes.
+              ajoutes des liens d&apos;articles externes. Tu peux les styliser
+              comme les autres textes (police, taille, gras, italique,
+              couleur…).
             </p>
           </div>
 
-          <div className="space-y-1.5">
-            <label className={labelClass}>Titre de la section</label>
-            <input
-              name="article_section_title"
-              defaultValue={articleSectionTitle ?? ""}
-              placeholder="Mes articles publiés"
-              className="input"
-            />
-            <p className={helpClass}>
-              Titre qui apparaît au-dessus des cartes-aperçu. Laisse vide pour
-              utiliser &laquo;&nbsp;Mes articles publiés&nbsp;&raquo;.
-            </p>
-          </div>
+          <RichTextArea
+            name="article_section_title"
+            label="Titre de la section"
+            defaultValue={articleSectionTitle ?? ""}
+            placeholder="Mes articles publiés"
+            minHeight={80}
+            helpText="Titre qui apparaît au-dessus des cartes-aperçu. Laisse vide pour utiliser « Mes articles publiés »."
+          />
 
-          <div className="space-y-1.5">
-            <label className={labelClass}>Texte du bouton</label>
-            <input
-              name="article_button_label"
-              defaultValue={articleButtonLabel ?? ""}
-              placeholder="Lire l'article →"
-              className="input"
-            />
-            <p className={helpClass}>
-              Texte cliquable sur chaque carte. Ex : &laquo;&nbsp;Lien vers
-              l&apos;article&nbsp;&raquo;, &laquo;&nbsp;Voir la
-              publication&nbsp;&raquo;, &laquo;&nbsp;D&eacute;couvrir&nbsp;&raquo;.
-              Laisse vide pour utiliser &laquo;&nbsp;Lire l&apos;article
-              →&nbsp;&raquo;.
-            </p>
-          </div>
+          <RichTextArea
+            name="article_button_label"
+            label="Texte du bouton"
+            defaultValue={articleButtonLabel ?? ""}
+            placeholder="Lire l'article →"
+            minHeight={60}
+            helpText="Texte cliquable sur chaque carte. Ex : « Lien vers l'article », « Voir la publication », « Découvrir ». Laisse vide pour utiliser « Lire l'article → »."
+          />
         </section>
 
         {/* Contact */}

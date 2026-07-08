@@ -117,6 +117,7 @@ export function RichTextArea({
   helpText,
 }: RichTextAreaProps) {
   const editorRef = useRef<HTMLDivElement>(null);
+  const colorInputRef = useRef<HTMLInputElement>(null);
   const [html, setHtml] = useState<string>(() => textToHtml(defaultValue ?? ""));
   const [currentFont, setCurrentFont] = useState<string>("");
 
@@ -139,6 +140,17 @@ export function RichTextArea({
     // execCommand est deprecated mais reste largement supporté et évite une
     // grosse dépendance d'éditeur riche.
     document.execCommand(command, false, value);
+    syncFromEditor();
+  }
+
+  /**
+   * Applique une couleur au texte sélectionné. Utilise le nuancier natif du
+   * système (input type="color") déclenché au clic sur le bouton 🎨.
+   */
+  function applyColor(color: string) {
+    editorRef.current?.focus();
+    document.execCommand("styleWithCSS", false, "true");
+    document.execCommand("foreColor", false, color);
     syncFromEditor();
   }
 
@@ -343,6 +355,22 @@ export function RichTextArea({
             />
           </svg>
         </ToolButton>
+
+        <ToolButton
+          onClick={() => colorInputRef.current?.click()}
+          label="Couleur du texte"
+        >
+          <span className="text-base leading-none">🎨</span>
+        </ToolButton>
+        {/* Input color caché : ouvre le nuancier natif au clic du bouton */}
+        <input
+          ref={colorInputRef}
+          type="color"
+          onChange={(e) => applyColor(e.target.value)}
+          className="absolute -left-[9999px] h-0 w-0 opacity-0"
+          aria-hidden
+          tabIndex={-1}
+        />
 
         <div className="mx-1 h-6 w-px bg-zinc-200" />
 

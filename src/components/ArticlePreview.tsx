@@ -1,9 +1,15 @@
 import Image from "next/image";
 import { fetchOgTags } from "@/lib/og-fetch";
+import { RichContent } from "@/components/RichContent";
 
 interface ArticlePreviewProps {
   url: string;
   buttonLabel?: string;
+}
+
+/** Détermine si l'étiquette du bouton contient du HTML riche. */
+function isRich(text: string): boolean {
+  return /<\/?[a-z][^>]*>/i.test(text);
 }
 
 /**
@@ -32,9 +38,16 @@ export async function ArticlePreview({
         <p className="mt-2 break-all text-sm font-medium text-zinc-900">
           {url}
         </p>
-        <p className="mt-3 text-sm font-medium text-zinc-600">
-          {buttonLabel}
-        </p>
+        {isRich(buttonLabel) ? (
+          <RichContent
+            html={buttonLabel}
+            className="mt-3 text-sm font-medium text-zinc-600"
+          />
+        ) : (
+          <p className="mt-3 text-sm font-medium text-zinc-600">
+            {buttonLabel}
+          </p>
+        )}
       </a>
     );
   }
@@ -75,9 +88,16 @@ export async function ArticlePreview({
             </p>
           )}
         </div>
-        <p className="mt-4 text-sm font-medium text-zinc-700 group-hover:underline">
-          {buttonLabel}
-        </p>
+        {isRich(buttonLabel) ? (
+          <RichContent
+            html={buttonLabel}
+            className="mt-4 text-sm font-medium text-zinc-700 group-hover:underline"
+          />
+        ) : (
+          <p className="mt-4 text-sm font-medium text-zinc-700 group-hover:underline">
+            {buttonLabel}
+          </p>
+        )}
       </div>
     </a>
   );
