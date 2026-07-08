@@ -5,11 +5,13 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { updateParcoursCard } from "../actions";
 import { GalleryEditor } from "./GalleryEditor";
 import { RichTextArea } from "@/components/RichTextArea";
+import { ImagePositionControl } from "@/components/ImagePositionControl";
 import {
   IMAGE_ASPECT_OPTIONS,
   normalizeAspect,
   type ImageAspect,
 } from "@/lib/image-aspect";
+import { normalizePosition } from "@/lib/image-position";
 
 interface CardRow {
   id: string;
@@ -22,6 +24,9 @@ interface CardRow {
   slug: string | null;
   display_order: number;
   image_aspect: ImageAspect | null;
+  image_zoom: number | null;
+  image_pos_x: number | null;
+  image_pos_y: number | null;
 }
 
 interface PageProps {
@@ -43,7 +48,7 @@ export default async function EditParcoursPage({
   const { data } = await supabase
     .from("parcours_cards")
     .select(
-      "id, title, description, content, image_url, link_url, gallery_urls, slug, display_order, image_aspect",
+      "id, title, description, content, image_url, link_url, gallery_urls, slug, display_order, image_aspect, image_zoom, image_pos_x, image_pos_y",
     )
     .eq("id", id)
     .maybeSingle();
@@ -52,6 +57,11 @@ export default async function EditParcoursPage({
   const card = data as CardRow;
   const gallery = card.gallery_urls ?? [];
   const currentAspect = normalizeAspect(card.image_aspect);
+  const currentPosition = normalizePosition({
+    zoom: card.image_zoom,
+    posX: card.image_pos_x,
+    posY: card.image_pos_y,
+  });
 
   return (
     <div className="space-y-6">
@@ -193,6 +203,13 @@ export default async function EditParcoursPage({
               fichier de l&apos;image reste le même.
             </p>
           </div>
+
+          {card.image_url && (
+            <ImagePositionControl
+              namePrefix="image"
+              initialValue={currentPosition}
+            />
+          )}
         </section>
 
         {/* Contenu texte */}

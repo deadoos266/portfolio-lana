@@ -21,6 +21,20 @@ interface UpdatePayload {
   image_url?: string;
   gallery_urls?: string[];
   image_aspect?: "square" | "landscape" | "portrait";
+  image_zoom?: number;
+  image_pos_x?: number;
+  image_pos_y?: number;
+}
+
+function clampInt(
+  value: string | null,
+  fallback: number,
+  min: number,
+  max: number,
+): number {
+  const n = value ? Number(value) : NaN;
+  if (Number.isNaN(n)) return fallback;
+  return Math.max(min, Math.min(max, Math.round(n)));
 }
 
 /** Met à jour une carte du parcours : infos + image de couverture + contenu + galerie. */
@@ -44,6 +58,11 @@ export async function updateParcoursCard(id: string, formData: FormData) {
   if (aspect === "square" || aspect === "landscape" || aspect === "portrait") {
     updates.image_aspect = aspect;
   }
+
+  // Cadrage (zoom + position)
+  updates.image_zoom = clampInt(str(formData, "image_zoom"), 100, 100, 250);
+  updates.image_pos_x = clampInt(str(formData, "image_pos_x"), 50, 0, 100);
+  updates.image_pos_y = clampInt(str(formData, "image_pos_y"), 50, 0, 100);
 
   // Image de couverture (remplace l'existante si nouvelle)
   const cover = formData.get("image");

@@ -3,12 +3,14 @@ import Link from "next/link";
 import { getSetting } from "@/lib/settings";
 import { saveSiteSettings } from "../actions";
 import { RichTextArea } from "@/components/RichTextArea";
+import { ImagePositionControl } from "@/components/ImagePositionControl";
 import {
   ALIGN_OPTIONS,
   WIDTH_OPTIONS,
   getProjetLayout,
   getVisionLayout,
 } from "@/lib/layout-settings";
+import { normalizePosition } from "@/lib/image-position";
 
 const labelClass = "text-sm font-medium text-zinc-700";
 const helpClass = "text-xs text-zinc-400";
@@ -33,6 +35,12 @@ export default async function MonSitePage({ searchParams }: MonSitePageProps) {
     phone,
     projetLayout,
     visionLayout,
+    bannerZoom,
+    bannerPosX,
+    bannerPosY,
+    photomatonZoom,
+    photomatonPosX,
+    photomatonPosY,
   ] = await Promise.all([
     getSetting("banner_url"),
     getSetting("banner_text"),
@@ -45,7 +53,23 @@ export default async function MonSitePage({ searchParams }: MonSitePageProps) {
     getSetting("contact_phone"),
     getProjetLayout(),
     getVisionLayout(),
+    getSetting("banner_zoom"),
+    getSetting("banner_pos_x"),
+    getSetting("banner_pos_y"),
+    getSetting("photomaton_zoom"),
+    getSetting("photomaton_pos_x"),
+    getSetting("photomaton_pos_y"),
   ]);
+  const bannerPos = normalizePosition({
+    zoom: bannerZoom,
+    posX: bannerPosX,
+    posY: bannerPosY,
+  });
+  const photomatonPos = normalizePosition({
+    zoom: photomatonZoom,
+    posX: photomatonPosX,
+    posY: photomatonPosY,
+  });
 
   return (
     <div className="space-y-8">
@@ -106,6 +130,12 @@ export default async function MonSitePage({ searchParams }: MonSitePageProps) {
               Laisse vide pour conserver l&apos;image actuelle. Retire-la depuis
               Supabase si tu veux repartir de zéro.
             </p>
+            {banner && (
+              <ImagePositionControl
+                namePrefix="banner"
+                initialValue={bannerPos}
+              />
+            )}
           </div>
 
           {/* Texte de la banderole (RichTextArea) */}
@@ -148,6 +178,12 @@ export default async function MonSitePage({ searchParams }: MonSitePageProps) {
             accept="image/*"
             className="input"
           />
+          {photomaton && (
+            <ImagePositionControl
+              namePrefix="photomaton"
+              initialValue={photomatonPos}
+            />
+          )}
         </section>
 
         {/* Textes */}

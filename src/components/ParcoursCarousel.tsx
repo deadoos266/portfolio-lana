@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState, useEffect } from "react";
 import { aspectClass, type ImageAspect } from "@/lib/image-aspect";
+import { normalizePosition, positionStyle } from "@/lib/image-position";
 
 export interface ParcoursCard {
   id: string;
@@ -13,6 +14,9 @@ export interface ParcoursCard {
   link_url: string | null;
   slug: string | null;
   image_aspect: ImageAspect | null;
+  image_zoom: number | null;
+  image_pos_x: number | null;
+  image_pos_y: number | null;
 }
 
 interface ParcoursCarouselProps {
@@ -120,7 +124,14 @@ function ParcoursCardView({ card }: { card: ParcoursCard }) {
             alt={card.title}
             fill
             sizes="(max-width: 640px) 80vw, 25vw"
-            className="object-cover transition duration-500 group-hover:scale-105"
+            className="transition duration-500 group-hover:scale-105"
+            style={positionStyle(
+              normalizePosition({
+                zoom: card.image_zoom,
+                posX: card.image_pos_x,
+                posY: card.image_pos_y,
+              }),
+            )}
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center text-zinc-300">

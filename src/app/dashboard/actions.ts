@@ -162,7 +162,7 @@ export async function saveSiteSettings(formData: FormData) {
     if (url) await setSetting("photomaton_url", url);
   }
 
-  // Textes + réglages de mise en page (largeur / alignement des blocs)
+  // Textes + réglages de mise en page + réglages de cadrage des images
   for (const key of [
     "banner_text",
     "hero_subtitle",
@@ -175,6 +175,12 @@ export async function saveSiteSettings(formData: FormData) {
     "projet_align",
     "vision_width",
     "vision_align",
+    "banner_zoom",
+    "banner_pos_x",
+    "banner_pos_y",
+    "photomaton_zoom",
+    "photomaton_pos_x",
+    "photomaton_pos_y",
   ]) {
     const value = formData.get(key);
     if (typeof value === "string") {

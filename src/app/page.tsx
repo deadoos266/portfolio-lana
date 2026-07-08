@@ -9,6 +9,7 @@ import {
   getVisionLayout,
   widthClass,
 } from "@/lib/layout-settings";
+import { normalizePosition, positionStyle } from "@/lib/image-position";
 
 export const dynamic = "force-dynamic";
 
@@ -52,6 +53,12 @@ export default async function Home() {
     cvUrl,
     projetLayout,
     visionLayout,
+    bannerZoom,
+    bannerPosX,
+    bannerPosY,
+    photomatonZoom,
+    photomatonPosX,
+    photomatonPosY,
     { data: cardsData },
   ] = await Promise.all([
     getSetting("banner_url"),
@@ -66,13 +73,31 @@ export default async function Home() {
     getSetting("cv_url"),
     getProjetLayout(),
     getVisionLayout(),
+    getSetting("banner_zoom"),
+    getSetting("banner_pos_x"),
+    getSetting("banner_pos_y"),
+    getSetting("photomaton_zoom"),
+    getSetting("photomaton_pos_x"),
+    getSetting("photomaton_pos_y"),
     supabase
       .from("parcours_cards")
-      .select("id, title, description, image_url, link_url, slug, image_aspect")
+      .select(
+        "id, title, description, image_url, link_url, slug, image_aspect, image_zoom, image_pos_x, image_pos_y",
+      )
       .order("display_order", { ascending: true }),
   ]);
 
   const hasBannerText = ((bannerText ?? "").trim()).replace(/<[^>]+>/g, "").trim().length > 0;
+  const bannerStyle = positionStyle(
+    normalizePosition({ zoom: bannerZoom, posX: bannerPosX, posY: bannerPosY }),
+  );
+  const photomatonStyle = positionStyle(
+    normalizePosition({
+      zoom: photomatonZoom,
+      posX: photomatonPosX,
+      posY: photomatonPosY,
+    }),
+  );
 
   const cards = (cardsData ?? []) as ParcoursCard[];
   const contactEmail = email || DEFAULTS.email;
@@ -98,7 +123,7 @@ export default async function Home() {
               alt="Portfolio — Lana Hervé"
               fill
               priority
-              className="object-cover object-center"
+              style={bannerStyle}
             />
           )}
 
@@ -200,7 +225,8 @@ export default async function Home() {
                   width={220}
                   height={660}
                   priority
-                  className="h-[360px] w-[120px] object-cover sm:h-[540px] sm:w-[180px]"
+                  className="h-[360px] w-[120px] sm:h-[540px] sm:w-[180px]"
+                  style={photomatonStyle}
                 />
               ) : (
                 <div
