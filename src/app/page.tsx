@@ -3,6 +3,12 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { getSetting } from "@/lib/settings";
 import { RichContent } from "@/components/RichContent";
 import { ParcoursCarousel, type ParcoursCard } from "@/components/ParcoursCarousel";
+import {
+  alignClass,
+  getProjetLayout,
+  getVisionLayout,
+  widthClass,
+} from "@/lib/layout-settings";
 
 export const dynamic = "force-dynamic";
 
@@ -43,6 +49,8 @@ export default async function Home() {
     email,
     phone,
     cvUrl,
+    projetLayout,
+    visionLayout,
     { data: cardsData },
   ] = await Promise.all([
     getSetting("banner_url"),
@@ -54,6 +62,8 @@ export default async function Home() {
     getSetting("contact_email"),
     getSetting("contact_phone"),
     getSetting("cv_url"),
+    getProjetLayout(),
+    getVisionLayout(),
     supabase
       .from("parcours_cards")
       .select("id, title, description, image_url, link_url, slug")
@@ -62,6 +72,8 @@ export default async function Home() {
 
   const cards = (cardsData ?? []) as ParcoursCard[];
   const contactEmail = email || DEFAULTS.email;
+  const projetLayoutClass = `${widthClass(projetLayout.width)} ${alignClass(projetLayout.align)}`.trim();
+  const visionLayoutClass = `${widthClass(visionLayout.width)} ${alignClass(visionLayout.align)}`.trim();
 
   return (
     <main
@@ -235,6 +247,7 @@ export default async function Home() {
           <RichContent
             html={projet}
             fallback={DEFAULTS.projet}
+            className={projetLayoutClass}
             style={{
               fontFamily: '"Times New Roman", Times, serif',
               color: "var(--c-text-body)",
@@ -279,6 +292,7 @@ export default async function Home() {
         <RichContent
           html={vision}
           fallback={DEFAULTS.vision}
+          className={visionLayoutClass}
           style={{
             fontFamily: '"Times New Roman", Times, serif',
             color: "var(--c-text-body)",

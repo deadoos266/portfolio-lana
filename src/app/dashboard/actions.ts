@@ -162,7 +162,7 @@ export async function saveSiteSettings(formData: FormData) {
     if (url) await setSetting("photomaton_url", url);
   }
 
-  // Textes
+  // Textes + réglages de mise en page (largeur / alignement des blocs)
   for (const key of [
     "hero_subtitle",
     "hero_intro",
@@ -170,6 +170,10 @@ export async function saveSiteSettings(formData: FormData) {
     "vision_text",
     "contact_email",
     "contact_phone",
+    "projet_width",
+    "projet_align",
+    "vision_width",
+    "vision_align",
   ]) {
     const value = formData.get(key);
     if (typeof value === "string") {

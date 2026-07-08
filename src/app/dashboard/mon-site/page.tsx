@@ -3,6 +3,12 @@ import Link from "next/link";
 import { getSetting } from "@/lib/settings";
 import { saveSiteSettings } from "../actions";
 import { RichTextArea } from "@/components/RichTextArea";
+import {
+  ALIGN_OPTIONS,
+  WIDTH_OPTIONS,
+  getProjetLayout,
+  getVisionLayout,
+} from "@/lib/layout-settings";
 
 const labelClass = "text-sm font-medium text-zinc-700";
 const helpClass = "text-xs text-zinc-400";
@@ -24,6 +30,8 @@ export default async function MonSitePage({ searchParams }: MonSitePageProps) {
     vision,
     email,
     phone,
+    projetLayout,
+    visionLayout,
   ] = await Promise.all([
     getSetting("banner_url"),
     getSetting("photomaton_url"),
@@ -33,6 +41,8 @@ export default async function MonSitePage({ searchParams }: MonSitePageProps) {
     getSetting("vision_text"),
     getSetting("contact_email"),
     getSetting("contact_phone"),
+    getProjetLayout(),
+    getVisionLayout(),
   ]);
 
   return (
@@ -147,6 +157,93 @@ export default async function MonSitePage({ searchParams }: MonSitePageProps) {
             placeholder="Écris ici ta vision du journalisme…"
             minHeight={220}
           />
+        </section>
+
+        {/* Mise en page des sections */}
+        <section className="card space-y-5 p-6">
+          <div>
+            <h2 className="font-display text-xl font-semibold">
+              Mise en page des sections
+            </h2>
+            <p className={helpClass}>
+              Contrôle la <b>largeur</b> et l&apos;<b>alignement</b> du bloc de
+              texte de chaque section, sans toucher au contenu.
+            </p>
+          </div>
+
+          {/* Mon projet professionnel */}
+          <div className="rounded-xl border border-zinc-100 bg-white p-4">
+            <p className="mb-3 text-sm font-semibold text-zinc-800">
+              Section « Mon projet professionnel »
+            </p>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <div className="space-y-1.5">
+                <label className={labelClass}>Largeur du bloc</label>
+                <select
+                  name="projet_width"
+                  defaultValue={projetLayout.width}
+                  className="input"
+                >
+                  {WIDTH_OPTIONS.map((o) => (
+                    <option key={o.value} value={o.value}>
+                      {o.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="space-y-1.5">
+                <label className={labelClass}>Alignement du bloc</label>
+                <select
+                  name="projet_align"
+                  defaultValue={projetLayout.align}
+                  className="input"
+                >
+                  {ALIGN_OPTIONS.map((o) => (
+                    <option key={o.value} value={o.value}>
+                      {o.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          </div>
+
+          {/* Ma vision du journalisme */}
+          <div className="rounded-xl border border-zinc-100 bg-white p-4">
+            <p className="mb-3 text-sm font-semibold text-zinc-800">
+              Section « Ma vision du journalisme »
+            </p>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <div className="space-y-1.5">
+                <label className={labelClass}>Largeur du bloc</label>
+                <select
+                  name="vision_width"
+                  defaultValue={visionLayout.width}
+                  className="input"
+                >
+                  {WIDTH_OPTIONS.map((o) => (
+                    <option key={o.value} value={o.value}>
+                      {o.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="space-y-1.5">
+                <label className={labelClass}>Alignement du bloc</label>
+                <select
+                  name="vision_align"
+                  defaultValue={visionLayout.align}
+                  className="input"
+                >
+                  {ALIGN_OPTIONS.map((o) => (
+                    <option key={o.value} value={o.value}>
+                      {o.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          </div>
         </section>
 
         {/* Contact */}
