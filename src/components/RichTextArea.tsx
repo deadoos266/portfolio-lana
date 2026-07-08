@@ -117,10 +117,27 @@ export function RichTextArea({
   helpText,
 }: RichTextAreaProps) {
   const editorRef = useRef<HTMLDivElement>(null);
-  const colorInputRef = useRef<HTMLInputElement>(null);
   const savedRangeRef = useRef<Range | null>(null);
+  const colorPopoverRef = useRef<HTMLDivElement>(null);
   const [html, setHtml] = useState<string>(() => textToHtml(defaultValue ?? ""));
   const [currentFont, setCurrentFont] = useState<string>("");
+  const [showColorPopover, setShowColorPopover] = useState(false);
+  const [hexInput, setHexInput] = useState("");
+
+  // Ferme le popover couleur au clic en dehors.
+  useEffect(() => {
+    if (!showColorPopover) return;
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        colorPopoverRef.current &&
+        !colorPopoverRef.current.contains(event.target as Node)
+      ) {
+        setShowColorPopover(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [showColorPopover]);
 
   // Initialise le HTML dans le contenteditable au premier rendu.
   useEffect(() => {
@@ -145,26 +162,27 @@ export function RichTextArea({
   }
 
   /**
-   * Ouvrir le nuancier fait perdre la sélection de texte (le focus passe au
-   * champ input[type=color]) : on la mémorise avant d'ouvrir pour pouvoir la
-   * restaurer au moment d'appliquer la couleur choisie.
+   * Ouvrir le popover fait perdre la sélection de texte (le focus part vers
+   * le popover) : on la mémorise avant d'ouvrir pour pouvoir la restaurer au
+   * moment d'appliquer la couleur choisie.
    */
-  function openColorPicker() {
+  function openColorPopover() {
     const selection = window.getSelection();
-    savedRangeRef.current =
+    const range =
       selection && selection.rangeCount > 0 && !selection.getRangeAt(0).collapsed
         ? selection.getRangeAt(0).cloneRange()
         : null;
-    if (!savedRangeRef.current) {
+    if (!range) {
       window.alert("Sélectionne d'abord le texte que tu veux colorer.");
       return;
     }
-    colorInputRef.current?.click();
+    savedRangeRef.current = range;
+    setShowColorPopover(true);
   }
 
   /**
-   * Applique une couleur au texte sélectionné. Utilise le nuancier natif du
-   * système (input type="color") déclenché au clic sur le bouton 🎨.
+   * Applique une couleur au texte sélectionné, via le nuancier libre ou un
+   * code couleur (#RRGGBB) tapé à la main.
    */
   function applyColor(color: string) {
     editorRef.current?.focus();
@@ -175,6 +193,13 @@ export function RichTextArea({
     }
     document.execCommand("styleWithCSS", false, "true");
     document.execCommand("foreColor", false, color);
+    // Le DOM a changé (le texte est maintenant dans un <span>) : on remémorise
+    // la sélection actuelle pour pouvoir appliquer une autre couleur sans
+    // re-sélectionner le texte.
+    const after = window.getSelection();
+    if (after && after.rangeCount > 0 && !after.getRangeAt(0).collapsed) {
+      savedRangeRef.current = after.getRangeAt(0).cloneRange();
+    }
     syncFromEditor();
   }
 
@@ -356,26 +381,70 @@ export function RichTextArea({
         </select>
 
         {/* Couleur — regroupée avec Police / Taille / Interligne */}
-        <button
-          type="button"
-          onMouseDown={(e) => e.preventDefault()}
-          onClick={openColorPicker}
-          title="Couleur du texte"
-          aria-label="Couleur du texte"
-          className="flex items-center gap-1.5 rounded-md border border-zinc-200 bg-white px-2 py-1 text-sm text-zinc-700 hover:bg-zinc-50"
-        >
-          <span aria-hidden>🎨</span>
-          <span>Couleur…</span>
-        </button>
-        {/* Input color caché : ouvre le nuancier natif au clic du bouton */}
-        <input
-          ref={colorInputRef}
-          type="color"
-          onChange={(e) => applyColor(e.target.value)}
-          className="absolute -left-[9999px] h-0 w-0 opacity-0"
-          aria-hidden
-          tabIndex={-1}
-        />
+        <div className="relative">
+          <button
+            type="button"
+            onMouseDown={(e) => e.preventDefault()}
+            onClick={openColorPopover}
+            title="Couleur du texte"
+            aria-label="Couleur du texte"
+            className="flex items-center gap-1.5 rounded-md border border-zinc-200 bg-white px-2 py-1 text-sm text-zinc-700 hover:bg-zinc-50"
+          >
+            <span aria-hidden>🎨</span>
+            <span>Couleur…</span>
+          </button>
+
+          {showColorPopover && (
+            <div
+              ref={colorPopoverRef}
+              className="absolute left-0 top-full z-20 mt-1 flex items-center gap-2 rounded-lg border border-zinc-200 bg-white p-3 shadow-lg"
+            >
+              <input
+                type="color"
+                defaultValue="#000000"
+                onChange={(e) => applyColor(e.target.value)}
+                title="Nuancier libre"
+                aria-label="Choisir une couleur avec le nuancier"
+                className="h-9 w-9 cursor-pointer rounded border border-zinc-200 p-0"
+              />
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  const value = hexInput.trim();
+                  if (/^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(value)) {
+                    applyColor(value);
+                  } else {
+                    window.alert("Code couleur invalide. Exemple : #FBF9F4");
+                  }
+                }}
+                className="flex items-center gap-1"
+              >
+                <input
+                  type="text"
+                  value={hexInput}
+                  onChange={(e) => setHexInput(e.target.value)}
+                  placeholder="#FBF9F4"
+                  aria-label="Code couleur (hexadécimal)"
+                  className="w-24 rounded-md border border-zinc-200 px-2 py-1.5 text-sm"
+                />
+                <button
+                  type="submit"
+                  className="rounded-md bg-zinc-900 px-2 py-1.5 text-xs font-medium text-white hover:bg-zinc-700"
+                >
+                  Appliquer
+                </button>
+              </form>
+              <button
+                type="button"
+                onClick={() => setShowColorPopover(false)}
+                aria-label="Fermer le sélecteur de couleur"
+                className="ml-1 text-zinc-400 hover:text-zinc-700"
+              >
+                ✕
+              </button>
+            </div>
+          )}
+        </div>
 
         <div className="mx-1 h-6 w-px bg-zinc-200" />
 
