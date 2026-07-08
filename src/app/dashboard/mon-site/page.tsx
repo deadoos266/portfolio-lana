@@ -221,6 +221,13 @@ export default async function MonSitePage({ searchParams }: MonSitePageProps) {
           />
 
           <RichTextArea
+            name="projet_title"
+            label="Titre « Mon projet professionnel »"
+            defaultValue={projetTitle ?? ""}
+            placeholder="Mon projet professionnel"
+            minHeight={60}
+          />
+          <RichTextArea
             name="projet_text"
             label="Section « Mon projet professionnel »"
             defaultValue={projet ?? ""}
@@ -230,41 +237,18 @@ export default async function MonSitePage({ searchParams }: MonSitePageProps) {
           />
 
           <RichTextArea
-            name="vision_text"
-            label="Section « Ma vision du journalisme »"
-            defaultValue={vision ?? ""}
-            placeholder="Écris ici ta vision du journalisme…"
-            minHeight={220}
-          />
-        </section>
-
-        {/* Titres des sections */}
-        <section className="card space-y-5 p-6">
-          <div>
-            <h2 className="font-display text-xl font-semibold">
-              Titres des sections
-            </h2>
-            <p className={helpClass}>
-              Modifie le texte, la police, la taille, le retrait,
-              gras/italique/souligné… et la <b>couleur</b> (bouton 🎨) de
-              chaque grand titre, indépendamment des autres.
-            </p>
-          </div>
-
-          <RichTextArea
-            name="projet_title"
-            label="Titre « Mon projet professionnel »"
-            defaultValue={projetTitle ?? ""}
-            placeholder="Mon projet professionnel"
-            minHeight={60}
-          />
-
-          <RichTextArea
             name="vision_title"
             label="Titre « Ma vision du journalisme »"
             defaultValue={visionTitle ?? ""}
             placeholder="Ma vision du journalisme"
             minHeight={60}
+          />
+          <RichTextArea
+            name="vision_text"
+            label="Section « Ma vision du journalisme »"
+            defaultValue={vision ?? ""}
+            placeholder="Écris ici ta vision du journalisme…"
+            minHeight={220}
           />
 
           <RichTextArea
@@ -273,6 +257,7 @@ export default async function MonSitePage({ searchParams }: MonSitePageProps) {
             defaultValue={parcoursTitle ?? ""}
             placeholder="Mon parcours"
             minHeight={60}
+            helpText="Titre au-dessus du carrousel de cartes. Les cartes elles-mêmes se modifient dans Mon parcours."
           />
         </section>
 
