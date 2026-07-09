@@ -172,17 +172,15 @@ export default async function ParcoursPage({ params }: PageProps) {
                 </p>
               )}
               {s.video_url && (
-                <div className="mt-8 flex justify-center overflow-hidden rounded-2xl border border-zinc-100 shadow-md">
-                  {/* max-h borne la hauteur : une vidéo portrait (ex: format
-                      Reels) ne doit pas devenir démesurément haute quand
-                      elle est affichée à la largeur du bloc de texte. */}
-                  <video
-                    src={s.video_url}
-                    controls
-                    preload="metadata"
-                    className="max-h-[70vh] w-auto max-w-full"
-                  />
-                </div>
+                // Vignette volontairement petite (largeur plafonnée) : reste
+                // une taille "aperçu" agréable, quelle que soit l'orientation
+                // de la vidéo (portrait ou paysage), et rétrécit sur mobile.
+                <video
+                  src={s.video_url}
+                  controls
+                  preload="metadata"
+                  className="mx-auto mt-8 block w-full max-w-[280px] rounded-2xl border border-zinc-100 shadow-md"
+                />
               )}
               {(s.gallery_urls ?? []).length > 0 && (
                 <div className="mt-8">
