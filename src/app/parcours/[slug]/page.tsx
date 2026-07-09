@@ -5,6 +5,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { getSetting } from "@/lib/settings";
 import { RichContent } from "@/components/RichContent";
 import { ArticlePreview } from "@/components/ArticlePreview";
+import { FileCarousel } from "@/components/FileCarousel";
 
 export const dynamic = "force-dynamic";
 
@@ -25,6 +26,7 @@ interface CardRow {
   slug: string | null;
   article_urls: string[] | null;
   sections: SectionItem[] | null;
+  gallery_layout: string | null;
 }
 
 interface PageProps {
@@ -38,7 +40,7 @@ export default async function ParcoursPage({ params }: PageProps) {
   const [{ data }, articleSectionTitle, articleButtonLabel] = await Promise.all([
     supabase
       .from("parcours_cards")
-      .select("id, title, description, content, gallery_urls, slug, article_urls, sections")
+      .select("id, title, description, content, gallery_urls, slug, article_urls, sections, gallery_layout")
       .eq("slug", slug)
       .maybeSingle(),
     getSetting("article_section_title"),
@@ -195,10 +197,12 @@ export default async function ParcoursPage({ params }: PageProps) {
         </>
       )}
 
-      {/* Galerie d'images supplémentaires */}
+      {/* Galerie / fichiers supplémentaires */}
       {gallery.length > 0 && (
         <section className="mx-auto max-w-6xl px-6 pb-20">
-          {gallery.length === 1 ? (
+          {card.gallery_layout === "carousel" ? (
+            <FileCarousel files={gallery} altPrefix={card.title} />
+          ) : gallery.length === 1 ? (
             // Une seule image : affichage GRAND, pleine largeur, sans rognage
             <div className="overflow-hidden rounded-2xl border border-zinc-100 shadow-md">
               <Image

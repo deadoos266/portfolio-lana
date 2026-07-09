@@ -34,6 +34,7 @@ interface UpdatePayload {
   image_pos_y?: number;
   article_urls?: string[];
   sections?: SectionItem[];
+  gallery_layout?: string;
 }
 
 /**
@@ -171,6 +172,11 @@ export async function updateParcoursCard(id: string, formData: FormData) {
       if (url) uploaded.push(url);
     }
     updates.gallery_urls = [...previous, ...uploaded];
+  }
+
+  const galleryLayout = str(formData, "gallery_layout");
+  if (galleryLayout === "grid" || galleryLayout === "carousel") {
+    updates.gallery_layout = galleryLayout;
   }
 
   await supabase.from("parcours_cards").update(updates).eq("id", id);

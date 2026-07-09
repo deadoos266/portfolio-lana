@@ -30,6 +30,7 @@ interface CardRow {
   image_pos_y: number | null;
   article_urls: string[] | null;
   sections: SectionItem[] | null;
+  gallery_layout: string | null;
 }
 
 interface PageProps {
@@ -52,7 +53,7 @@ export default async function EditParcoursPage({
     supabase
       .from("parcours_cards")
       .select(
-        "id, title, description, content, image_url, gallery_urls, slug, display_order, image_aspect, image_zoom, image_pos_x, image_pos_y, article_urls, sections",
+        "id, title, description, content, image_url, gallery_urls, slug, display_order, image_aspect, image_zoom, image_pos_x, image_pos_y, article_urls, sections, gallery_layout",
       )
       .eq("id", id)
       .maybeSingle(),
@@ -232,19 +233,38 @@ export default async function EditParcoursPage({
         {/* Galerie */}
         <section className="card space-y-3 p-6">
           <h2 className="font-display text-lg font-semibold">
-            Images de la page dédiée
+            Fichiers de la page dédiée
           </h2>
           <p className={helpClass}>
-            Ces images s&apos;affichent sur la page dédiée (sous le texte, en
-            grille). Ajoute-en autant que tu veux, ou aucune si tu ne veux que
-            du texte.
+            Images ou PDF (ex : captures ou scans de tes articles). Ajoute-en
+            autant que tu veux, ou aucun si tu ne veux que du texte.
           </p>
+
+          <div className="space-y-1.5 border-b border-zinc-100 pb-4">
+            <label className={labelClass}>Mode d&apos;affichage</label>
+            <select
+              name="gallery_layout"
+              defaultValue={card.gallery_layout ?? "grid"}
+              className="input"
+            >
+              <option value="grid">Grille (tout affiché en même temps)</option>
+              <option value="carousel">
+                Carrousel (un fichier à la fois, avec flèches)
+              </option>
+            </select>
+            <p className={helpClass}>
+              Le carrousel affiche un fichier à la fois avec des flèches
+              précédent/suivant ; le suivant apparaît en fondu par-dessus le
+              précédent.
+            </p>
+          </div>
+
           <GalleryEditor id={card.id} images={gallery} />
-          <label className={labelClass}>Ajouter des images</label>
+          <label className={labelClass}>Ajouter des fichiers</label>
           <input
             name="gallery"
             type="file"
-            accept="image/*"
+            accept="image/*,application/pdf"
             multiple
             className="input"
           />
