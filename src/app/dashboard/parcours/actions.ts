@@ -18,6 +18,7 @@ interface SectionItem {
   id: string;
   label: string;
   content: string;
+  gallery_urls?: string[];
 }
 
 interface UpdatePayload {
@@ -37,9 +38,15 @@ interface UpdatePayload {
 /**
  * Reconstruit la liste des rubriques nommées depuis le formulaire :
  * `section_ids` porte l'ordre (JSON), chaque rubrique a ses propres champs
- * `section_label__<id>` / `section_content__<id>` (voir SectionsEditor).
+ * `section_label__<id>` / `section_content__<id>` / `section_gallery__<id>`
+ * (voir SectionsEditor). Les nouvelles images sont uploadées et fusionnées
+ * avec la galerie existante de chaque rubrique (on n'écrase pas).
  */
-function parseSections(formData: FormData): SectionItem[] {
+async function parseSections(
+  supabase: ReturnType<typeof createAdminClient>,
+  cardId: string,
+  formData: FormData,
+): Promise<SectionItem[]> {
   const rawIds = str(formData, "section_ids");
   if (!rawIds) return [];
 
@@ -51,13 +58,39 @@ function parseSections(formData: FormData): SectionItem[] {
   }
   if (!Array.isArray(ids)) return [];
 
+  const { data: existing } = await supabase
+    .from("parcours_cards")
+    .select("sections")
+    .eq("id", cardId)
+    .maybeSingle();
+  const existingById = new Map(
+    ((existing?.sections as SectionItem[] | null) ?? []).map((s) => [s.id, s]),
+  );
+
   const sections: SectionItem[] = [];
   for (const id of ids) {
     if (typeof id !== "string") continue;
     const label = str(formData, `section_label__${id}`);
     if (!label) continue;
-    const content = (formData.get(`section_content__${id}`) as string | null)?.trim() ?? "";
-    sections.push({ id, label, content });
+    const content =
+      (formData.get(`section_content__${id}`) as string | null)?.trim() ?? "";
+
+    const previousGallery = existingById.get(id)?.gallery_urls ?? [];
+    const newFiles = formData
+      .getAll(`section_gallery__${id}`)
+      .filter((v): v is File => v instanceof File && v.size > 0);
+    const uploaded: string[] = [];
+    for (const file of newFiles) {
+      const url = await uploadFile(file, "parcours");
+      if (url) uploaded.push(url);
+    }
+
+    sections.push({
+      id,
+      label,
+      content,
+      gallery_urls: [...previousGallery, ...uploaded],
+    });
   }
   return sections;
 }
@@ -107,7 +140,7 @@ export async function updateParcoursCard(id: string, formData: FormData) {
   updates.article_urls = articleUrls;
 
   // Rubriques nommées (optionnel)
-  updates.sections = parseSections(formData);
+  updates.sections = await parseSections(supabase, id, formData);
 
   // Image de couverture (remplace l'existante si nouvelle)
   const cover = formData.get("image");
@@ -172,6 +205,30 @@ export async function removeGalleryImage(
     .from("parcours_cards")
     .update({ gallery_urls: next })
     .eq("id", id);
+  revalidatePath("/");
+  revalidatePath("/dashboard/parcours");
+  if (data?.slug) revalidatePath(`/parcours/${data.slug}`);
+}
+
+/** Supprime une image spécifique de la galerie d'une rubrique nommée. */
+export async function removeSectionGalleryImage(
+  cardId: string,
+  sectionId: string,
+  imageUrl: string,
+): Promise<void> {
+  const supabase = createAdminClient();
+  const { data } = await supabase
+    .from("parcours_cards")
+    .select("sections, slug")
+    .eq("id", cardId)
+    .maybeSingle();
+  const sections: SectionItem[] = (data?.sections as SectionItem[] | null) ?? [];
+  const next = sections.map((s) =>
+    s.id === sectionId
+      ? { ...s, gallery_urls: (s.gallery_urls ?? []).filter((u) => u !== imageUrl) }
+      : s,
+  );
+  await supabase.from("parcours_cards").update({ sections: next }).eq("id", cardId);
   revalidatePath("/");
   revalidatePath("/dashboard/parcours");
   if (data?.slug) revalidatePath(`/parcours/${data.slug}`);

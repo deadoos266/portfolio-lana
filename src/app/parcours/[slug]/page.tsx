@@ -12,6 +12,7 @@ interface SectionItem {
   id: string;
   label: string;
   content: string;
+  gallery_urls?: string[];
 }
 
 interface CardRow {
@@ -169,6 +170,14 @@ export default async function ParcoursPage({ params }: PageProps) {
                   Contenu en cours d&apos;écriture…
                 </p>
               )}
+              {(s.gallery_urls ?? []).length > 0 && (
+                <div className="mt-8">
+                  <SectionGallery
+                    images={s.gallery_urls ?? []}
+                    altPrefix={s.label}
+                  />
+                </div>
+              )}
             </section>
           ))}
         </>
@@ -260,5 +269,51 @@ export default async function ParcoursPage({ params }: PageProps) {
         </div>
       </div>
     </main>
+  );
+}
+
+/** Galerie d'images d'une rubrique : 1 image = pleine largeur, sinon grille. */
+function SectionGallery({
+  images,
+  altPrefix,
+}: {
+  images: ReadonlyArray<string>;
+  altPrefix: string;
+}) {
+  if (images.length === 1) {
+    return (
+      <div className="overflow-hidden rounded-2xl border border-zinc-100 shadow-md">
+        <Image
+          src={images[0]}
+          alt={altPrefix}
+          width={2000}
+          height={1300}
+          sizes="(max-width: 896px) 100vw, 896px"
+          className="h-auto w-full"
+        />
+      </div>
+    );
+  }
+  return (
+    <div
+      className={`grid gap-4 ${
+        images.length === 2 ? "sm:grid-cols-2" : "sm:grid-cols-2 md:grid-cols-3"
+      }`}
+    >
+      {images.map((src, i) => (
+        <div
+          key={i}
+          className="overflow-hidden rounded-xl border border-zinc-100 shadow-sm"
+        >
+          <Image
+            src={src}
+            alt={`${altPrefix} — image ${i + 1}`}
+            width={900}
+            height={900}
+            className="h-full w-full object-cover"
+          />
+        </div>
+      ))}
+    </div>
   );
 }

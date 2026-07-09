@@ -222,7 +222,11 @@ export default async function EditParcoursPage({
               (ci-dessus).
             </p>
           </div>
-          <SectionsEditor name="section_ids" initialSections={card.sections ?? []} />
+          <SectionsEditor
+            cardId={card.id}
+            name="section_ids"
+            initialSections={card.sections ?? []}
+          />
         </section>
 
         {/* Galerie */}
