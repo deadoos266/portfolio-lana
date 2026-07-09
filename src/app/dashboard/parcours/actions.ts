@@ -198,6 +198,37 @@ export async function updateParcoursCard(id: string, formData: FormData) {
   redirect(`/dashboard/parcours/${id}?saved=1`);
 }
 
+/**
+ * Déplace un fichier de la galerie d'une position vers la gauche ou la
+ * droite (échange simple avec son voisin). C'est cet ordre qui détermine
+ * l'ordre de défilement du carrousel sur la page publique.
+ */
+export async function moveGalleryImage(
+  id: string,
+  imageUrl: string,
+  direction: "left" | "right",
+): Promise<void> {
+  const supabase = createAdminClient();
+  const { data } = await supabase
+    .from("parcours_cards")
+    .select("gallery_urls, slug")
+    .eq("id", id)
+    .maybeSingle();
+  const gallery: string[] = (data?.gallery_urls as string[]) ?? [];
+  const from = gallery.indexOf(imageUrl);
+  if (from === -1) return;
+  const to = direction === "left" ? from - 1 : from + 1;
+  if (to < 0 || to >= gallery.length) return;
+
+  const next = [...gallery];
+  [next[from], next[to]] = [next[to], next[from]];
+
+  await supabase.from("parcours_cards").update({ gallery_urls: next }).eq("id", id);
+  revalidatePath("/");
+  revalidatePath("/dashboard/parcours");
+  if (data?.slug) revalidatePath(`/parcours/${data.slug}`);
+}
+
 /** Supprime une image spécifique de la galerie d'une carte. */
 export async function removeGalleryImage(
   id: string,
