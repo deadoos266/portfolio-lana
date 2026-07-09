@@ -40,9 +40,10 @@ interface UpdatePayload {
 /**
  * Reconstruit la liste des rubriques nommées depuis le formulaire :
  * `section_ids` porte l'ordre (JSON), chaque rubrique a ses propres champs
- * `section_label__<id>` / `section_content__<id>` / `section_gallery__<id>`
- * (voir SectionsEditor). Les nouvelles images sont uploadées et fusionnées
- * avec la galerie existante de chaque rubrique (on n'écrase pas).
+ * `section_label__<id>` / `section_content__<id>` (voir SectionsEditor).
+ * Images et vidéo sont gérées séparément (upload direct navigateur ->
+ * Storage via URL signée) : on les préserve telles quelles ici pour ne
+ * jamais les écraser en sauvegardant le reste du formulaire.
  */
 async function parseSections(
   supabase: ReturnType<typeof createAdminClient>,
@@ -77,23 +78,11 @@ async function parseSections(
     const content =
       (formData.get(`section_content__${id}`) as string | null)?.trim() ?? "";
 
-    const previousGallery = existingById.get(id)?.gallery_urls ?? [];
-    const newFiles = formData
-      .getAll(`section_gallery__${id}`)
-      .filter((v): v is File => v instanceof File && v.size > 0);
-    const uploaded: string[] = [];
-    for (const file of newFiles) {
-      const url = await uploadFile(file, "parcours");
-      if (url) uploaded.push(url);
-    }
-
     sections.push({
       id,
       label,
       content,
-      gallery_urls: [...previousGallery, ...uploaded],
-      // video_url géré séparément (upload direct navigateur → Storage), on
-      // le préserve tel quel ici pour ne pas l'écraser à chaque sauvegarde.
+      gallery_urls: existingById.get(id)?.gallery_urls ?? [],
       video_url: existingById.get(id)?.video_url ?? null,
     });
   }
@@ -147,32 +136,18 @@ export async function updateParcoursCard(id: string, formData: FormData) {
   // Rubriques nommées (optionnel)
   updates.sections = await parseSections(supabase, id, formData);
 
-  // Image de couverture (remplace l'existante si nouvelle)
+  // Image de couverture (remplace l'existante si nouvelle) — fichier unique,
+  // reste petit, peut transiter par ce formulaire sans souci.
   const cover = formData.get("image");
   if (cover instanceof File && cover.size > 0) {
     const url = await uploadFile(cover, "parcours");
     if (url) updates.image_url = url;
   }
 
-  // Galerie : peut avoir plusieurs nouveaux fichiers (name="gallery")
-  const galleryFiles = formData.getAll("gallery").filter(
-    (v): v is File => v instanceof File && v.size > 0,
-  );
-  if (galleryFiles.length > 0) {
-    // On merge avec la galerie existante (on n'écrase pas)
-    const { data: existing } = await supabase
-      .from("parcours_cards")
-      .select("gallery_urls")
-      .eq("id", id)
-      .maybeSingle();
-    const previous: string[] = (existing?.gallery_urls as string[]) ?? [];
-    const uploaded: string[] = [];
-    for (const file of galleryFiles) {
-      const url = await uploadFile(file, "parcours");
-      if (url) uploaded.push(url);
-    }
-    updates.gallery_urls = [...previous, ...uploaded];
-  }
+  // Note : la galerie (fichiers multiples, parfois volumineux) n'est PLUS
+  // gérée ici — elle passe par GalleryUploader (upload direct navigateur ->
+  // Storage via URL signée), pour ne jamais dépendre de la limite de taille
+  // des Server Actions. Voir createGalleryUploadUrl / addGalleryFiles.
 
   const galleryLayout = str(formData, "gallery_layout");
   if (galleryLayout === "grid" || galleryLayout === "carousel") {
@@ -260,6 +235,68 @@ export async function createSectionVideoUploadUrl(
   fileName: string,
 ): Promise<{ path: string; token: string } | { error: string }> {
   return createSignedUpload(fileName, "parcours");
+}
+
+/**
+ * Prépare l'envoi direct d'un fichier de galerie (carte) depuis le
+ * navigateur vers Supabase Storage — même principe que la vidéo : évite
+ * la limite de taille des Server Actions quand plusieurs fichiers (images
+ * et/ou PDF) sont envoyés en une fois.
+ */
+export async function createGalleryUploadUrl(
+  fileName: string,
+): Promise<{ path: string; token: string } | { error: string }> {
+  return createSignedUpload(fileName, "parcours");
+}
+
+/** Ajoute des fichiers déjà uploadés à la galerie d'une carte (fusionne, n'écrase pas). */
+export async function addGalleryFiles(
+  cardId: string,
+  fileUrls: string[],
+): Promise<void> {
+  const supabase = createAdminClient();
+  const { data } = await supabase
+    .from("parcours_cards")
+    .select("gallery_urls, slug")
+    .eq("id", cardId)
+    .maybeSingle();
+  const previous: string[] = (data?.gallery_urls as string[]) ?? [];
+  const next = [...previous, ...fileUrls];
+  await supabase.from("parcours_cards").update({ gallery_urls: next }).eq("id", cardId);
+  revalidatePath("/");
+  revalidatePath("/dashboard/parcours");
+  if (data?.slug) revalidatePath(`/parcours/${data.slug}`);
+}
+
+/** Prépare l'envoi direct d'un fichier de galerie de rubrique nommée. */
+export async function createSectionGalleryUploadUrl(
+  fileName: string,
+): Promise<{ path: string; token: string } | { error: string }> {
+  return createSignedUpload(fileName, "parcours");
+}
+
+/** Ajoute des fichiers déjà uploadés à la galerie d'une rubrique nommée. */
+export async function addSectionGalleryFiles(
+  cardId: string,
+  sectionId: string,
+  fileUrls: string[],
+): Promise<void> {
+  const supabase = createAdminClient();
+  const { data } = await supabase
+    .from("parcours_cards")
+    .select("sections, slug")
+    .eq("id", cardId)
+    .maybeSingle();
+  const sections: SectionItem[] = (data?.sections as SectionItem[] | null) ?? [];
+  const next = sections.map((s) =>
+    s.id === sectionId
+      ? { ...s, gallery_urls: [...(s.gallery_urls ?? []), ...fileUrls] }
+      : s,
+  );
+  await supabase.from("parcours_cards").update({ sections: next }).eq("id", cardId);
+  revalidatePath("/");
+  revalidatePath("/dashboard/parcours");
+  if (data?.slug) revalidatePath(`/parcours/${data.slug}`);
 }
 
 /** Enregistre (ou retire, si null) l'URL de la vidéo d'une rubrique nommée. */

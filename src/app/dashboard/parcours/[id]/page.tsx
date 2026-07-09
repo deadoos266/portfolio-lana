@@ -5,6 +5,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { getSetting } from "@/lib/settings";
 import { updateParcoursCard } from "../actions";
 import { GalleryEditor } from "./GalleryEditor";
+import { GalleryUploader } from "./GalleryUploader";
 import { SectionsEditor, type SectionItem } from "./SectionsEditor";
 import { RichTextArea } from "@/components/RichTextArea";
 import { ImagePositionControl } from "@/components/ImagePositionControl";
@@ -261,13 +262,7 @@ export default async function EditParcoursPage({
 
           <GalleryEditor id={card.id} images={gallery} />
           <label className={labelClass}>Ajouter des fichiers</label>
-          <input
-            name="gallery"
-            type="file"
-            accept="image/*,application/pdf"
-            multiple
-            className="input"
-          />
+          <GalleryUploader cardId={card.id} />
         </section>
 
         {/* Articles externes */}

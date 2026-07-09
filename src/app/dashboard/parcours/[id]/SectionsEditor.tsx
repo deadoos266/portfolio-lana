@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { RichTextArea } from "@/components/RichTextArea";
 import { SectionGalleryEditor } from "./SectionGalleryEditor";
+import { SectionGalleryUploader } from "./SectionGalleryUploader";
 import { VideoUploader } from "./VideoUploader";
 
 export interface SectionItem {
@@ -91,13 +92,7 @@ export function SectionsEditor({ cardId, name, initialSections }: SectionsEditor
               sectionId={section.id}
               images={section.gallery_urls ?? []}
             />
-            <input
-              name={`section_gallery__${section.id}`}
-              type="file"
-              accept="image/*"
-              multiple
-              className="input"
-            />
+            <SectionGalleryUploader cardId={cardId} sectionId={section.id} />
           </div>
 
           <div className="space-y-2 border-t border-zinc-100 pt-3">
