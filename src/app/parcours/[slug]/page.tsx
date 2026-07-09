@@ -6,6 +6,7 @@ import { getSetting } from "@/lib/settings";
 import { RichContent } from "@/components/RichContent";
 import { ArticlePreview } from "@/components/ArticlePreview";
 import { FileCarousel } from "@/components/FileCarousel";
+import { SectionsNav } from "@/components/SectionsNav";
 
 export const dynamic = "force-dynamic";
 
@@ -122,29 +123,16 @@ export default async function ParcoursPage({ params }: PageProps) {
         </section>
       )}
 
-      {/* Rubriques nommées : petite navigation + sections ancrées */}
+      {/* Rubriques nommées : petite navigation fixe + sections ancrées */}
       {sections.length > 0 && (
         <>
-          <nav className="border-y border-zinc-100">
-            <ul className="mx-auto flex max-w-4xl flex-wrap items-center justify-center gap-x-8 gap-y-2 px-6 py-3 text-sm">
-              {sections.map((s) => (
-                <li key={s.id}>
-                  <a
-                    href={`#${s.id}`}
-                    className="font-medium text-zinc-500 transition hover:text-zinc-900"
-                  >
-                    {s.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
+          <SectionsNav sections={sections.map((s) => ({ id: s.id, label: s.label }))} />
 
           {sections.map((s) => (
             <section
               key={s.id}
               id={s.id}
-              className="mx-auto max-w-4xl scroll-mt-6 px-6 py-16"
+              className="mx-auto max-w-4xl scroll-mt-20 px-6 py-16"
             >
               <h2
                 style={{
