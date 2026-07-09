@@ -14,6 +14,12 @@ function str(formData: FormData, key: string): string | null {
   return trimmed.length > 0 ? trimmed : null;
 }
 
+interface SectionItem {
+  id: string;
+  label: string;
+  content: string;
+}
+
 interface UpdatePayload {
   title: string;
   description: string | null;
@@ -25,6 +31,35 @@ interface UpdatePayload {
   image_pos_x?: number;
   image_pos_y?: number;
   article_urls?: string[];
+  sections?: SectionItem[];
+}
+
+/**
+ * Reconstruit la liste des rubriques nommées depuis le formulaire :
+ * `section_ids` porte l'ordre (JSON), chaque rubrique a ses propres champs
+ * `section_label__<id>` / `section_content__<id>` (voir SectionsEditor).
+ */
+function parseSections(formData: FormData): SectionItem[] {
+  const rawIds = str(formData, "section_ids");
+  if (!rawIds) return [];
+
+  let ids: unknown;
+  try {
+    ids = JSON.parse(rawIds);
+  } catch {
+    return [];
+  }
+  if (!Array.isArray(ids)) return [];
+
+  const sections: SectionItem[] = [];
+  for (const id of ids) {
+    if (typeof id !== "string") continue;
+    const label = str(formData, `section_label__${id}`);
+    if (!label) continue;
+    const content = (formData.get(`section_content__${id}`) as string | null)?.trim() ?? "";
+    sections.push({ id, label, content });
+  }
+  return sections;
 }
 
 function clampInt(
@@ -70,6 +105,9 @@ export async function updateParcoursCard(id: string, formData: FormData) {
     .map((line) => normalizeUrl(line))
     .filter((line): line is string => line !== null);
   updates.article_urls = articleUrls;
+
+  // Rubriques nommées (optionnel)
+  updates.sections = parseSections(formData);
 
   // Image de couverture (remplace l'existante si nouvelle)
   const cover = formData.get("image");

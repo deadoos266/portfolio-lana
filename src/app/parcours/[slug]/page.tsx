@@ -8,6 +8,12 @@ import { ArticlePreview } from "@/components/ArticlePreview";
 
 export const dynamic = "force-dynamic";
 
+interface SectionItem {
+  id: string;
+  label: string;
+  content: string;
+}
+
 interface CardRow {
   id: string;
   title: string;
@@ -16,6 +22,7 @@ interface CardRow {
   gallery_urls: string[] | null;
   slug: string | null;
   article_urls: string[] | null;
+  sections: SectionItem[] | null;
 }
 
 interface PageProps {
@@ -29,7 +36,7 @@ export default async function ParcoursPage({ params }: PageProps) {
   const [{ data }, articleSectionTitle, articleButtonLabel] = await Promise.all([
     supabase
       .from("parcours_cards")
-      .select("id, title, description, content, gallery_urls, slug, article_urls")
+      .select("id, title, description, content, gallery_urls, slug, article_urls, sections")
       .eq("slug", slug)
       .maybeSingle(),
     getSetting("article_section_title"),
@@ -40,6 +47,9 @@ export default async function ParcoursPage({ params }: PageProps) {
   const card = data as CardRow;
   const gallery = card.gallery_urls ?? [];
   const articles = card.article_urls ?? [];
+  const sections = (card.sections ?? []).filter(
+    (s) => s.label.trim().length > 0,
+  );
   const hasContent = (card.content ?? "").trim().length > 0;
   const sectionTitle = articleSectionTitle?.trim() || "Mes articles publiés";
   const buttonLabel = articleButtonLabel?.trim() || "Lire l'article →";
@@ -87,24 +97,82 @@ export default async function ParcoursPage({ params }: PageProps) {
       </header>
 
       {/* Contenu texte — aligné avec le titre (max-w-4xl) */}
-      <section
-        className="mx-auto max-w-4xl px-6 py-16"
-        style={{
-          fontFamily: '"Times New Roman", Times, serif',
-          color: "var(--c-text-body)",
-        }}
-      >
-        {hasContent ? (
-          <RichContent
-            html={card.content}
-            className="space-y-6 text-base leading-relaxed md:text-lg"
-          />
-        ) : (
-          <p className="text-center text-sm italic text-zinc-400">
-            Contenu en cours d&apos;écriture…
-          </p>
-        )}
-      </section>
+      {(hasContent || sections.length === 0) && (
+        <section
+          className="mx-auto max-w-4xl px-6 py-16"
+          style={{
+            fontFamily: '"Times New Roman", Times, serif',
+            color: "var(--c-text-body)",
+          }}
+        >
+          {hasContent ? (
+            <RichContent
+              html={card.content}
+              className="space-y-6 text-base leading-relaxed md:text-lg"
+            />
+          ) : (
+            <p className="text-center text-sm italic text-zinc-400">
+              Contenu en cours d&apos;écriture…
+            </p>
+          )}
+        </section>
+      )}
+
+      {/* Rubriques nommées : petite navigation + sections ancrées */}
+      {sections.length > 0 && (
+        <>
+          <nav className="border-y border-zinc-100">
+            <ul className="mx-auto flex max-w-4xl flex-wrap items-center justify-center gap-x-8 gap-y-2 px-6 py-3 text-sm">
+              {sections.map((s) => (
+                <li key={s.id}>
+                  <a
+                    href={`#${s.id}`}
+                    className="font-medium text-zinc-500 transition hover:text-zinc-900"
+                  >
+                    {s.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          {sections.map((s) => (
+            <section
+              key={s.id}
+              id={s.id}
+              className="mx-auto max-w-4xl scroll-mt-6 px-6 py-16"
+            >
+              <h2
+                style={{
+                  fontFamily: '"Times New Roman", Times, serif',
+                  fontWeight: 700,
+                  fontStyle: "italic",
+                  textDecoration: "underline",
+                  textUnderlineOffset: "6px",
+                  color: "var(--c-text-titles)",
+                }}
+                className="mb-6 text-2xl tracking-tight"
+              >
+                {s.label}
+              </h2>
+              {s.content.trim() ? (
+                <RichContent
+                  html={s.content}
+                  className="space-y-6 text-base leading-relaxed md:text-lg"
+                  style={{
+                    fontFamily: '"Times New Roman", Times, serif',
+                    color: "var(--c-text-body)",
+                  }}
+                />
+              ) : (
+                <p className="text-sm italic text-zinc-400">
+                  Contenu en cours d&apos;écriture…
+                </p>
+              )}
+            </section>
+          ))}
+        </>
+      )}
 
       {/* Galerie d'images supplémentaires */}
       {gallery.length > 0 && (

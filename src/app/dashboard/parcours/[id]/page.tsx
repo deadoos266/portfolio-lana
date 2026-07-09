@@ -5,6 +5,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { getSetting } from "@/lib/settings";
 import { updateParcoursCard } from "../actions";
 import { GalleryEditor } from "./GalleryEditor";
+import { SectionsEditor, type SectionItem } from "./SectionsEditor";
 import { RichTextArea } from "@/components/RichTextArea";
 import { ImagePositionControl } from "@/components/ImagePositionControl";
 import {
@@ -28,6 +29,7 @@ interface CardRow {
   image_pos_x: number | null;
   image_pos_y: number | null;
   article_urls: string[] | null;
+  sections: SectionItem[] | null;
 }
 
 interface PageProps {
@@ -50,7 +52,7 @@ export default async function EditParcoursPage({
     supabase
       .from("parcours_cards")
       .select(
-        "id, title, description, content, image_url, gallery_urls, slug, display_order, image_aspect, image_zoom, image_pos_x, image_pos_y, article_urls",
+        "id, title, description, content, image_url, gallery_urls, slug, display_order, image_aspect, image_zoom, image_pos_x, image_pos_y, article_urls, sections",
       )
       .eq("id", id)
       .maybeSingle(),
@@ -204,6 +206,23 @@ export default async function EditParcoursPage({
             minHeight={360}
             helpText="Ce texte s'affiche sur la page dédiée (quand quelqu'un clique sur la carte). Sélectionne du texte puis clique sur B / I / U pour le formater. Nouvelle ligne pour créer un paragraphe."
           />
+        </section>
+
+        {/* Rubriques nommées (optionnel) */}
+        <section className="card space-y-4 p-6">
+          <div>
+            <h2 className="font-display text-lg font-semibold">
+              Rubriques (optionnel)
+            </h2>
+            <p className={helpClass}>
+              Pour découper la page en plusieurs parties nommées avec leur
+              propre petite navigation en haut — comme « Mon projet
+              professionnel / Ma vision du journalisme / Mon parcours » sur
+              l&apos;accueil. Laisse vide si tu ne veux qu&apos;un seul texte
+              (ci-dessus).
+            </p>
+          </div>
+          <SectionsEditor name="section_ids" initialSections={card.sections ?? []} />
         </section>
 
         {/* Galerie */}
