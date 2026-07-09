@@ -154,7 +154,11 @@ export default async function ParcoursPage({ params }: PageProps) {
       {articles.length > 0 && (
         <section className="mx-auto max-w-4xl px-6 pb-20">
           {/^<\/?[a-z][^>]*>/i.test(sectionTitle) ? (
-            <RichContent html={sectionTitle} className="mb-6" />
+            <RichContent
+              html={sectionTitle}
+              className="mb-6"
+              style={{ fontFamily: '"Times New Roman", Times, serif' }}
+            />
           ) : (
             <h2
               style={{
