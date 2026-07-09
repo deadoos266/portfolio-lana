@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { isPdf, fileDisplayName } from "@/lib/file-type";
 
 interface FileCarouselProps {
@@ -14,15 +14,37 @@ interface FileCarouselProps {
  * fondu par-dessus le précédent (au lieu d'un défilement horizontal). Gère
  * à la fois des images et des PDF (affichés comme une carte-document avec
  * lien d'ouverture, un PDF ne pouvant pas se rendre comme une image).
+ * Cliquer sur une image l'agrandit en plein écran (les PDF, eux, s'ouvrent
+ * déjà en grand dans un nouvel onglet).
  */
 export function FileCarousel({ files, altPrefix }: FileCarouselProps) {
   const [index, setIndex] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+
+  useEffect(() => {
+    if (!lightboxOpen) return;
+    function handleKey(e: KeyboardEvent) {
+      if (e.key === "Escape") setLightboxOpen(false);
+      if (e.key === "ArrowLeft") goTo(index - 1);
+      if (e.key === "ArrowRight") goTo(index + 1);
+    }
+    document.addEventListener("keydown", handleKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", handleKey);
+      document.body.style.overflow = "";
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lightboxOpen, index]);
 
   if (files.length === 0) return null;
 
   function goTo(i: number) {
     setIndex((i + files.length) % files.length);
   }
+
+  const currentUrl = files[index];
+  const currentIsPdf = isPdf(currentUrl);
 
   return (
     <div className="mx-auto w-full max-w-sm">
@@ -58,13 +80,20 @@ export function FileCarousel({ files, altPrefix }: FileCarouselProps) {
                 </span>
               </a>
             ) : (
-              <Image
-                src={url}
-                alt={`${altPrefix} — fichier ${i + 1}`}
-                fill
-                sizes="(max-width: 384px) 100vw, 384px"
-                className="object-contain"
-              />
+              <button
+                type="button"
+                onClick={() => setLightboxOpen(true)}
+                aria-label="Agrandir l'image"
+                className="group h-full w-full cursor-zoom-in"
+              >
+                <Image
+                  src={url}
+                  alt={`${altPrefix} — fichier ${i + 1}`}
+                  fill
+                  sizes="(max-width: 384px) 100vw, 384px"
+                  className="object-contain transition group-hover:opacity-90"
+                />
+              </button>
             )}
           </div>
         ))}
@@ -104,6 +133,63 @@ export function FileCarousel({ files, altPrefix }: FileCarouselProps) {
               }`}
             />
           ))}
+        </div>
+      )}
+
+      {lightboxOpen && !currentIsPdf && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4 sm:p-8"
+          onClick={() => setLightboxOpen(false)}
+        >
+          <button
+            type="button"
+            onClick={() => setLightboxOpen(false)}
+            aria-label="Fermer"
+            className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-xl text-white transition hover:bg-white/20"
+          >
+            ×
+          </button>
+
+          <div
+            className="relative h-full w-full max-w-5xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Image
+              src={currentUrl}
+              alt={`${altPrefix} — fichier ${index + 1}`}
+              fill
+              sizes="90vw"
+              className="object-contain"
+              priority
+            />
+          </div>
+
+          {files.length > 1 && (
+            <>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  goTo(index - 1);
+                }}
+                aria-label="Fichier précédent"
+                className="absolute left-2 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-xl text-white transition hover:bg-white/20 sm:left-6"
+              >
+                ←
+              </button>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  goTo(index + 1);
+                }}
+                aria-label="Fichier suivant"
+                className="absolute right-2 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-xl text-white transition hover:bg-white/20 sm:right-6"
+              >
+                →
+              </button>
+            </>
+          )}
         </div>
       )}
     </div>
