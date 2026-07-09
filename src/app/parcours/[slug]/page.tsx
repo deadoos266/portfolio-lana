@@ -13,6 +13,7 @@ interface SectionItem {
   label: string;
   content: string;
   gallery_urls?: string[];
+  video_url?: string | null;
 }
 
 interface CardRow {
@@ -169,6 +170,16 @@ export default async function ParcoursPage({ params }: PageProps) {
                 <p className="text-sm italic text-zinc-400">
                   Contenu en cours d&apos;écriture…
                 </p>
+              )}
+              {s.video_url && (
+                <div className="mt-8 overflow-hidden rounded-2xl border border-zinc-100 shadow-md">
+                  <video
+                    src={s.video_url}
+                    controls
+                    preload="metadata"
+                    className="w-full"
+                  />
+                </div>
               )}
               {(s.gallery_urls ?? []).length > 0 && (
                 <div className="mt-8">

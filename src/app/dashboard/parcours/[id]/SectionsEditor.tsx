@@ -3,12 +3,14 @@
 import { useState } from "react";
 import { RichTextArea } from "@/components/RichTextArea";
 import { SectionGalleryEditor } from "./SectionGalleryEditor";
+import { VideoUploader } from "./VideoUploader";
 
 export interface SectionItem {
   id: string;
   label: string;
   content: string;
   gallery_urls?: string[];
+  video_url?: string | null;
 }
 
 interface SectionsEditorProps {
@@ -34,7 +36,7 @@ export function SectionsEditor({ cardId, name, initialSections }: SectionsEditor
   function addSection() {
     setSections((prev) => [
       ...prev,
-      { id: randomId(), label: "", content: "", gallery_urls: [] },
+      { id: randomId(), label: "", content: "", gallery_urls: [], video_url: null },
     ]);
   }
 
@@ -95,6 +97,17 @@ export function SectionsEditor({ cardId, name, initialSections }: SectionsEditor
               accept="image/*"
               multiple
               className="input"
+            />
+          </div>
+
+          <div className="space-y-2 border-t border-zinc-100 pt-3">
+            <label className="text-sm font-medium text-zinc-700">
+              Vidéo de cette rubrique
+            </label>
+            <VideoUploader
+              cardId={cardId}
+              sectionId={section.id}
+              initialVideoUrl={section.video_url ?? null}
             />
           </div>
         </div>

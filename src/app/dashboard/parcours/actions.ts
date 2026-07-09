@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { uploadFile } from "@/lib/storage";
+import { uploadFile, createSignedUpload } from "@/lib/storage";
 import { normalizeUrl } from "@/lib/slug";
 import { setSetting } from "@/lib/settings";
 
@@ -19,6 +19,7 @@ interface SectionItem {
   label: string;
   content: string;
   gallery_urls?: string[];
+  video_url?: string | null;
 }
 
 interface UpdatePayload {
@@ -90,6 +91,9 @@ async function parseSections(
       label,
       content,
       gallery_urls: [...previousGallery, ...uploaded],
+      // video_url géré séparément (upload direct navigateur → Storage), on
+      // le préserve tel quel ici pour ne pas l'écraser à chaque sauvegarde.
+      video_url: existingById.get(id)?.video_url ?? null,
     });
   }
   return sections;
@@ -205,6 +209,39 @@ export async function removeGalleryImage(
     .from("parcours_cards")
     .update({ gallery_urls: next })
     .eq("id", id);
+  revalidatePath("/");
+  revalidatePath("/dashboard/parcours");
+  if (data?.slug) revalidatePath(`/parcours/${data.slug}`);
+}
+
+/**
+ * Prépare l'envoi direct d'une vidéo depuis le navigateur vers Supabase
+ * Storage (contourne la limite de taille des Server Actions). Le client
+ * utilise ensuite le token pour uploader le fichier lui-même.
+ */
+export async function createSectionVideoUploadUrl(
+  fileName: string,
+): Promise<{ path: string; token: string } | { error: string }> {
+  return createSignedUpload(fileName, "parcours");
+}
+
+/** Enregistre (ou retire, si null) l'URL de la vidéo d'une rubrique nommée. */
+export async function saveSectionVideo(
+  cardId: string,
+  sectionId: string,
+  videoUrl: string | null,
+): Promise<void> {
+  const supabase = createAdminClient();
+  const { data } = await supabase
+    .from("parcours_cards")
+    .select("sections, slug")
+    .eq("id", cardId)
+    .maybeSingle();
+  const sections: SectionItem[] = (data?.sections as SectionItem[] | null) ?? [];
+  const next = sections.map((s) =>
+    s.id === sectionId ? { ...s, video_url: videoUrl } : s,
+  );
+  await supabase.from("parcours_cards").update({ sections: next }).eq("id", cardId);
   revalidatePath("/");
   revalidatePath("/dashboard/parcours");
   if (data?.slug) revalidatePath(`/parcours/${data.slug}`);
