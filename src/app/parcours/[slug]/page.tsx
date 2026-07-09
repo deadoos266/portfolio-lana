@@ -172,12 +172,15 @@ export default async function ParcoursPage({ params }: PageProps) {
                 </p>
               )}
               {s.video_url && (
-                <div className="mt-8 overflow-hidden rounded-2xl border border-zinc-100 shadow-md">
+                <div className="mt-8 flex justify-center overflow-hidden rounded-2xl border border-zinc-100 shadow-md">
+                  {/* max-h borne la hauteur : une vidéo portrait (ex: format
+                      Reels) ne doit pas devenir démesurément haute quand
+                      elle est affichée à la largeur du bloc de texte. */}
                   <video
                     src={s.video_url}
                     controls
                     preload="metadata"
-                    className="w-full"
+                    className="max-h-[70vh] w-auto max-w-full"
                   />
                 </div>
               )}
