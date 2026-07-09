@@ -26,7 +26,10 @@ export function FileCarousel({ files, altPrefix }: FileCarouselProps) {
 
   return (
     <div className="mx-auto w-full max-w-sm">
-      <div className="relative aspect-[3/4] overflow-hidden rounded-2xl border border-zinc-100 bg-zinc-50 shadow-md">
+      <div
+        className="relative aspect-[3/4] overflow-hidden rounded-2xl border-2 bg-zinc-50 shadow-md"
+        style={{ borderColor: "var(--c-text-titles)" }}
+      >
         {files.map((url, i) => (
           <div
             key={url}
