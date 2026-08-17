@@ -17,6 +17,7 @@ interface SectionItem {
   content: string;
   gallery_urls?: string[];
   video_url?: string | null;
+  pdf_url?: string | null;
 }
 
 interface CardRow {
@@ -177,10 +178,35 @@ export default async function ParcoursPage({ params }: PageProps) {
               )}
               {(s.gallery_urls ?? []).length > 0 && (
                 <div className="mt-8">
-                  <SectionGallery
-                    images={s.gallery_urls ?? []}
-                    altPrefix={s.label}
-                  />
+                  {card.gallery_layout === "carousel" ? (
+                    <FileCarousel
+                      files={s.gallery_urls ?? []}
+                      altPrefix={s.label}
+                    />
+                  ) : (
+                    <SectionGallery
+                      images={s.gallery_urls ?? []}
+                      altPrefix={s.label}
+                    />
+                  )}
+                </div>
+              )}
+              {s.pdf_url && (
+                <div className="mt-6 flex justify-center">
+                  <a
+                    href={s.pdf_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full border-2 bg-white px-4 py-2 text-sm font-medium shadow-sm transition hover:shadow-md"
+                    style={{
+                      borderColor: "var(--c-text-titles)",
+                      color: "var(--c-text-titles)",
+                      fontFamily: '"Times New Roman", Times, serif',
+                    }}
+                  >
+                    <span aria-hidden>📄</span>
+                    Lire en PDF <span aria-hidden>↗</span>
+                  </a>
                 </div>
               )}
             </section>

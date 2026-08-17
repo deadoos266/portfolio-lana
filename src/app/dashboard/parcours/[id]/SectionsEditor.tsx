@@ -4,6 +4,7 @@ import { useState } from "react";
 import { RichTextArea } from "@/components/RichTextArea";
 import { SectionGalleryEditor } from "./SectionGalleryEditor";
 import { SectionGalleryUploader } from "./SectionGalleryUploader";
+import { SectionPdfUploader } from "./SectionPdfUploader";
 import { VideoUploader } from "./VideoUploader";
 
 export interface SectionItem {
@@ -12,6 +13,7 @@ export interface SectionItem {
   content: string;
   gallery_urls?: string[];
   video_url?: string | null;
+  pdf_url?: string | null;
 }
 
 interface SectionsEditorProps {
@@ -37,7 +39,7 @@ export function SectionsEditor({ cardId, name, initialSections }: SectionsEditor
   function addSection() {
     setSections((prev) => [
       ...prev,
-      { id: randomId(), label: "", content: "", gallery_urls: [], video_url: null },
+      { id: randomId(), label: "", content: "", gallery_urls: [], video_url: null, pdf_url: null },
     ]);
   }
 
@@ -93,6 +95,21 @@ export function SectionsEditor({ cardId, name, initialSections }: SectionsEditor
               images={section.gallery_urls ?? []}
             />
             <SectionGalleryUploader cardId={cardId} sectionId={section.id} />
+          </div>
+
+          <div className="space-y-2 border-t border-zinc-100 pt-3">
+            <label className="text-sm font-medium text-zinc-700">
+              Version PDF de cette rubrique
+            </label>
+            <p className="text-xs text-zinc-400">
+              Bouton affiché sous les images. Le texte d’un PDF reste net à
+              tout zoom, contrairement à une capture d’écran.
+            </p>
+            <SectionPdfUploader
+              cardId={cardId}
+              sectionId={section.id}
+              initialPdfUrl={section.pdf_url ?? null}
+            />
           </div>
 
           <div className="space-y-2 border-t border-zinc-100 pt-3">

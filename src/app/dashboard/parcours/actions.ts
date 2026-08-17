@@ -25,6 +25,7 @@ interface SectionItem {
   content: string;
   gallery_urls?: string[];
   video_url?: string | null;
+  pdf_url?: string | null;
 }
 
 interface UpdatePayload {
@@ -89,6 +90,7 @@ async function parseSections(
       content,
       gallery_urls: existingById.get(id)?.gallery_urls ?? [],
       video_url: existingById.get(id)?.video_url ?? null,
+      pdf_url: existingById.get(id)?.pdf_url ?? null,
     });
   }
   return sections;
@@ -400,6 +402,35 @@ export async function addSectionGalleryFiles(
     s.id === sectionId
       ? { ...s, gallery_urls: [...(s.gallery_urls ?? []), ...fileUrls] }
       : s,
+  );
+  await supabase.from("parcours_cards").update({ sections: next }).eq("id", cardId);
+  revalidatePath("/");
+  revalidatePath("/dashboard/parcours");
+  if (data?.slug) revalidatePath(`/parcours/${data.slug}`);
+}
+
+/** Prépare l'envoi direct du PDF d'une rubrique nommée. */
+export async function createSectionPdfUploadUrl(
+  fileName: string,
+): Promise<{ path: string; token: string } | { error: string }> {
+  return createSignedUpload(fileName, "documents");
+}
+
+/** Enregistre (ou retire, si null) le PDF rattaché à une rubrique nommée. */
+export async function saveSectionPdf(
+  cardId: string,
+  sectionId: string,
+  pdfUrl: string | null,
+): Promise<void> {
+  const supabase = createAdminClient();
+  const { data } = await supabase
+    .from("parcours_cards")
+    .select("sections, slug")
+    .eq("id", cardId)
+    .maybeSingle();
+  const sections: SectionItem[] = (data?.sections as SectionItem[] | null) ?? [];
+  const next = sections.map((s) =>
+    s.id === sectionId ? { ...s, pdf_url: pdfUrl } : s,
   );
   await supabase.from("parcours_cards").update({ sections: next }).eq("id", cardId);
   revalidatePath("/");
