@@ -60,6 +60,12 @@ export default async function ParcoursPage({ params }: PageProps) {
   );
   const documents = parseDocuments(rawDocuments).filter((d) => d.url);
   const hasContent = (card.content ?? "").trim().length > 0;
+  const isEmptyPage =
+    !hasContent &&
+    sections.length === 0 &&
+    gallery.length === 0 &&
+    articles.length === 0 &&
+    documents.length === 0;
   const sectionTitle = articleSectionTitle?.trim() || "Mes articles publiés";
   const buttonLabel = articleButtonLabel?.trim() || "Lire l'article →";
 
@@ -105,8 +111,10 @@ export default async function ParcoursPage({ params }: PageProps) {
         )}
       </header>
 
-      {/* Contenu texte — aligné avec le titre (max-w-4xl) */}
-      {(hasContent || sections.length === 0) && (
+      {/* Contenu texte, aligné avec le titre (max-w-4xl). Le message
+          « en cours d'écriture » n'apparaît que si la page est réellement
+          vide : ni texte, ni rubrique, ni fichier, ni lien, ni document. */}
+      {(hasContent || isEmptyPage) && (
         <section
           className="mx-auto max-w-4xl px-6 py-16"
           style={{
@@ -160,11 +168,16 @@ export default async function ParcoursPage({ params }: PageProps) {
                     color: "var(--c-text-body)",
                   }}
                 />
-              ) : (
+              ) : (s.gallery_urls ?? []).length === 0 &&
+                !s.pdf_url &&
+                !s.video_url ? (
+                // Message affiché seulement si la rubrique est réellement
+                // vide : une rubrique sans texte mais avec des pages ou un
+                // PDF n'est pas « en cours d'écriture ».
                 <p className="text-sm italic text-zinc-400">
                   Contenu en cours d&apos;écriture…
                 </p>
-              )}
+              ) : null}
               {s.video_url && (
                 // Vignette volontairement petite (largeur plafonnée) : reste
                 // une taille "aperçu" agréable, quelle que soit l'orientation
