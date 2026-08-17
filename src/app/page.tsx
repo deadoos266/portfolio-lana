@@ -323,7 +323,8 @@ export default async function Home() {
             }}
           />
 
-          {/* Carte + synopsis (placeholder en attendant Lana) */}
+          {/* Carte + synopsis — placeholder public (le portfolio est en ligne :
+              le texte doit s'adresser aux visiteurs, pas à Lana). */}
           <div
             className="overflow-hidden rounded-2xl border border-zinc-100 p-6 shadow-sm"
             style={{ background: softGradient }}
@@ -341,10 +342,10 @@ export default async function Home() {
                 color: "var(--c-text-body)",
               }}
             >
-              Espace réservé
+              Bientôt disponible
             </p>
             <p className="mt-3 text-sm text-zinc-500">
-              Ici viendra ta carte et son synopsis, dès que tu seras prête.
+              Cette section sera prochainement mise en ligne.
             </p>
           </div>
         </div>
