@@ -257,7 +257,7 @@ export default async function ParcoursPage({ params }: PageProps) {
             ))}
           </div>
           <p className="mt-3 text-center text-xs text-zinc-500">
-            Versions PDF — texte net à tout niveau de zoom, idéal sur téléphone.
+            Versions PDF : texte net à tout niveau de zoom, idéal sur téléphone.
           </p>
         </section>
       )}

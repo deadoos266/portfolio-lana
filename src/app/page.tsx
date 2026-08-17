@@ -21,7 +21,7 @@ const DEFAULTS = {
   projet:
     "Mon projet professionnel se construit autour d'une conviction : raconter le monde en restant proche des gens. La presse magazine est pour moi un terrain idéal pour explorer en profondeur les sujets de société, de culture et d'art qui me touchent.",
   vision:
-    "Je crois en un journalisme qui prend le temps, qui écoute, qui regarde, qui met en lumière les voix qu'on entend peu. Un journalisme honnête, sensible et exigeant — c'est celui que je veux pratiquer.",
+    "Je crois en un journalisme qui prend le temps, qui écoute, qui regarde, qui met en lumière les voix qu'on entend peu. Un journalisme honnête, sensible et exigeant : c'est celui que je veux pratiquer.",
   email: "lanaherve5@icloud.com",
 };
 
