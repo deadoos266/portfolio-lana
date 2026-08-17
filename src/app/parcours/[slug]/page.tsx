@@ -267,7 +267,6 @@ export default async function ParcoursPage({ params }: PageProps) {
                       fontFamily: '"Times New Roman", Times, serif',
                     }}
                   >
-                    <span aria-hidden>📄</span>
                     Lire en PDF <span aria-hidden>↗</span>
                   </a>
                 </div>
@@ -349,7 +348,6 @@ export default async function ParcoursPage({ params }: PageProps) {
                   fontFamily: '"Times New Roman", Times, serif',
                 }}
               >
-                <span aria-hidden>📄</span>
                 {doc.label} <span aria-hidden>↗</span>
               </a>
             ))}

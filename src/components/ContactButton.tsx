@@ -87,7 +87,6 @@ export function ContactButton({ email, phone }: ContactButtonProps) {
                 value={email}
                 href={`mailto:${email}`}
                 actionLabel="Écrire"
-                icon="✉️"
               />
               {phone && (
                 <ContactRow
@@ -95,7 +94,6 @@ export function ContactButton({ email, phone }: ContactButtonProps) {
                   value={phone}
                   href={`tel:${phone.replace(/[^0-9+]/g, "")}`}
                   actionLabel="Appeler"
-                  icon="📞"
                 />
               )}
             </div>
@@ -111,13 +109,11 @@ function ContactRow({
   value,
   href,
   actionLabel,
-  icon,
 }: {
   label: string;
   value: string;
   href: string;
   actionLabel: string;
-  icon: string;
 }) {
   // "idle" | "copied" (presse-papiers OK) | "selected" (repli : texte
   // sélectionné, l'utilisateur termine avec Ctrl+C)
@@ -150,10 +146,9 @@ function ContactRow({
 
   return (
     <div className="rounded-xl border border-black/10 bg-white/70 px-4 py-3">
-      <div className="flex items-center gap-2">
-        <span aria-hidden>{icon}</span>
-        <span className="text-xs text-zinc-500">{label}</span>
-      </div>
+      <span className="text-xs uppercase tracking-wider text-zinc-500">
+        {label}
+      </span>
 
       {/* `select-all` : un simple clic sélectionne toute l'adresse. Le texte
           n'est PAS dans un lien, sinon le glisser sélectionnerait le lien

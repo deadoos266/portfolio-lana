@@ -78,8 +78,11 @@ export function FileCarousel({ files, altPrefix }: FileCarouselProps) {
                 rel="noopener noreferrer"
                 className="flex h-full w-full flex-col items-center justify-center gap-3 p-6 text-center transition hover:bg-zinc-100"
               >
-                <span aria-hidden className="text-5xl">
-                  📄
+                <span
+                  aria-hidden
+                  className="text-xs uppercase tracking-[0.2em] text-zinc-400"
+                >
+                  Document
                 </span>
                 <span className="text-sm font-medium text-zinc-700 break-words">
                   {fileDisplayName(url)}
