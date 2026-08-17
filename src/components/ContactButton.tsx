@@ -9,9 +9,9 @@ interface ContactButtonProps {
 
 /**
  * Bouton « Me contacter » qui ouvre une petite fenêtre avec l'adresse mail
- * et le numéro, chacun cliquable. Avant, le bouton lançait directement le
- * logiciel de messagerie : brutal, et inutilisable pour qui veut seulement
- * lire ou copier les coordonnées.
+ * et le numéro. Avant, le bouton lançait directement le logiciel de
+ * messagerie : brutal, et inutilisable pour qui veut seulement lire,
+ * sélectionner ou copier les coordonnées.
  */
 export function ContactButton({ email, phone }: ContactButtonProps) {
   const [open, setOpen] = useState(false);
@@ -28,8 +28,6 @@ export function ContactButton({ email, phone }: ContactButtonProps) {
       document.body.style.overflow = "";
     };
   }, [open]);
-
-  const telHref = phone ? `tel:${phone.replace(/[^0-9+]/g, "")}` : null;
 
   return (
     <>
@@ -83,26 +81,24 @@ export function ContactButton({ email, phone }: ContactButtonProps) {
               Contact
             </p>
 
-            <div className="mt-6 space-y-3">
+            <div className="mt-6 space-y-4">
               <ContactRow
                 label="Adresse mail"
                 value={email}
                 href={`mailto:${email}`}
+                actionLabel="Écrire"
                 icon="✉️"
               />
-              {phone && telHref && (
+              {phone && (
                 <ContactRow
                   label="Téléphone"
                   value={phone}
-                  href={telHref}
+                  href={`tel:${phone.replace(/[^0-9+]/g, "")}`}
+                  actionLabel="Appeler"
                   icon="📞"
                 />
               )}
             </div>
-
-            <p className="mt-5 text-center text-xs text-zinc-400">
-              Clique pour écrire ou appeler directement.
-            </p>
           </div>
         </div>
       )}
@@ -114,30 +110,82 @@ function ContactRow({
   label,
   value,
   href,
+  actionLabel,
   icon,
 }: {
   label: string;
   value: string;
   href: string;
+  actionLabel: string;
   icon: string;
 }) {
+  // "idle" | "copied" (presse-papiers OK) | "selected" (repli : texte
+  // sélectionné, l'utilisateur termine avec Ctrl+C)
+  const [state, setState] = useState<"idle" | "copied" | "selected">("idle");
+
+  async function copy() {
+    let next: "copied" | "selected" = "copied";
+    try {
+      await navigator.clipboard.writeText(value);
+    } catch {
+      // Presse-papiers refusé (navigateur ancien, page sans focus, contexte
+      // non sécurisé) : on sélectionne le texte et on le dit clairement,
+      // sinon le clic semble ne rien faire.
+      const el = document.getElementById(`contact-value-${label}`);
+      if (el) {
+        const range = document.createRange();
+        range.selectNodeContents(el);
+        const sel = window.getSelection();
+        sel?.removeAllRanges();
+        sel?.addRange(range);
+      }
+      next = "selected";
+    }
+    setState(next);
+    setTimeout(() => setState("idle"), 2500);
+  }
+
+  const buttonLabel =
+    state === "copied" ? "Copié ✓" : state === "selected" ? "Ctrl + C" : "Copier";
+
   return (
-    <a
-      href={href}
-      className="flex items-center gap-3 rounded-xl border border-black/10 bg-white/70 px-4 py-3 transition hover:border-black/20 hover:shadow-sm"
-    >
-      <span aria-hidden className="text-lg">
-        {icon}
-      </span>
-      <span className="min-w-0">
-        <span className="block text-xs text-zinc-500">{label}</span>
-        <span
-          className="block truncate text-sm font-medium"
-          style={{ color: "var(--c-text-body)" }}
+    <div className="rounded-xl border border-black/10 bg-white/70 px-4 py-3">
+      <div className="flex items-center gap-2">
+        <span aria-hidden>{icon}</span>
+        <span className="text-xs text-zinc-500">{label}</span>
+      </div>
+
+      {/* `select-all` : un simple clic sélectionne toute l'adresse. Le texte
+          n'est PAS dans un lien, sinon le glisser sélectionnerait le lien
+          au lieu du texte. */}
+      <p
+        id={`contact-value-${label}`}
+        className="mt-1 select-all break-all text-sm font-medium"
+        style={{ color: "var(--c-text-body)" }}
+      >
+        {value}
+      </p>
+
+      <div className="mt-2.5 flex gap-2">
+        <button
+          type="button"
+          onClick={copy}
+          aria-live="polite"
+          className="rounded-full border border-black/10 px-3 py-1 text-xs font-medium text-zinc-600 transition hover:bg-black/5"
         >
-          {value}
-        </span>
-      </span>
-    </a>
+          {buttonLabel}
+        </button>
+        <a
+          href={href}
+          className="rounded-full border px-3 py-1 text-xs font-medium transition hover:opacity-80"
+          style={{
+            borderColor: "var(--c-text-titles)",
+            color: "var(--c-text-titles)",
+          }}
+        >
+          {actionLabel}
+        </a>
+      </div>
+    </div>
   );
 }
