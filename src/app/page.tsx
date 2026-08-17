@@ -3,6 +3,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { getSetting } from "@/lib/settings";
 import { RichContent } from "@/components/RichContent";
 import { ParcoursCarousel, type ParcoursCard } from "@/components/ParcoursCarousel";
+import { SectionsNav } from "@/components/SectionsNav";
 import {
   alignClass,
   getProjetLayout,
@@ -194,28 +195,12 @@ export default async function Home() {
           </p>
         </div>
 
-        {/* Menu de navigation */}
-        <nav
-          className="sticky top-0 z-30 border-b border-zinc-100 backdrop-blur-md"
-          style={{
-            background:
-              "color-mix(in oklab, var(--c-bg-main) 85%, transparent)",
-          }}
-        >
-          <ul className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-8 gap-y-2 px-6 py-3 text-sm">
-            {NAV.map((item) => (
-              <li key={item.id}>
-                <a
-                  href={`#${item.id}`}
-                  className="font-medium text-zinc-500 transition hover:text-zinc-900"
-                >
-                  {item.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
       </header>
+
+      {/* Menu de navigation. Volontairement HORS du <header> : une barre
+          `sticky` ne colle que dans les limites de son parent, donc à
+          l'intérieur du header elle disparaissait dès qu'il était dépassé. */}
+      <SectionsNav sections={NAV} />
 
       {/* ---------- Présentation (photos + texte) ---------- */}
       <section className="relative overflow-hidden">
