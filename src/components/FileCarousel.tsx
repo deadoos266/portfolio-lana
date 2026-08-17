@@ -173,9 +173,12 @@ export function FileCarousel({ files, altPrefix }: FileCarouselProps) {
           <Image
             src={currentUrl}
             alt={`${altPrefix} — fichier ${index + 1}`}
-            width={1400}
-            height={1980}
-            sizes="100vw"
+            width={1200}
+            height={1700}
+            // `sizes` doit refléter la largeur d'affichage RÉELLE, sinon le
+            // navigateur ne télécharge que la petite variante calée sur le
+            // téléphone et le zoom afficherait une image floue (étirée).
+            sizes={zoomed ? "1200px" : "100vw"}
             priority
             onClick={(e) => {
               e.stopPropagation();
@@ -183,7 +186,7 @@ export function FileCarousel({ files, altPrefix }: FileCarouselProps) {
             }}
             className={
               zoomed
-                ? "h-auto w-[1400px] max-w-none cursor-zoom-out"
+                ? "h-auto w-[1200px] max-w-none cursor-zoom-out"
                 : "mx-auto h-auto max-h-[85vh] w-auto max-w-full cursor-zoom-in"
             }
           />
