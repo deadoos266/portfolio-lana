@@ -5,7 +5,12 @@ import { redirect } from "next/navigation";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { uploadFile, createSignedUpload } from "@/lib/storage";
 import { normalizeUrl } from "@/lib/slug";
-import { setSetting } from "@/lib/settings";
+import { getSetting, setSetting } from "@/lib/settings";
+import {
+  documentsSettingKey,
+  parseDocuments,
+  type CardDocument,
+} from "@/lib/card-documents";
 
 function str(formData: FormData, key: string): string | null {
   const value = formData.get(key);
@@ -89,6 +94,30 @@ async function parseSections(
   return sections;
 }
 
+/**
+ * Applique les libellés saisis dans le formulaire aux documents existants.
+ * Renvoie null s'il n'y a rien à mettre à jour (pour ne pas écraser la
+ * colonne inutilement).
+ */
+async function renameDocuments(
+  supabase: ReturnType<typeof createAdminClient>,
+  cardId: string,
+  formData: FormData,
+): Promise<void> {
+  const rawIds = str(formData, "document_ids");
+  if (!rawIds) return;
+
+  const { documents, slug } = await readDocuments(supabase, cardId);
+  if (documents.length === 0 || !slug) return;
+
+  const renamed = documents.map((doc) => {
+    const label = str(formData, `document_label__${doc.id}`);
+    return label ? { ...doc, label } : doc;
+  });
+  const changed = renamed.some((d, i) => d.label !== documents[i].label);
+  if (changed) await writeDocuments(supabase, cardId, renamed, slug);
+}
+
 function clampInt(
   value: string | null,
   fallback: number,
@@ -153,6 +182,10 @@ export async function updateParcoursCard(id: string, formData: FormData) {
   if (galleryLayout === "grid" || galleryLayout === "carousel") {
     updates.gallery_layout = galleryLayout;
   }
+
+  // Libellés des documents PDF (l'ajout/suppression/ordre passe par des
+  // actions dédiées ; ici on ne met à jour que les noms affichés).
+  await renameDocuments(supabase, id, formData);
 
   await supabase.from("parcours_cards").update(updates).eq("id", id);
 
@@ -266,6 +299,81 @@ export async function addGalleryFiles(
   revalidatePath("/");
   revalidatePath("/dashboard/parcours");
   if (data?.slug) revalidatePath(`/parcours/${data.slug}`);
+}
+
+/** Prépare l'envoi direct d'un document PDF rattaché à une carte. */
+export async function createDocumentUploadUrl(
+  fileName: string,
+): Promise<{ path: string; token: string } | { error: string }> {
+  return createSignedUpload(fileName, "documents");
+}
+
+/** Lit les documents d'une carte + son slug (pour revalider la bonne page). */
+async function readDocuments(
+  supabase: ReturnType<typeof createAdminClient>,
+  cardId: string,
+): Promise<{ documents: CardDocument[]; slug: string | null }> {
+  const { data } = await supabase
+    .from("parcours_cards")
+    .select("slug")
+    .eq("id", cardId)
+    .maybeSingle();
+  const slug = (data?.slug as string | null) ?? null;
+  if (!slug) return { documents: [], slug: null };
+  const raw = await getSetting(documentsSettingKey(slug));
+  return { documents: parseDocuments(raw), slug };
+}
+
+async function writeDocuments(
+  supabase: ReturnType<typeof createAdminClient>,
+  cardId: string,
+  documents: CardDocument[],
+  slug: string | null,
+): Promise<void> {
+  if (!slug) return;
+  await setSetting(documentsSettingKey(slug), JSON.stringify(documents));
+  revalidatePath("/");
+  revalidatePath("/dashboard/parcours");
+  revalidatePath(`/parcours/${slug}`);
+}
+
+/** Ajoute un document PDF déjà uploadé à une carte. */
+export async function addCardDocument(
+  cardId: string,
+  label: string,
+  url: string,
+): Promise<void> {
+  const supabase = createAdminClient();
+  const { documents, slug } = await readDocuments(supabase, cardId);
+  const id = crypto.randomUUID().slice(0, 8);
+  await writeDocuments(supabase, cardId, [...documents, { id, label, url }], slug);
+}
+
+/** Retire un document PDF d'une carte. */
+export async function removeCardDocument(
+  cardId: string,
+  documentId: string,
+): Promise<void> {
+  const supabase = createAdminClient();
+  const { documents, slug } = await readDocuments(supabase, cardId);
+  await writeDocuments(supabase, cardId, documents.filter((d) => d.id !== documentId), slug);
+}
+
+/** Déplace un document dans la liste (échange avec son voisin). */
+export async function moveCardDocument(
+  cardId: string,
+  documentId: string,
+  direction: "up" | "down",
+): Promise<void> {
+  const supabase = createAdminClient();
+  const { documents, slug } = await readDocuments(supabase, cardId);
+  const from = documents.findIndex((d) => d.id === documentId);
+  if (from === -1) return;
+  const to = direction === "up" ? from - 1 : from + 1;
+  if (to < 0 || to >= documents.length) return;
+  const next = [...documents];
+  [next[from], next[to]] = [next[to], next[from]];
+  await writeDocuments(supabase, cardId, next, slug);
 }
 
 /** Prépare l'envoi direct d'un fichier de galerie de rubrique nommée. */

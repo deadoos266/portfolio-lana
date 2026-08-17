@@ -7,6 +7,7 @@ import { RichContent } from "@/components/RichContent";
 import { ArticlePreview } from "@/components/ArticlePreview";
 import { FileCarousel } from "@/components/FileCarousel";
 import { SectionsNav } from "@/components/SectionsNav";
+import { documentsSettingKey, parseDocuments } from "@/lib/card-documents";
 
 export const dynamic = "force-dynamic";
 
@@ -38,7 +39,7 @@ export default async function ParcoursPage({ params }: PageProps) {
   const { slug } = await params;
   const supabase = createAdminClient();
 
-  const [{ data }, articleSectionTitle, articleButtonLabel] = await Promise.all([
+  const [{ data }, articleSectionTitle, articleButtonLabel, rawDocuments] = await Promise.all([
     supabase
       .from("parcours_cards")
       .select("id, title, description, content, gallery_urls, slug, article_urls, sections, gallery_layout")
@@ -46,6 +47,7 @@ export default async function ParcoursPage({ params }: PageProps) {
       .maybeSingle(),
     getSetting("article_section_title"),
     getSetting("article_button_label"),
+    getSetting(documentsSettingKey(slug)),
   ]);
 
   if (!data) notFound();
@@ -55,6 +57,7 @@ export default async function ParcoursPage({ params }: PageProps) {
   const sections = (card.sections ?? []).filter(
     (s) => s.label.trim().length > 0,
   );
+  const documents = parseDocuments(rawDocuments).filter((d) => d.url);
   const hasContent = (card.content ?? "").trim().length > 0;
   const sectionTitle = articleSectionTitle?.trim() || "Mes articles publiés";
   const buttonLabel = articleButtonLabel?.trim() || "Lire l'article →";
@@ -228,6 +231,34 @@ export default async function ParcoursPage({ params }: PageProps) {
               ))}
             </div>
           )}
+        </section>
+      )}
+
+      {/* Documents PDF : version nette (texte vectoriel) des fichiers ci-dessus */}
+      {documents.length > 0 && (
+        <section className="mx-auto max-w-4xl px-6 pb-20">
+          <div className="flex flex-wrap justify-center gap-3">
+            {documents.map((doc) => (
+              <a
+                key={doc.id}
+                href={doc.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border-2 bg-white px-4 py-2 text-sm font-medium shadow-sm transition hover:shadow-md"
+                style={{
+                  borderColor: "var(--c-text-titles)",
+                  color: "var(--c-text-titles)",
+                  fontFamily: '"Times New Roman", Times, serif',
+                }}
+              >
+                <span aria-hidden>📄</span>
+                {doc.label} <span aria-hidden>↗</span>
+              </a>
+            ))}
+          </div>
+          <p className="mt-3 text-center text-xs text-zinc-500">
+            Versions PDF — texte net à tout niveau de zoom, idéal sur téléphone.
+          </p>
         </section>
       )}
 

@@ -4,8 +4,10 @@ import { notFound } from "next/navigation";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getSetting } from "@/lib/settings";
 import { updateParcoursCard } from "../actions";
+import { documentsSettingKey, parseDocuments } from "@/lib/card-documents";
 import { GalleryEditor } from "./GalleryEditor";
 import { GalleryUploader } from "./GalleryUploader";
+import { DocumentsEditor } from "./DocumentsEditor";
 import { SectionsEditor, type SectionItem } from "./SectionsEditor";
 import { RichTextArea } from "@/components/RichTextArea";
 import { ImagePositionControl } from "@/components/ImagePositionControl";
@@ -65,6 +67,9 @@ export default async function EditParcoursPage({
   if (!data) notFound();
   const card = data as CardRow;
   const gallery = card.gallery_urls ?? [];
+  const documents = parseDocuments(
+    card.slug ? await getSetting(documentsSettingKey(card.slug)) : null,
+  );
   const currentAspect = normalizeAspect(card.image_aspect);
   const currentPosition = normalizePosition({
     zoom: card.image_zoom,
@@ -263,6 +268,19 @@ export default async function EditParcoursPage({
           <GalleryEditor id={card.id} images={gallery} />
           <label className={labelClass}>Ajouter des fichiers</label>
           <GalleryUploader cardId={card.id} />
+        </section>
+
+        {/* Documents PDF */}
+        <section className="card space-y-3 p-6">
+          <h2 className="font-display text-lg font-semibold">
+            Documents à télécharger (PDF)
+          </h2>
+          <p className={helpClass}>
+            Affichés sous les fichiers ci-dessus, en boutons. Utile pour offrir
+            la version PDF d&apos;un article : le texte y reste parfaitement net
+            quel que soit le zoom, contrairement à une capture d&apos;écran.
+          </p>
+          <DocumentsEditor cardId={card.id} documents={documents} />
         </section>
 
         {/* Articles externes */}
