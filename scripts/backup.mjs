@@ -17,6 +17,9 @@ const TABLES = [
   { name: "page_visits", order: "id" },
   { name: "contact_messages", order: "id" },
   { name: "app_settings", order: "key" },
+  // Contenu des 7 cartes du parcours : textes, rubriques, galeries, PDF.
+  // C'est le travail de Lana ; il manquait à la sauvegarde.
+  { name: "parcours_cards", order: "display_order" },
 ];
 
 const PAGE = 1000;
