@@ -20,6 +20,9 @@ interface FileCarouselProps {
 export function FileCarousel({ files, altPrefix }: FileCarouselProps) {
   const [index, setIndex] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
+  // Zoom lecture : les fichiers sont souvent des pages A4 de texte dense,
+  // illisibles sur téléphone une fois réduites à la taille de l'écran.
+  const [zoomed, setZoomed] = useState(false);
 
   useEffect(() => {
     if (!lightboxOpen) return;
@@ -41,6 +44,12 @@ export function FileCarousel({ files, altPrefix }: FileCarouselProps) {
 
   function goTo(i: number) {
     setIndex((i + files.length) % files.length);
+    setZoomed(false); // on repart en vue d'ensemble à chaque changement
+  }
+
+  function closeLightbox() {
+    setLightboxOpen(false);
+    setZoomed(false);
   }
 
   const currentUrl = files[index];
@@ -138,33 +147,48 @@ export function FileCarousel({ files, altPrefix }: FileCarouselProps) {
 
       {lightboxOpen && !currentIsPdf && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4 sm:p-8"
-          onClick={() => setLightboxOpen(false)}
+          className={`fixed inset-0 z-50 bg-black/90 ${
+            zoomed ? "overflow-auto" : "flex items-center justify-center p-4 sm:p-8"
+          }`}
+          onClick={closeLightbox}
         >
           <button
             type="button"
-            onClick={() => setLightboxOpen(false)}
+            onClick={(e) => {
+              e.stopPropagation();
+              closeLightbox();
+            }}
             aria-label="Fermer"
-            className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-xl text-white transition hover:bg-white/20"
+            className="fixed right-4 top-4 z-20 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-xl text-white backdrop-blur transition hover:bg-white/20"
           >
             ×
           </button>
 
-          <div
-            className="relative h-full w-full max-w-5xl"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <Image
-              src={currentUrl}
-              alt={`${altPrefix} — fichier ${index + 1}`}
-              fill
-              sizes="90vw"
-              className="object-contain"
-              priority
-            />
-          </div>
+          {/* Indice de lecture : sans ça, on ne devine pas qu'un second
+              niveau de zoom existe (crucial pour les pages A4 de texte). */}
+          <p className="fixed left-1/2 top-4 z-20 -translate-x-1/2 rounded-full bg-white/10 px-3 py-1.5 text-xs text-white backdrop-blur">
+            {zoomed ? "Appuie sur l’image pour dézoomer" : "Appuie sur l’image pour agrandir le texte"}
+          </p>
 
-          {files.length > 1 && (
+          <Image
+            src={currentUrl}
+            alt={`${altPrefix} — fichier ${index + 1}`}
+            width={1400}
+            height={1980}
+            sizes="100vw"
+            priority
+            onClick={(e) => {
+              e.stopPropagation();
+              setZoomed((z) => !z);
+            }}
+            className={
+              zoomed
+                ? "h-auto w-[1400px] max-w-none cursor-zoom-out"
+                : "mx-auto h-auto max-h-[85vh] w-auto max-w-full cursor-zoom-in"
+            }
+          />
+
+          {files.length > 1 && !zoomed && (
             <>
               <button
                 type="button"
@@ -173,7 +197,7 @@ export function FileCarousel({ files, altPrefix }: FileCarouselProps) {
                   goTo(index - 1);
                 }}
                 aria-label="Fichier précédent"
-                className="absolute left-2 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-xl text-white transition hover:bg-white/20 sm:left-6"
+                className="fixed left-2 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-xl text-white backdrop-blur transition hover:bg-white/20 sm:left-6"
               >
                 ←
               </button>
@@ -184,7 +208,7 @@ export function FileCarousel({ files, altPrefix }: FileCarouselProps) {
                   goTo(index + 1);
                 }}
                 aria-label="Fichier suivant"
-                className="absolute right-2 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-xl text-white transition hover:bg-white/20 sm:right-6"
+                className="fixed right-2 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-xl text-white backdrop-blur transition hover:bg-white/20 sm:right-6"
               >
                 →
               </button>
