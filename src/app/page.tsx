@@ -1,6 +1,8 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getSetting } from "@/lib/settings";
+import { firstNonEmpty } from "@/lib/seo";
 import { RichContent } from "@/components/RichContent";
 import { ParcoursCarousel, type ParcoursCard } from "@/components/ParcoursCarousel";
 import { SectionsNav } from "@/components/SectionsNav";
@@ -13,6 +15,30 @@ import {
 import { normalizePosition, positionStyle } from "@/lib/image-position";
 
 export const dynamic = "force-dynamic";
+
+/**
+ * Description de la page d'accueil tirée des textes que Lana gère dans son
+ * dashboard : elle reste juste sans intervention technique quand elle les
+ * modifie.
+ */
+export async function generateMetadata(): Promise<Metadata> {
+  const [subtitle, intro] = await Promise.all([
+    getSetting("hero_subtitle"),
+    getSetting("hero_intro"),
+  ]);
+  const description =
+    firstNonEmpty(subtitle, intro) ||
+    "Portfolio de Lana Hervé, journaliste : articles, critiques artistiques et reportages.";
+
+  return {
+    // Titre complet écrit en entier : le gabarit « %s | Lana Hervé » du
+    // layout ne s'applique qu'aux pages enfants, pas à celle-ci.
+    title: "Lana Hervé, journaliste, presse magazine | Portfolio",
+    description,
+    openGraph: { title: "Lana Hervé, journaliste", description },
+    twitter: { title: "Lana Hervé, journaliste", description },
+  };
+}
 
 const DEFAULTS = {
   subtitle:
@@ -138,7 +164,7 @@ export default async function Home() {
           {banner && (
             <Image
               src={banner}
-              alt="Portfolio — Lana Hervé"
+              alt="Bannière du portfolio de Lana Hervé, journaliste"
               fill
               priority
               style={bannerStyle}
@@ -223,7 +249,7 @@ export default async function Home() {
               {photomaton ? (
                 <Image
                   src={photomaton}
-                  alt="Photomaton de Lana"
+                  alt="Portrait de Lana Hervé"
                   width={220}
                   height={660}
                   priority

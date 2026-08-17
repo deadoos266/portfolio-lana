@@ -1,7 +1,15 @@
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { isAuthed } from "@/lib/auth";
 import { NavLinks } from "./NavLinks";
+
+// Ceinture et bretelles avec robots.txt : l'espace de gestion ne doit
+// jamais remonter dans un moteur de recherche.
+export const metadata: Metadata = {
+  title: "Espace de gestion",
+  robots: { index: false, follow: false },
+};
 
 export default async function DashboardLayout({
   children,

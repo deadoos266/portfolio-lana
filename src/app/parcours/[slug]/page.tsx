@@ -1,6 +1,8 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { firstNonEmpty } from "@/lib/seo";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getSetting } from "@/lib/settings";
 import { RichContent } from "@/components/RichContent";
@@ -34,6 +36,54 @@ interface CardRow {
 
 interface PageProps {
   params: Promise<{ slug: string }>;
+}
+
+/**
+ * Titre et description propres à chaque page de parcours, construits à
+ * partir du contenu réel de la carte (et donc mis à jour automatiquement
+ * quand Lana modifie ses textes).
+ */
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const supabase = createAdminClient();
+  const { data } = await supabase
+    .from("parcours_cards")
+    .select("title, description, content, sections")
+    .eq("slug", slug)
+    .maybeSingle();
+
+  if (!data) return { title: "Page introuvable" };
+
+  const card = data as Pick<CardRow, "title" | "description" | "content" | "sections">;
+  const sectionLabels = (card.sections ?? [])
+    .map((s) => s.label)
+    .filter(Boolean)
+    .join(", ");
+
+  const description =
+    firstNonEmpty(card.description, card.content, sectionLabels) ||
+    `${card.title}, une étape du parcours de Lana Hervé, journaliste.`;
+
+  return {
+    title: card.title,
+    description,
+    // Canonique PROPRE à la page : hérité du layout, il vaudrait « / » et
+    // chaque page se déclarerait doublon de l'accueil, au risque de la
+    // faire sortir des résultats de recherche.
+    alternates: { canonical: `/parcours/${slug}` },
+    openGraph: {
+      title: `${card.title} | Lana Hervé`,
+      description,
+      type: "article",
+      url: `/parcours/${slug}`,
+      images: ["/opengraph-image"],
+    },
+    twitter: {
+      title: `${card.title} | Lana Hervé`,
+      description,
+      images: ["/opengraph-image"],
+    },
+  };
 }
 
 export default async function ParcoursPage({ params }: PageProps) {
@@ -233,18 +283,27 @@ export default async function ParcoursPage({ params }: PageProps) {
           {card.gallery_layout === "carousel" ? (
             <FileCarousel files={gallery} altPrefix={card.title} />
           ) : gallery.length === 1 ? (
-            // Une seule image : affichage GRAND, pleine largeur, sans rognage
-            <div className="overflow-hidden rounded-2xl border border-zinc-100 shadow-md">
+            // Une seule image (CV, calendrier…) : aperçu encadré et de taille
+            // raisonnable plutôt que pleine largeur, cliquable pour l'ouvrir
+            // en grand dans un nouvel onglet.
+            <a
+              href={gallery[0]}
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Ouvrir en grand"
+              className="mx-auto block max-w-2xl cursor-zoom-in overflow-hidden rounded-2xl border-2 shadow-md transition hover:shadow-lg"
+              style={{ borderColor: "var(--c-text-titles)" }}
+            >
               <Image
                 src={gallery[0]}
                 alt={card.title}
-                width={2400}
-                height={1600}
-                sizes="(max-width: 1152px) 100vw, 1152px"
+                width={1600}
+                height={2200}
+                sizes="(max-width: 672px) 100vw, 672px"
                 className="h-auto w-full"
                 priority
               />
-            </div>
+            </a>
           ) : (
             // Plusieurs images : grille (2 puis 3 colonnes)
             <div
@@ -261,7 +320,7 @@ export default async function ParcoursPage({ params }: PageProps) {
                 >
                   <Image
                     src={src}
-                    alt={`${card.title} — image ${i + 1}`}
+                    alt={`${card.title}, document ${i + 1} sur ${gallery.length}`}
                     width={1200}
                     height={1200}
                     className="h-full w-full object-cover"
@@ -381,7 +440,7 @@ function SectionGallery({
         >
           <Image
             src={src}
-            alt={`${altPrefix} — image ${i + 1}`}
+            alt={`${altPrefix}, document ${i + 1} sur ${images.length}`}
             width={900}
             height={900}
             className="h-full w-full object-cover"

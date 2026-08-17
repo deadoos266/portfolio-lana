@@ -97,7 +97,7 @@ export function FileCarousel({ files, altPrefix }: FileCarouselProps) {
               >
                 <Image
                   src={url}
-                  alt={`${altPrefix} — fichier ${i + 1}`}
+                  alt={`${altPrefix}, page ${i + 1} sur ${files.length}`}
                   fill
                   sizes="(max-width: 384px) 100vw, 384px"
                   className="object-contain transition group-hover:opacity-90"
@@ -172,7 +172,7 @@ export function FileCarousel({ files, altPrefix }: FileCarouselProps) {
 
           <Image
             src={currentUrl}
-            alt={`${altPrefix} — fichier ${index + 1}`}
+            alt={`${altPrefix}, page ${index + 1} sur ${files.length}`}
             width={1200}
             height={1700}
             // `sizes` doit refléter la largeur d'affichage RÉELLE, sinon le

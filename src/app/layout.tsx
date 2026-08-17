@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Fraunces } from "next/font/google";
 import "./globals.css";
 import { VisitTracker } from "@/components/VisitTracker";
 import { getSetting } from "@/lib/settings";
+import { SITE_URL } from "@/lib/site";
 
 /**
  * Couleurs du site. La plupart sont fixées dans le code (l'ancienne page
@@ -59,23 +60,50 @@ const fraunces = Fraunces({
   weight: ["400", "500", "600", "700"],
 });
 
+const SITE_NAME = "Lana Hervé";
+const SITE_DESCRIPTION =
+  "Portfolio de Lana Hervé, journaliste. Articles, critiques artistiques et reportages. Entrée en Master 1 Journalisme, spécialisation Presse Magazine à l'IEJ Paris, en recherche d'alternance.";
+
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://lana-herve.vercel.app",
-  ),
-  title: "Lana Hervé",
-  description: "Portfolio de Lana Hervé, journaliste.",
+  metadataBase: new URL(SITE_URL),
+  // Adresse officielle du site : le contenu est aussi accessible via
+  // www.lanaherve.fr et lana-herve.vercel.app, et sans cette balise Google
+  // considérerait ces adresses comme des doublons concurrents.
+  alternates: { canonical: "/" },
+  // `template` : chaque page fournit son propre titre, complété par le nom
+  // du site. Sans ça, les 6 pages partageaient le même titre et Google ne
+  // pouvait pas les distinguer.
+  title: {
+    default: "Lana Hervé, journaliste",
+    template: "%s | Lana Hervé",
+  },
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  authors: [{ name: SITE_NAME }],
+  creator: SITE_NAME,
+  keywords: [
+    "Lana Hervé",
+    "journaliste",
+    "portfolio journalisme",
+    "presse magazine",
+    "critique artistique",
+    "reportage",
+    "alternance journalisme",
+    "IEJ Paris",
+  ],
   openGraph: {
-    title: "Lana Hervé — Journaliste",
-    description: "Portfolio de Lana Hervé, journaliste.",
+    siteName: SITE_NAME,
+    title: "Lana Hervé, journaliste",
+    description: SITE_DESCRIPTION,
     type: "website",
     locale: "fr_FR",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Lana Hervé — Journaliste",
-    description: "Portfolio de Lana Hervé, journaliste.",
+    title: "Lana Hervé, journaliste",
+    description: SITE_DESCRIPTION,
   },
+  robots: { index: true, follow: true },
 };
 
 export default async function RootLayout({
