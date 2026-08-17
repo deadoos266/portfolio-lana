@@ -6,6 +6,7 @@ import { firstNonEmpty } from "@/lib/seo";
 import { RichContent } from "@/components/RichContent";
 import { ParcoursCarousel, type ParcoursCard } from "@/components/ParcoursCarousel";
 import { SectionsNav } from "@/components/SectionsNav";
+import { ContactButton } from "@/components/ContactButton";
 import {
   alignClass,
   getProjetLayout,
@@ -282,16 +283,7 @@ export default async function Home() {
               }}
             />
             <div className="flex flex-wrap gap-3 pt-2">
-              <a
-                href={`mailto:${contactEmail}`}
-                className="rounded-full px-5 py-2.5 text-sm font-medium transition hover:opacity-90"
-                style={{
-                  background: "var(--c-button-bg)",
-                  color: "var(--c-button-text)",
-                }}
-              >
-                Me contacter
-              </a>
+              <ContactButton email={contactEmail} phone={phone} />
               {cvUrl && (
                 <a
                   href={cvUrl}
