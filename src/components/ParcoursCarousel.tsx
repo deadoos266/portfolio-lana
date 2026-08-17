@@ -74,7 +74,7 @@ export function ParcoursCarousel({ cards }: ParcoursCarouselProps) {
           type="button"
           onClick={() => scrollBy("left")}
           aria-label="Précédent"
-          className="absolute left-0 top-1/2 hidden -translate-y-1/2 -translate-x-1/2 items-center justify-center rounded-full border border-zinc-200 bg-white p-3 text-zinc-700 shadow-md transition hover:bg-zinc-50 hover:text-zinc-900 sm:flex"
+          className="absolute left-0 top-1/2 flex -translate-y-1/2 -translate-x-1/2 items-center justify-center rounded-full border border-zinc-200 bg-white p-3 text-zinc-700 shadow-md transition hover:bg-zinc-50 hover:text-zinc-900"
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
             <path
