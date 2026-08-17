@@ -68,46 +68,57 @@ export function ParcoursCarousel({ cards }: ParcoursCarouselProps) {
         ))}
       </div>
 
-      {/* Flèche gauche (apparaît seulement si on peut revenir) */}
-      {canScrollLeft && (
-        <button
-          type="button"
-          onClick={() => scrollBy("left")}
-          aria-label="Précédent"
-          className="absolute left-0 top-1/2 flex -translate-y-1/2 -translate-x-1/2 items-center justify-center rounded-full border border-zinc-200 bg-white p-3 text-zinc-700 shadow-md transition hover:bg-zinc-50 hover:text-zinc-900"
-        >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-            <path
-              d="M15 18l-6-6 6-6"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </button>
-      )}
-
-      {/* Flèche droite (toujours visible tant qu'il reste à découvrir) */}
-      {canScrollRight && (
-        <button
-          type="button"
-          onClick={() => scrollBy("right")}
-          aria-label="Suivant"
-          className="absolute right-0 top-1/2 flex -translate-y-1/2 translate-x-1/2 items-center justify-center rounded-full border border-zinc-200 bg-white p-3 text-zinc-700 shadow-md transition hover:bg-zinc-50 hover:text-zinc-900"
-        >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-            <path
-              d="M9 6l6 6-6 6"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </button>
-      )}
+      {/* Les deux flèches restent TOUJOURS affichées, celle qui ne sert pas
+          étant grisée : on voit ainsi d'emblée que le contenu défile, et la
+          mise en page ne saute pas quand une flèche apparaît ou disparaît. */}
+      <CarouselArrow
+        direction="left"
+        disabled={!canScrollLeft}
+        onClick={() => scrollBy("left")}
+      />
+      <CarouselArrow
+        direction="right"
+        disabled={!canScrollRight}
+        onClick={() => scrollBy("right")}
+      />
     </div>
+  );
+}
+
+function CarouselArrow({
+  direction,
+  disabled,
+  onClick,
+}: {
+  direction: "left" | "right";
+  disabled: boolean;
+  onClick: () => void;
+}) {
+  const isLeft = direction === "left";
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={disabled}
+      aria-label={isLeft ? "Précédent" : "Suivant"}
+      className={`absolute top-1/2 flex -translate-y-1/2 items-center justify-center rounded-full border border-zinc-200 bg-white p-3 text-zinc-700 shadow-md transition ${
+        isLeft ? "left-0 -translate-x-1/2" : "right-0 translate-x-1/2"
+      } ${
+        disabled
+          ? "cursor-not-allowed opacity-30"
+          : "hover:bg-zinc-50 hover:text-zinc-900"
+      }`}
+    >
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+        <path
+          d={isLeft ? "M15 18l-6-6 6-6" : "M9 6l6 6-6 6"}
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </button>
   );
 }
 
