@@ -1,0 +1,152 @@
+[
+  {
+    "key": "article_button_label",
+    "value": "",
+    "updated_at": "2026-07-09T19:18:03.349+00:00"
+  },
+  {
+    "key": "article_section_title",
+    "value": "<p><u><i style=\"\"><span style=\"font-size: 24px; color: rgb(113, 10, 10); font-weight: bold;\"><span style=\"font-size: 24px;\">Mes articles publiés</span></span></i></u></p>",
+    "updated_at": "2026-07-09T19:18:03.225+00:00"
+  },
+  {
+    "key": "banner_pos_x",
+    "value": "27",
+    "updated_at": "2026-07-08T19:05:56.84+00:00"
+  },
+  {
+    "key": "banner_pos_y",
+    "value": "27",
+    "updated_at": "2026-07-08T19:05:56.954+00:00"
+  },
+  {
+    "key": "banner_text",
+    "value": "<p><font face=\"Yeseva One, serif\"><span style=\"font-size: 250px;\"><b>&nbsp;&nbsp;</b></span></font></p>",
+    "updated_at": "2026-07-08T19:05:53.477+00:00"
+  },
+  {
+    "key": "banner_url",
+    "value": "https://kitkltjhslfrdsfopqac.supabase.co/storage/v1/object/public/portfolio/site/dc637568-d739-4460-b21d-039d5eacea14-img-2071-1-.jpg",
+    "updated_at": "2026-07-08T15:33:41.764+00:00"
+  },
+  {
+    "key": "banner_zoom",
+    "value": "100",
+    "updated_at": "2026-07-08T19:05:56.495+00:00"
+  },
+  {
+    "key": "card_documents_calendrier",
+    "value": "[{\"id\":\"doc1\",\"label\":\"Calendrier d’alternance\",\"url\":\"https://kitkltjhslfrdsfopqac.supabase.co/storage/v1/object/public/portfolio/parcours/6e1592db-5805-462b-8fe4-47494496bf78-calendrier-d-alternance-2-.pdf\"}]",
+    "updated_at": "2026-08-17T18:10:49.698+00:00"
+  },
+  {
+    "key": "card_documents_cv",
+    "value": "[{\"id\":\"doc1\",\"label\":\"CV de Lana Hervé\",\"url\":\"https://kitkltjhslfrdsfopqac.supabase.co/storage/v1/object/public/portfolio/parcours/cb9e80c7-5cbc-484e-8913-58794757617e-cv-portfolio-2026-1-.pdf\"}]",
+    "updated_at": "2026-08-17T18:10:49.293+00:00"
+  },
+  {
+    "key": "contact_email",
+    "value": "lanaherve5@icloud.com",
+    "updated_at": "2026-07-08T19:05:54.749+00:00"
+  },
+  {
+    "key": "contact_phone",
+    "value": "06.20.77.79.23",
+    "updated_at": "2026-07-08T19:05:54.905+00:00"
+  },
+  {
+    "key": "dashboard_pin_hash",
+    "value": "02afb55861751959dd6d4777908ee37f85a3dc86f805e9c406103062bca52b9a",
+    "updated_at": "2026-06-29T19:40:07.999998+00:00"
+  },
+  {
+    "key": "hero_intro",
+    "value": "<p><i><span style=\"font-size: 18px;\">Lana Hervé, 21 ans.&nbsp;<br>Diplômée d'une licence Arts du Spectacle, j'intègre dès la rentrée le Master 1 Journalisme spécialisation Presse Magazine à l'Institut Européen de Journalisme à Paris. Je cherche une alternance à compter du mois de septembre.&nbsp;</span></i></p>",
+    "updated_at": "2026-07-08T19:05:53.961+00:00"
+  },
+  {
+    "key": "hero_subtitle",
+    "value": "À la recherche d’une alternance à partir de septembre 2026, au rythme de quatre jours en entreprise et un jour en formation par semaine, j’intègre dès septembre une première année de master Journalisme spécialisation Presse Magazine à l’Institut Européen du Journalisme à Paris.",
+    "updated_at": "2026-08-17T18:29:11.426+00:00"
+  },
+  {
+    "key": "intro_text",
+    "value": "Bonjour, moi c'est Lana. Passionn�e par le journalisme et les histoires qui comptent, je cherche une alternance pour mettre ma curiosit� et ma plume au service d'une r�daction.",
+    "updated_at": "2026-06-30T21:08:14.134111+00:00"
+  },
+  {
+    "key": "parcours_title",
+    "value": "<i><u>Mon parcours</u></i>",
+    "updated_at": "2026-07-08T19:05:57.867+00:00"
+  },
+  {
+    "key": "photomaton_pos_x",
+    "value": "50",
+    "updated_at": "2026-07-08T19:05:57.181+00:00"
+  },
+  {
+    "key": "photomaton_pos_y",
+    "value": "54",
+    "updated_at": "2026-07-08T19:05:57.3+00:00"
+  },
+  {
+    "key": "photomaton_url",
+    "value": "https://kitkltjhslfrdsfopqac.supabase.co/storage/v1/object/public/portfolio/profil/fc229f9f-f194-4862-8bae-84fab14916ab-ba278922-0cbe-4d0c-9fda-6a8c11b96656.jpg",
+    "updated_at": "2026-07-01T21:39:44.252+00:00"
+  },
+  {
+    "key": "photomaton_zoom",
+    "value": "100",
+    "updated_at": "2026-07-08T19:05:57.071+00:00"
+  },
+  {
+    "key": "projet_align",
+    "value": "left",
+    "updated_at": "2026-07-08T19:05:55.359+00:00"
+  },
+  {
+    "key": "projet_text",
+    "value": "<p>Si<b> <i>le journalisme culturel</i></b> constitue aujourd'hui mon domaine de prédilection, je ne souhaite pas me limiter uniquement aux médias qui y sont spécialisés. J'ai pour ambition d'évoluer au sein de médias généralistes afin de contribuer à une meilleure visibilité de la culture et des pratiques artistiques dans l'espace médiatique. Je suis convaincue que l'art occupe une place essentielle dans notre société, permettant de questionner notre monde, de nourrir le débat public et de susciter des émotions ineffables.</p><p>J'apprécie particulièrement travailler les formats longs tels que <b>le reportage</b> ou<b> l'enquête</b>, qui offrent le temps d'explorer le sujet avec plus de <b>profondeur</b> et de <b>nuance</b>.\r\n</p><p>\r\n</p><p>J'intègre donc à la rentrée prochaine <b>l'Institut Européen du Journalisme</b> <b>en Master 1, spécialité Presse Magazine sur le campus de Paris</b> <b>en alternance</b>. Cette organisation représente pour moi l'opportunité de confronter les enseignements théoriques à la réalité du terrain, de <b>développer mes compétences rédactionnelles</b> ainsi que d'acquérir une plus grande autonomie. Elle constitue un véritable tremplin dans la construction de mon projet professionnel : devenir une journaliste capable de <b>rendre la culture accessible </b>au plus grand nombre, en proposant des<b> contenus journalistiques rigoureux, sensibles et ouverts sur les enjeux contemporains internationaux.</b></p>",
+    "updated_at": "2026-07-08T19:05:54.28+00:00"
+  },
+  {
+    "key": "projet_title",
+    "value": "<i><u>Mon projet professionnel</u></i>",
+    "updated_at": "2026-07-08T19:05:57.64+00:00"
+  },
+  {
+    "key": "projet_width",
+    "value": "full",
+    "updated_at": "2026-07-08T19:05:55.042+00:00"
+  },
+  {
+    "key": "site_theme_v1",
+    "value": "{\"textTitles\":\"#6A2020\",\"textContactTitle\":\"#1D1D1F\",\"textName\":\"#751E15\",\"textBody\":\"#3F3F46\",\"accentWarm\":\"#550C0C\",\"accentCool\":\"#C9A876\",\"bgMain\":\"#FBF9F4\",\"bgHero\":\"#FAFAF9\",\"haloWarm\":\"#FEF6E4\",\"haloCool\":\"#EAE0CD\",\"buttonBg\":\"#000000\",\"buttonText\":\"#FFFFFF\"}",
+    "updated_at": "2026-07-08T18:03:57.835+00:00"
+  },
+  {
+    "key": "tagline",
+    "value": "Journaliste — à la recherche d'une alternance",
+    "updated_at": "2026-06-30T21:08:14.134111+00:00"
+  },
+  {
+    "key": "vision_align",
+    "value": "left",
+    "updated_at": "2026-07-08T19:05:56.189+00:00"
+  },
+  {
+    "key": "vision_text",
+    "value": "<p>Selon moi, le journalisme est une <b>responsabilité citoyenne e</b><b>t intellectuelle</b>. Cette mission est essentielle et permet à chacun de comprendre le monde qui l’entoure en se forgeant un <b>esprit critique</b>. C'est ainsi un pilier du débat public et du bon fonctionnement de la démocratie.</p><p><b>Le journalisme culturel</b> occupe une place particulière dans le domaine. Souvent considéré à tort comme une rubrique secondaire ou plus légère, il constitue pourtant un formidable <b>outil de compréhension du monde</b>. Axé sur l’art, il me permet d’aborder des situations de tensions ou de <b>conflits géopolitiques</b> sous l’angle de l’art et des créations de la région concernée. L’art est profondément lié à son époque : il témoigne des tensions, des résistances, des mémoires et des transformations d’une société. Cet angle est une façon différente d’aborder un sujet d’actualité en favorisant l’aspect humain et sensible. C’est précisément ce que j’aime dans le journalisme culturel.</p><p>Aujourd’hui, le journalisme traverse <b>une crise de confiance</b> profonde. La multiplication des informations sur <b>les réseaux sociaux</b> brouille la frontière entre le vrai et le faux, tandis que la concentration des médias entre les mains de grands groupes ou de grandes fortunes nourrissent&nbsp;<b>des interrogations&nbsp; sur l’indépendance éditoriale</b>. À cela s’ajoute, selon moi, un enjeu souvent sous-estimé : <b>le manque de spécialisation</b> dans certaines rédactions. Lorsqu’un sujet est traité sans connaissance approfondie de son contexte ou de ses spécificités, le risque est de produire <b>une information incomplète</b> ou approximative. C’est pourquoi je considère que la spécialisation est <b>une véritable force.</b> Maîtriser un domaine permet d’en comprendre<b> les enjeux</b>, d’en restituer<b> la complexité</b> et de proposer une information plus juste.&nbsp;<br>Si certains peuvent voir dans cette spécialisation une forme de limitation,<b> j’y vois au contraire la condition d’un travail exigeant et de qualité.&nbsp;</b></p>",
+    "updated_at": "2026-07-08T19:05:54.609+00:00"
+  },
+  {
+    "key": "vision_title",
+    "value": "<i><u>Ma vision du journalisme&nbsp;</u></i>",
+    "updated_at": "2026-07-08T19:05:57.759+00:00"
+  },
+  {
+    "key": "vision_width",
+    "value": "full",
+    "updated_at": "2026-07-08T19:05:55.833+00:00"
+  }
+]
