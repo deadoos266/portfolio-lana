@@ -24,6 +24,20 @@ const TABLES = [
 
 const PAGE = 1000;
 
+// Donnees personnelles a ne JAMAIS versionner (RGPD) : une adresse IP, un
+// user-agent ou une ville identifient un visiteur. Le depot est passe public
+// le 09/09/2026 en exposant 106 adresses IP de visiteurs reels.
+const CHAMPS_SENSIBLES =
+  /^(ip|user_agent|city|country|region|email|phone|.*_hash|.*_secret|.*_token)$/i;
+
+function nettoyer(lignes) {
+  return lignes.map((ligne) =>
+    Object.fromEntries(
+      Object.entries(ligne).filter(([cle]) => !CHAMPS_SENSIBLES.test(cle)),
+    ),
+  );
+}
+
 async function fetchAll(table, order) {
   const rows = [];
   for (let offset = 0; ; offset += PAGE) {
@@ -47,7 +61,7 @@ for (const { name, order } of TABLES) {
   const rows = await fetchAll(name, order);
   await writeFile(
     `backups/${name}.json`,
-    JSON.stringify(rows, null, 2) + "\n",
+    JSON.stringify(nettoyer(rows), null, 2) + "\n",
   );
   console.log(`${name}: ${rows.length} lignes`);
 }
