@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { CSSProperties } from "react";
 import Image from "next/image";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getSetting } from "@/lib/settings";
@@ -127,9 +128,15 @@ export default async function Home() {
   ]);
 
   const hasBannerText = ((bannerText ?? "").trim()).replace(/<[^>]+>/g, "").trim().length > 0;
-  const bannerStyle = positionStyle(
-    normalizePosition({ zoom: bannerZoom, posX: bannerPosX, posY: bannerPosY }),
-  );
+  // Cadrage de la bannière (zoom + position réglés dans Mon site). Appliqué
+  // seulement à partir des tablettes : sur téléphone, l'image est affichée
+  // entière et centrée. Un cadrage pensé pour un écran large (ex. 27 % / 27 %)
+  // coupait le mot PORTFOLIO et le décalait vers la gauche.
+  const bannerPosition = normalizePosition({ zoom: bannerZoom, posX: bannerPosX, posY: bannerPosY });
+  const bannerVars = {
+    "--banner-pos": `${bannerPosition.posX}% ${bannerPosition.posY}%`,
+    "--banner-scale": bannerPosition.zoom === 100 ? "none" : `scale(${bannerPosition.zoom / 100})`,
+  } as CSSProperties;
   const photomatonStyle = positionStyle(
     normalizePosition({
       zoom: photomatonZoom,
@@ -158,7 +165,10 @@ export default async function Home() {
       <header className="relative">
         {/* Bandeau PORTFOLIO — grand format style Apple */}
         <div
-          className="relative h-[60vh] min-h-[420px] w-full overflow-hidden sm:h-[70vh]"
+          // Sur téléphone, le cadre reprend le ratio de l'image de bannière (1211×644)
+          // pour l'afficher entière ; en cas d'image d'un autre ratio, elle reste
+          // entière et centrée, avec au pire une marge.
+          className="relative aspect-[1211/644] w-full overflow-hidden sm:aspect-auto sm:h-[70vh]"
           style={{ background: "var(--c-bg-hero)" }}
         >
           {/* Image de fond (si fournie) */}
@@ -168,7 +178,9 @@ export default async function Home() {
               alt="Bannière du portfolio de Lana Hervé, journaliste"
               fill
               priority
-              style={bannerStyle}
+              sizes="100vw"
+              style={bannerVars}
+              className="object-contain object-center sm:object-cover sm:[object-position:var(--banner-pos)] sm:[transform:var(--banner-scale)] sm:[transform-origin:var(--banner-pos)]"
             />
           )}
 
