@@ -1243,6 +1243,17 @@
     "bot_reason": null
   },
   {
+    "id": "34a1c61f-8bcb-4f01-bb8f-746cd6f270e4",
+    "created_at": "2026-09-09T05:10:33.947095+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "mobile",
+    "browser": "Mobile Safari",
+    "os": "iOS",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "34f2fff9-c72f-4ef8-81e5-8f51a8a1781d",
     "created_at": "2026-07-15T14:35:02.504739+00:00",
     "path": "/",
@@ -1250,6 +1261,17 @@
     "device_type": "desktop",
     "browser": "Edge",
     "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
+    "id": "360f5343-6516-427f-8404-48611b6ec70d",
+    "created_at": "2026-09-09T06:53:04.532309+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "mobile",
+    "browser": "Mobile Safari",
+    "os": "iOS",
     "is_bot": false,
     "bot_reason": null
   },
@@ -2145,6 +2167,17 @@
     "bot_reason": null
   },
   {
+    "id": "59c6e08a-6aaa-4033-9d1e-b4a68d5d5702",
+    "created_at": "2026-09-09T04:41:42.01143+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "mobile",
+    "browser": "Mobile Safari",
+    "os": "iOS",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "5b06cb5c-d7ab-4d4c-9c87-b9a10c107e03",
     "created_at": "2026-08-17T18:47:34.382684+00:00",
     "path": "/",
@@ -2228,6 +2261,17 @@
     "referrer": null,
     "device_type": "desktop",
     "browser": "Electron",
+    "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
+    "id": "5d5082a9-8a53-4271-8d5b-b85ce1accb9f",
+    "created_at": "2026-09-09T04:10:25.627291+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
     "os": "Windows",
     "is_bot": false,
     "bot_reason": null
@@ -4871,6 +4915,17 @@
     "os": "Windows",
     "is_bot": false,
     "bot_reason": null
+  },
+  {
+    "id": "ce6a1d93-5c7b-429e-9f58-bb2ca208501e",
+    "created_at": "2026-09-09T04:30:18.706032+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome Headless",
+    "os": "Linux",
+    "is_bot": true,
+    "bot_reason": "signature robot"
   },
   {
     "id": "cf288ef0-3415-4fab-8ec7-40546dc553e6",
