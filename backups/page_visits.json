@@ -990,6 +990,17 @@
     "bot_reason": null
   },
   {
+    "id": "29de13d6-f21c-4319-8ef0-43668de72085",
+    "created_at": "2026-09-09T16:44:57.740445+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "mobile",
+    "browser": "Mobile Safari",
+    "os": "iOS",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "2a79ab23-8853-46be-b1d2-6057bcda93cd",
     "created_at": "2026-07-09T19:07:29.684822+00:00",
     "path": "/parcours/concours",
@@ -1804,6 +1815,17 @@
     "bot_reason": null
   },
   {
+    "id": "4c89f9d2-7303-42ce-aee4-ad280c08b980",
+    "created_at": "2026-09-09T07:46:24.328464+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "4eafe8fc-688d-48a8-a345-d5ba56efaa82",
     "created_at": "2026-08-04T15:43:07.21048+00:00",
     "path": "/",
@@ -2563,6 +2585,17 @@
     "bot_reason": null
   },
   {
+    "id": "68fdfc83-8c2d-4d27-bd68-6be39d85dec6",
+    "created_at": "2026-09-09T22:47:05.190384+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "mobile",
+    "browser": "Mobile Safari",
+    "os": "iOS",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "693ae03a-2943-4a33-b3a3-6e7b16c1e9b0",
     "created_at": "2026-07-09T19:09:17.077111+00:00",
     "path": "/parcours/concours",
@@ -2647,6 +2680,17 @@
     "device_type": "desktop",
     "browser": "Chrome",
     "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
+    "id": "6de75f07-6e07-46c6-b20a-5dcf400b68ac",
+    "created_at": "2026-09-09T07:46:43.938735+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "mobile",
+    "browser": "Chrome",
+    "os": "Android",
     "is_bot": false,
     "bot_reason": null
   },
@@ -3377,6 +3421,17 @@
     "bot_reason": null
   },
   {
+    "id": "8e97f888-b0c4-4294-91e2-55e271e03f2b",
+    "created_at": "2026-09-09T07:46:45.684912+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "8ece1630-9123-4b24-8a7c-77b7fccf0562",
     "created_at": "2026-07-08T18:03:31.889613+00:00",
     "path": "/",
@@ -3791,6 +3846,17 @@
     "device_type": "desktop",
     "browser": "Chrome",
     "os": "Mac OS",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
+    "id": "9c8ceb04-3d59-4447-8584-b4e00192abb7",
+    "created_at": "2026-09-09T10:49:10.200507+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Edge",
+    "os": "Windows",
     "is_bot": false,
     "bot_reason": null
   },
@@ -4488,6 +4554,17 @@
     "bot_reason": null
   },
   {
+    "id": "bb0b682a-67cd-4146-8c2c-911ea33b843f",
+    "created_at": "2026-09-09T07:47:09.771373+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "bb198f2b-ebe4-4b20-9361-50cfc41019a2",
     "created_at": "2026-07-16T08:04:07.045855+00:00",
     "path": "/",
@@ -4884,6 +4961,17 @@
     "bot_reason": null
   },
   {
+    "id": "cd230b14-5c30-40a6-8ad6-b970516a04bc",
+    "created_at": "2026-09-09T12:49:11.927023+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "mobile",
+    "browser": "Mobile Safari",
+    "os": "iOS",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "ce278144-edc5-40dd-a063-69fcd8002f96",
     "created_at": "2026-08-11T07:42:40.393661+00:00",
     "path": "/parcours/artistique-scolaire",
@@ -5185,6 +5273,17 @@
     "created_at": "2026-08-17T18:08:18.605555+00:00",
     "path": "/",
     "referrer": "https://lanaherve.fr/",
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
+    "id": "da2a33bf-1c66-49c6-9de5-59a8eb95494c",
+    "created_at": "2026-09-09T07:44:33.81384+00:00",
+    "path": "/",
+    "referrer": null,
     "device_type": "desktop",
     "browser": "Chrome",
     "os": "Windows",
@@ -5555,6 +5654,17 @@
     "bot_reason": null
   },
   {
+    "id": "eb3f8ccd-616c-40e5-8dde-06b9a98e3d57",
+    "created_at": "2026-09-09T09:52:38.780747+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "mobile",
+    "browser": "Mobile Safari",
+    "os": "iOS",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "eb72590b-c8c1-412a-b7d0-e60e65580437",
     "created_at": "2026-07-09T18:31:27.367476+00:00",
     "path": "/parcours/concours",
@@ -5702,6 +5812,17 @@
     "created_at": "2026-07-09T16:03:23.351225+00:00",
     "path": "/parcours/concours",
     "referrer": "https://lana-herve.vercel.app/parcours/concours",
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
+    "id": "ef0a7942-ca4d-4a2e-9a22-3b0a1d8d6dce",
+    "created_at": "2026-09-09T11:26:58.390777+00:00",
+    "path": "/",
+    "referrer": null,
     "device_type": "desktop",
     "browser": "Chrome",
     "os": "Windows",
