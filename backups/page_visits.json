@@ -209,6 +209,17 @@
     "bot_reason": null
   },
   {
+    "id": "08666ccd-b8a9-4978-b992-2e4dccb01573",
+    "created_at": "2026-09-11T03:20:14.648947+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Edge",
+    "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "0933a918-a552-475a-a0e2-5a38d2016d7f",
     "created_at": "2026-07-05T16:31:53.190777+00:00",
     "path": "/",
@@ -1342,6 +1353,17 @@
     "bot_reason": null
   },
   {
+    "id": "38b135d8-76e8-4b16-9d28-a218bca80d59",
+    "created_at": "2026-09-10T22:00:19.057589+00:00",
+    "path": "/admin",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "3922d2f4-fe30-49aa-baf7-0c0ca2bb3555",
     "created_at": "2026-07-08T13:49:22.695614+00:00",
     "path": "/",
@@ -2057,6 +2079,17 @@
     "bot_reason": null
   },
   {
+    "id": "54ba53ca-b176-4262-80e4-77b709cc3423",
+    "created_at": "2026-09-11T04:57:05.42551+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "mobile",
+    "browser": "Mobile Safari",
+    "os": "iOS",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "5563a428-6f90-46d4-9d10-740b83467daf",
     "created_at": "2026-07-09T19:43:24.02704+00:00",
     "path": "/preview-check-tmp",
@@ -2218,6 +2251,17 @@
     "device_type": "mobile",
     "browser": "Chrome",
     "os": "iOS",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
+    "id": "5b9c7333-ab87-4694-b16d-745d5d949be8",
+    "created_at": "2026-09-10T18:39:23.839355+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Windows",
     "is_bot": false,
     "bot_reason": null
   },
@@ -2906,6 +2950,17 @@
   {
     "id": "77305b57-d2b0-47c9-8282-ccbb44a82a04",
     "created_at": "2026-07-01T21:14:18.693082+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
+    "id": "7758ca1f-32ac-44b9-9438-ed30fe1aff0f",
+    "created_at": "2026-09-10T22:00:00.051691+00:00",
     "path": "/",
     "referrer": null,
     "device_type": "desktop",
@@ -3912,6 +3967,17 @@
     "device_type": "desktop",
     "browser": "Chrome",
     "os": "Mac OS",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
+    "id": "9eec4dfb-9207-4761-bcd3-a71094160126",
+    "created_at": "2026-09-11T04:54:27.408163+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Windows",
     "is_bot": false,
     "bot_reason": null
   },
@@ -5610,6 +5676,17 @@
     "bot_reason": null
   },
   {
+    "id": "e73b00ea-a376-4fd3-96a8-6ac714c07e00",
+    "created_at": "2026-09-10T17:12:52.043741+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "mobile",
+    "browser": "Mobile Safari",
+    "os": "iOS",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "e74c6e51-5b73-4a76-aa4c-bf77b6e8df1d",
     "created_at": "2026-07-08T14:37:25.988463+00:00",
     "path": "/parcours/cv",
@@ -5647,6 +5724,17 @@
     "created_at": "2026-07-09T15:11:54.654162+00:00",
     "path": "/parcours/concours",
     "referrer": "https://lana-herve.vercel.app/",
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
+    "id": "e9fdf3e9-06d8-4c04-9d73-fa6dbd1a15c4",
+    "created_at": "2026-09-10T22:00:30.558514+00:00",
+    "path": "/journal/admin",
+    "referrer": null,
     "device_type": "desktop",
     "browser": "Chrome",
     "os": "Windows",
