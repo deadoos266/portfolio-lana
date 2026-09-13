@@ -4411,6 +4411,17 @@
     "bot_reason": null
   },
   {
+    "id": "b231ec25-1105-46ce-bc96-e90bfdcf300b",
+    "created_at": "2026-09-12T11:34:47.857535+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Safari",
+    "os": "Mac OS",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "b26256ea-0654-4dd7-9173-c156959c4a1f",
     "created_at": "2026-08-18T09:59:36.629449+00:00",
     "path": "/",
