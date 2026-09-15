@@ -1661,6 +1661,17 @@
     "bot_reason": null
   },
   {
+    "id": "44128b41-69f4-481a-b756-cececd16084d",
+    "created_at": "2026-09-14T18:04:00.676237+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "mobile",
+    "browser": "Mobile Safari",
+    "os": "iOS",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "448d5efc-5bcd-4c4c-b679-41ddabe0cb99",
     "created_at": "2026-07-08T22:48:36.096434+00:00",
     "path": "/",
@@ -1701,6 +1712,17 @@
     "device_type": "desktop",
     "browser": "Chrome",
     "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
+    "id": "4685f723-70c9-4fb8-8e74-3542e3643de8",
+    "created_at": "2026-09-14T15:58:05.02606+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "mobile",
+    "browser": "Mobile Safari",
+    "os": "iOS",
     "is_bot": false,
     "bot_reason": null
   },
@@ -2244,6 +2266,17 @@
     "bot_reason": null
   },
   {
+    "id": "5af18158-08c2-4134-995b-2c7ad9c57c8e",
+    "created_at": "2026-09-14T10:58:45.698551+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "mobile",
+    "browser": "Mobile Safari",
+    "os": "iOS",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "5b06cb5c-d7ab-4d4c-9c87-b9a10c107e03",
     "created_at": "2026-08-17T18:47:34.382684+00:00",
     "path": "/",
@@ -2662,6 +2695,17 @@
     "bot_reason": null
   },
   {
+    "id": "69b9abc1-c633-4ac3-a4f1-a837bfd329b6",
+    "created_at": "2026-09-14T11:12:12.998476+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "mobile",
+    "browser": "Mobile Safari",
+    "os": "iOS",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "69e225bd-7064-4959-b1e3-8cc5fcac5eab",
     "created_at": "2026-07-08T18:03:03.053995+00:00",
     "path": "/parcours/stage-mouvement",
@@ -3065,6 +3109,17 @@
     "device_type": "desktop",
     "browser": "Chrome",
     "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
+    "id": "7be68a50-fd52-4d36-a1aa-0abcf3fd0ee9",
+    "created_at": "2026-09-15T07:40:33.904628+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Safari",
+    "os": "Mac OS",
     "is_bot": false,
     "bot_reason": null
   },
@@ -5414,6 +5469,17 @@
   {
     "id": "dcc73d7d-69d0-4777-887f-ae37b82986a5",
     "created_at": "2026-07-28T22:28:18.631352+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "mobile",
+    "browser": "Mobile Safari",
+    "os": "iOS",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
+    "id": "dd68b5a8-4da5-41a2-b511-8e86e28fce71",
+    "created_at": "2026-09-14T09:05:24.324014+00:00",
     "path": "/",
     "referrer": null,
     "device_type": "mobile",
