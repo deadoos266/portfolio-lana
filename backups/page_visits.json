@@ -198,6 +198,17 @@
     "bot_reason": null
   },
   {
+    "id": "07036aa4-b29b-4e3d-95b6-434240e2f622",
+    "created_at": "2026-09-16T03:48:36.580242+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome Headless",
+    "os": "Linux",
+    "is_bot": true,
+    "bot_reason": "signature robot"
+  },
+  {
     "id": "077cbc38-5efd-4fc1-9ace-b311b5ca8a3b",
     "created_at": "2026-07-09T17:48:27.421594+00:00",
     "path": "/",
@@ -1683,6 +1694,17 @@
     "bot_reason": null
   },
   {
+    "id": "44a988af-ce50-479e-91ea-1628d764acb0",
+    "created_at": "2026-09-15T16:04:26.1368+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "452c7efc-ea26-4ea7-a386-232d80c54797",
     "created_at": "2026-07-10T03:14:26.483636+00:00",
     "path": "/parcours/cv",
@@ -1815,6 +1837,17 @@
     "bot_reason": null
   },
   {
+    "id": "49108a35-1735-46d5-a9a5-157b2eb4b46d",
+    "created_at": "2026-09-15T16:12:55.187973+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "498e5f6e-9da9-4392-a01d-1b2eddbe7818",
     "created_at": "2026-07-01T21:33:30.097351+00:00",
     "path": "/",
@@ -1877,6 +1910,17 @@
     "device_type": "desktop",
     "browser": "Chrome",
     "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
+    "id": "4da57ef9-165d-454c-a928-706721fef426",
+    "created_at": "2026-09-16T07:39:07.227356+00:00",
+    "path": "/parcours/concours",
+    "referrer": null,
+    "device_type": "mobile",
+    "browser": "Mobile Safari",
+    "os": "iOS",
     "is_bot": false,
     "bot_reason": null
   },
@@ -4114,6 +4158,17 @@
     "bot_reason": null
   },
   {
+    "id": "9fd6a173-64e6-44b8-91b4-05cfc14e5536",
+    "created_at": "2026-09-15T11:52:49.452504+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Safari",
+    "os": "Mac OS",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "a0ee5d0b-6062-4299-935e-2fbc7463938a",
     "created_at": "2026-07-27T21:35:27.407104+00:00",
     "path": "/",
@@ -4176,6 +4231,17 @@
     "device_type": "desktop",
     "browser": "Chrome",
     "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
+    "id": "a588d228-9499-414c-9946-ad3f291e8cee",
+    "created_at": "2026-09-15T15:58:46.870834+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Safari",
+    "os": "Mac OS",
     "is_bot": false,
     "bot_reason": null
   },
@@ -4422,6 +4488,17 @@
     "bot_reason": null
   },
   {
+    "id": "ade4718a-9a2e-478d-9a21-344d3a6b9923",
+    "created_at": "2026-09-15T16:12:54.049165+00:00",
+    "path": "/parcours/articles",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "ae5f38a0-ecf3-4259-86e7-90486185dae4",
     "created_at": "2026-07-09T15:03:09.360025+00:00",
     "path": "/parcours/stage-mouvement",
@@ -4585,6 +4662,17 @@
     "os": "Windows",
     "is_bot": false,
     "bot_reason": null
+  },
+  {
+    "id": "b6472863-4a31-40a0-a2d7-dbf7381dd5dc",
+    "created_at": "2026-09-15T10:28:29.016644+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Windows",
+    "is_bot": true,
+    "bot_reason": "pré-chargement"
   },
   {
     "id": "b6cd50df-1b79-4da9-b07f-c260bb710ec9",
@@ -5291,6 +5379,17 @@
     "bot_reason": null
   },
   {
+    "id": "d58d5f16-6d86-4310-8be3-ca15be96203d",
+    "created_at": "2026-09-16T07:00:21.025056+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "mobile",
+    "browser": "Mobile Safari",
+    "os": "iOS",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "d59bb902-ff8c-4c29-86b8-b097d7b36be9",
     "created_at": "2026-08-17T18:17:58.477992+00:00",
     "path": "/",
@@ -5815,6 +5914,17 @@
     "device_type": "desktop",
     "browser": "Chrome",
     "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
+    "id": "e88c72f3-42fd-4648-8f75-051d9e681a4e",
+    "created_at": "2026-09-16T07:10:50.264382+00:00",
+    "path": "/parcours/concours",
+    "referrer": null,
+    "device_type": "mobile",
+    "browser": "Mobile Safari",
+    "os": "iOS",
     "is_bot": false,
     "bot_reason": null
   },
