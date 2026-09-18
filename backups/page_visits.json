@@ -308,6 +308,17 @@
     "bot_reason": null
   },
   {
+    "id": "0b9dc3d2-1efc-4d38-a849-07b05f81fbf8",
+    "created_at": "2026-09-17T18:08:22.195221+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Windows",
+    "is_bot": true,
+    "bot_reason": "pré-chargement"
+  },
+  {
     "id": "0bbd4eff-be46-4ac8-9fe9-9981a0de957c",
     "created_at": "2026-07-08T12:14:07.995588+00:00",
     "path": "/",
