@@ -6127,6 +6127,17 @@
     "bot_reason": null
   },
   {
+    "id": "ee25e61c-15aa-41df-8eda-8b23a835b0e5",
+    "created_at": "2026-09-21T10:31:25.157297+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Mac OS",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "ee5f1cf0-db07-41d5-9bee-9073543efd67",
     "created_at": "2026-07-09T15:47:09.138875+00:00",
     "path": "/preview-check-tmp",
