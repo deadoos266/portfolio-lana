@@ -220,6 +220,17 @@
     "bot_reason": "signature robot"
   },
   {
+    "id": "070905f8-c5ef-4d8b-a0d9-b2486662af92",
+    "created_at": "2026-09-25T13:09:29.851177+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "077cbc38-5efd-4fc1-9ace-b311b5ca8a3b",
     "created_at": "2026-07-09T17:48:27.421594+00:00",
     "path": "/",
@@ -629,6 +640,17 @@
   {
     "id": "17f5f8ea-75d6-4432-a216-2760c2578095",
     "created_at": "2026-07-10T03:14:29.179424+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
+    "id": "17fbb1c8-6166-49f9-98d2-6f2c8715f18b",
+    "created_at": "2026-09-25T13:06:42.295599+00:00",
     "path": "/",
     "referrer": null,
     "device_type": "desktop",
@@ -2981,6 +3003,17 @@
     "bot_reason": null
   },
   {
+    "id": "72cf4f74-e024-4876-99c6-a0b74dddf374",
+    "created_at": "2026-09-25T12:54:39.526458+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Mac OS",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "72f2662f-3b3f-438f-91f6-ccff0a4cd090",
     "created_at": "2026-08-17T18:18:12.456512+00:00",
     "path": "/parcours/calendrier",
@@ -3586,6 +3619,17 @@
     "bot_reason": null
   },
   {
+    "id": "8b3ab84f-9dab-4afd-a6e1-0ce3b08bf217",
+    "created_at": "2026-09-25T13:10:49.239495+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "8b571968-6d10-446b-8074-272a80ee8cae",
     "created_at": "2026-08-17T17:51:26.621602+00:00",
     "path": "/parcours/articles",
@@ -3637,6 +3681,17 @@
     "device_type": "desktop",
     "browser": "Chrome",
     "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
+    "id": "8cd40745-f61b-4ff1-bb73-c3938655ba44",
+    "created_at": "2026-09-25T12:11:43.81455+00:00",
+    "path": "/parcours/artistique-scolaire",
+    "referrer": null,
+    "device_type": "mobile",
+    "browser": "Mobile Safari",
+    "os": "iOS",
     "is_bot": false,
     "bot_reason": null
   },
@@ -4624,6 +4679,17 @@
     "created_at": "2026-08-17T18:47:21.057941+00:00",
     "path": "/",
     "referrer": "https://lanaherve.fr/",
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
+    "id": "b0b472f9-671a-477c-bc80-418f59849339",
+    "created_at": "2026-09-25T13:06:31.233379+00:00",
+    "path": "/",
+    "referrer": null,
     "device_type": "desktop",
     "browser": "Chrome",
     "os": "Windows",
@@ -6017,6 +6083,17 @@
     "bot_reason": null
   },
   {
+    "id": "e9829dff-a602-4370-85b0-553efe1cca23",
+    "created_at": "2026-09-25T13:10:48.575973+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "e9d03a38-75c0-4455-8762-fd9e68e1f55a",
     "created_at": "2026-07-09T15:11:54.654162+00:00",
     "path": "/parcours/concours",
@@ -6292,6 +6369,17 @@
     "bot_reason": null
   },
   {
+    "id": "f2d945b6-f68d-49a5-8d15-3950019b5ba3",
+    "created_at": "2026-09-25T12:11:56.24491+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "mobile",
+    "browser": "Mobile Safari",
+    "os": "iOS",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "f31aff67-21d0-454d-b6f8-da871c027476",
     "created_at": "2026-07-08T13:07:19.872001+00:00",
     "path": "/",
@@ -6525,6 +6613,17 @@
   {
     "id": "fdffe110-7c66-41e8-bd74-c551754014c8",
     "created_at": "2026-07-01T22:20:54.406929+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
+    "id": "fe118838-5b8b-44a0-8169-d1549ebdc2a6",
+    "created_at": "2026-09-25T13:10:49.282991+00:00",
     "path": "/",
     "referrer": null,
     "device_type": "desktop",
