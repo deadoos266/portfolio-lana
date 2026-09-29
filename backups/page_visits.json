@@ -4818,6 +4818,17 @@
     "bot_reason": null
   },
   {
+    "id": "b4ef6662-3da6-4ba8-b7d6-c3a82bb87f74",
+    "created_at": "2026-09-29T05:19:56.759275+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "mobile",
+    "browser": "Mobile Safari",
+    "os": "iOS",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "b57f96e8-3a2a-417d-87ec-1030ae5c0989",
     "created_at": "2026-07-09T17:12:30.198506+00:00",
     "path": "/parcours/concours",
