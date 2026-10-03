@@ -473,6 +473,17 @@
     "bot_reason": null
   },
   {
+    "id": "0e6f176b-22c9-47f3-9b8c-9fb55ace36a2",
+    "created_at": "2026-10-03T00:24:18.421027+00:00",
+    "path": "/parcours/cv",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Windows",
+    "is_bot": true,
+    "bot_reason": "signature robot"
+  },
+  {
     "id": "0ef02464-79aa-4402-8b21-d5ca25647793",
     "created_at": "2026-06-30T22:00:05.00051+00:00",
     "path": "/",
@@ -1595,6 +1606,17 @@
     "bot_reason": null
   },
   {
+    "id": "3d777605-7750-4779-bef4-437fe784de72",
+    "created_at": "2026-10-03T00:30:21.910472+00:00",
+    "path": "/parcours/artistique-scolaire",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Windows",
+    "is_bot": true,
+    "bot_reason": "signature robot"
+  },
+  {
     "id": "3db03f13-5b1d-42ef-8841-b7889919ca4d",
     "created_at": "2026-08-06T02:36:31.595461+00:00",
     "path": "/",
@@ -2614,6 +2636,17 @@
     "device_type": "desktop",
     "browser": "Chrome",
     "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
+    "id": "5e196737-bb81-4e9b-8b3b-0677ff56097c",
+    "created_at": "2026-10-02T12:54:53.385744+00:00",
+    "path": "/parcours/articles",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Safari",
+    "os": "Mac OS",
     "is_bot": false,
     "bot_reason": null
   },
@@ -3729,6 +3762,17 @@
     "bot_reason": null
   },
   {
+    "id": "89ece7cc-bcca-4ad0-91e1-c45c5088bcfb",
+    "created_at": "2026-10-02T22:00:46.231807+00:00",
+    "path": "/parcours/critiques",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Windows",
+    "is_bot": true,
+    "bot_reason": "signature robot"
+  },
+  {
     "id": "89fec1ee-1dfa-4fb6-9da0-d5f146d53772",
     "created_at": "2026-09-08T22:36:50.784694+00:00",
     "path": "/",
@@ -4838,6 +4882,17 @@
     "os": "Windows",
     "is_bot": false,
     "bot_reason": null
+  },
+  {
+    "id": "afceb0d8-7482-4d74-ba82-bcc61d8317d3",
+    "created_at": "2026-10-03T03:50:40.658229+00:00",
+    "path": "/parcours/concours",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Windows",
+    "is_bot": true,
+    "bot_reason": "signature robot"
   },
   {
     "id": "b02ccf02-dab9-43d4-9baa-18f33567c485",
@@ -6270,6 +6325,17 @@
     "bot_reason": null
   },
   {
+    "id": "e8380fed-e654-4087-bbcd-87c3b1831c83",
+    "created_at": "2026-10-03T05:04:11.017028+00:00",
+    "path": "/parcours/calendrier",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Mac OS",
+    "is_bot": true,
+    "bot_reason": "signature robot"
+  },
+  {
     "id": "e85237b6-3c57-48b9-895b-ab7f090459df",
     "created_at": "2026-07-04T19:07:57.548702+00:00",
     "path": "/",
@@ -6420,6 +6486,17 @@
     "device_type": "desktop",
     "browser": "Chrome",
     "os": "Linux",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
+    "id": "ed8956dc-0209-478b-a171-7062c7f33eca",
+    "created_at": "2026-10-02T12:26:05.503166+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Safari",
+    "os": "Mac OS",
     "is_bot": false,
     "bot_reason": null
   },
