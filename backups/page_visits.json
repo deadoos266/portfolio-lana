@@ -627,6 +627,17 @@
     "bot_reason": null
   },
   {
+    "id": "16725c73-7dad-4f65-ba5f-934d8f654762",
+    "created_at": "2026-10-03T23:48:23.785551+00:00",
+    "path": "/parcours/stage-mouvement",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Mac OS",
+    "is_bot": true,
+    "bot_reason": "signature robot"
+  },
+  {
     "id": "176cf9d0-f32b-4a86-b99d-ee899ae85192",
     "created_at": "2026-08-17T16:10:50.885984+00:00",
     "path": "/",
@@ -924,6 +935,17 @@
     "bot_reason": null
   },
   {
+    "id": "223ba56f-973d-44f6-bc77-0fbdb05c3c0b",
+    "created_at": "2026-10-03T19:22:34.140633+00:00",
+    "path": "/parcours/articles",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Windows",
+    "is_bot": true,
+    "bot_reason": "signature robot"
+  },
+  {
     "id": "2270b76d-5ecd-4098-b6aa-95543217ac4f",
     "created_at": "2026-07-08T21:43:44.010347+00:00",
     "path": "/",
@@ -1142,6 +1164,17 @@
     "os": "Windows",
     "is_bot": false,
     "bot_reason": null
+  },
+  {
+    "id": "2bef20e6-c19b-42e6-9643-09fa1b4a00d0",
+    "created_at": "2026-10-03T22:30:33.463544+00:00",
+    "path": "/parcours/critiques",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Windows",
+    "is_bot": true,
+    "bot_reason": "signature robot"
   },
   {
     "id": "2cfc01d1-87c7-4697-a47d-d4ed028852b4",
@@ -3718,6 +3751,17 @@
     "bot_reason": null
   },
   {
+    "id": "894a567a-ea15-481b-9490-1ea0519ff07f",
+    "created_at": "2026-10-03T19:45:14.251455+00:00",
+    "path": "/parcours/calendrier",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Mac OS",
+    "is_bot": true,
+    "bot_reason": "signature robot"
+  },
+  {
     "id": "895bd29d-3332-4d39-b2e5-bd39aef88183",
     "created_at": "2026-07-09T05:13:03.244908+00:00",
     "path": "/",
@@ -6028,6 +6072,17 @@
     "bot_reason": null
   },
   {
+    "id": "df88365d-239a-4ccc-87a0-602aba4148d1",
+    "created_at": "2026-10-03T18:49:24.979203+00:00",
+    "path": "/parcours/cv",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Edge",
+    "os": "Windows",
+    "is_bot": true,
+    "bot_reason": "signature robot"
+  },
+  {
     "id": "dfc7b0ed-2d5a-4f61-9603-dca7f1cf7e16",
     "created_at": "2026-07-01T21:12:22.220407+00:00",
     "path": "/",
@@ -6391,6 +6446,17 @@
     "bot_reason": null
   },
   {
+    "id": "ea7338ef-34dd-4d09-a53b-d95a924e2677",
+    "created_at": "2026-10-03T19:05:50.475065+00:00",
+    "path": "/parcours/articles",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Linux",
+    "is_bot": true,
+    "bot_reason": "signature robot"
+  },
+  {
     "id": "eb3f8ccd-616c-40e5-8dde-06b9a98e3d57",
     "created_at": "2026-09-09T09:52:38.780747+00:00",
     "path": "/",
@@ -6609,6 +6675,17 @@
     "os": "Mac OS",
     "is_bot": false,
     "bot_reason": null
+  },
+  {
+    "id": "f054a3df-058d-44e4-8587-37f9f25a6182",
+    "created_at": "2026-10-04T03:13:27.802544+00:00",
+    "path": "/parcours/concours",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Windows",
+    "is_bot": true,
+    "bot_reason": "signature robot"
   },
   {
     "id": "f0565db4-ca35-48fc-98d3-13ff775443c1",
@@ -6842,6 +6919,17 @@
     "bot_reason": null
   },
   {
+    "id": "fc1bf27c-4779-41c7-9309-1bc438f300f0",
+    "created_at": "2026-10-03T22:44:21.869998+00:00",
+    "path": "/parcours/artistique-scolaire",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Windows",
+    "is_bot": true,
+    "bot_reason": "signature robot"
+  },
+  {
     "id": "fc2db708-32bd-4950-b977-a85bd6c7216c",
     "created_at": "2026-08-17T18:53:30.120935+00:00",
     "path": "/",
@@ -6884,6 +6972,17 @@
     "os": "Windows",
     "is_bot": false,
     "bot_reason": null
+  },
+  {
+    "id": "fda3cdae-f04e-4d0b-bf72-424078d6c08a",
+    "created_at": "2026-10-03T19:32:15.93051+00:00",
+    "path": "/parcours/cv",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Windows",
+    "is_bot": true,
+    "bot_reason": "signature robot"
   },
   {
     "id": "fdcc03d1-eb66-47ce-996b-d6b5e8d8977c",
