@@ -4554,6 +4554,17 @@
     "bot_reason": null
   },
   {
+    "id": "a0f5fc49-ec4f-40a7-82b9-1a04bfa759aa",
+    "created_at": "2026-10-06T21:15:45.717934+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": null,
+    "os": null,
+    "is_bot": true,
+    "bot_reason": "signature robot"
+  },
+  {
     "id": "a1370f0c-fcff-4179-9353-5890cbc1e27c",
     "created_at": "2026-08-04T15:50:06.922312+00:00",
     "path": "/",
@@ -5069,6 +5080,17 @@
     "os": "iOS",
     "is_bot": false,
     "bot_reason": null
+  },
+  {
+    "id": "b5613dae-b680-408c-bc30-b9e63940683b",
+    "created_at": "2026-10-06T21:15:45.139267+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": null,
+    "os": null,
+    "is_bot": true,
+    "bot_reason": "signature robot"
   },
   {
     "id": "b57f96e8-3a2a-417d-87ec-1030ae5c0989",
