@@ -2519,6 +2519,17 @@
     "bot_reason": null
   },
   {
+    "id": "590e6978-c2de-436e-a53d-4bfff31f18db",
+    "created_at": "2026-10-11T23:34:31.595954+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome Headless",
+    "os": "Linux",
+    "is_bot": true,
+    "bot_reason": "signature robot"
+  },
+  {
     "id": "59c3da25-4387-4c08-850b-764856f8e4dd",
     "created_at": "2026-08-17T17:54:49.368945+00:00",
     "path": "/parcours/articles",
