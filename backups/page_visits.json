@@ -4466,6 +4466,17 @@
     "bot_reason": null
   },
   {
+    "id": "9e021148-994a-4be4-b520-aac562bd897e",
+    "created_at": "2026-10-14T15:11:23.890167+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "mobile",
+    "browser": "Chrome",
+    "os": "iOS",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "9e09865c-4288-4fa0-a1f9-6acbee5486f8",
     "created_at": "2026-07-08T22:40:18.751621+00:00",
     "path": "/",
