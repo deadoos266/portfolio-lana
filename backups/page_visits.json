@@ -1254,6 +1254,17 @@
     "bot_reason": null
   },
   {
+    "id": "2eb261e2-79d8-4526-9862-0367ab513aef",
+    "created_at": "2026-10-15T09:17:06.38401+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Mac OS",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "2eb96e80-c5fa-453e-b1ee-626b1ab7764a",
     "created_at": "2026-09-30T14:07:45.044429+00:00",
     "path": "/",
@@ -1785,6 +1796,17 @@
     "id": "406a96cb-38d7-48d1-aa97-08e7c00f9d64",
     "created_at": "2026-07-10T22:07:18.33322+00:00",
     "path": "/",
+    "referrer": null,
+    "device_type": "mobile",
+    "browser": "Mobile Safari",
+    "os": "iOS",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
+    "id": "4072e2b7-3589-4003-bbc4-ff1b391e216e",
+    "created_at": "2026-10-15T20:10:52.030991+00:00",
+    "path": "/parcours/cv",
     "referrer": null,
     "device_type": "mobile",
     "browser": "Mobile Safari",
@@ -2389,6 +2411,17 @@
   {
     "id": "54ba53ca-b176-4262-80e4-77b709cc3423",
     "created_at": "2026-09-11T04:57:05.42551+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "mobile",
+    "browser": "Mobile Safari",
+    "os": "iOS",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
+    "id": "55230921-66cd-4819-84a3-d463559e3e6c",
+    "created_at": "2026-10-15T09:17:45.901139+00:00",
     "path": "/",
     "referrer": null,
     "device_type": "mobile",
@@ -3100,6 +3133,17 @@
     "os": "Windows",
     "is_bot": false,
     "bot_reason": null
+  },
+  {
+    "id": "6c9c6b21-caeb-40c0-bc6b-44e3a3fc4dc7",
+    "created_at": "2026-10-15T07:50:02.744735+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome Headless",
+    "os": "Linux",
+    "is_bot": true,
+    "bot_reason": "signature robot"
   },
   {
     "id": "6de17913-fac6-427d-9c95-5735867d1247",
@@ -4675,6 +4719,17 @@
     "bot_reason": null
   },
   {
+    "id": "a5935eb9-592a-48e1-a01a-cccaba1593d4",
+    "created_at": "2026-10-15T14:53:10.018461+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Mac OS",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "a5cbeacc-a276-480b-ae36-6a005800ba5d",
     "created_at": "2026-08-17T17:07:06.729825+00:00",
     "path": "/parcours/articles",
@@ -4682,6 +4737,17 @@
     "device_type": "mobile",
     "browser": "Chrome",
     "os": "Android",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
+    "id": "a5da9e30-b595-4350-b5cf-9b34502532ba",
+    "created_at": "2026-10-15T19:03:20.985538+00:00",
+    "path": "/parcours/cv",
+    "referrer": null,
+    "device_type": "mobile",
+    "browser": "Mobile Safari",
+    "os": "iOS",
     "is_bot": false,
     "bot_reason": null
   },
@@ -4737,6 +4803,17 @@
     "device_type": "desktop",
     "browser": "Edge",
     "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
+    "id": "a7ca5aba-9d11-4e9c-b72c-2770512e1686",
+    "created_at": "2026-10-15T09:18:37.208244+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "mobile",
+    "browser": "Mobile Safari",
+    "os": "iOS",
     "is_bot": false,
     "bot_reason": null
   },
@@ -5025,6 +5102,17 @@
     "os": "Windows",
     "is_bot": false,
     "bot_reason": null
+  },
+  {
+    "id": "b219be80-7270-4847-b802-b767d3958ee6",
+    "created_at": "2026-10-15T07:50:02.522714+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome Headless",
+    "os": "Linux",
+    "is_bot": true,
+    "bot_reason": "signature robot"
   },
   {
     "id": "b231ec25-1105-46ce-bc96-e90bfdcf300b",
@@ -5485,6 +5573,28 @@
     "device_type": "desktop",
     "browser": "Chrome",
     "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
+    "id": "c27862ed-bb65-4a69-bed7-afd3b33aa54b",
+    "created_at": "2026-10-15T09:17:02.20621+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "mobile",
+    "browser": "Mobile Safari",
+    "os": "iOS",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
+    "id": "c32ec960-c177-4f26-a001-93d2e5c85035",
+    "created_at": "2026-10-15T10:50:45.763771+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "mobile",
+    "browser": "Mobile Safari",
+    "os": "iOS",
     "is_bot": false,
     "bot_reason": null
   },
@@ -6607,6 +6717,17 @@
     "device_type": "desktop",
     "browser": "Chrome",
     "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
+    "id": "ec0e9dc0-d383-4725-a685-f3d95cbd9c22",
+    "created_at": "2026-10-15T16:00:58.830296+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Firefox",
+    "os": "Mac OS",
     "is_bot": false,
     "bot_reason": null
   },
