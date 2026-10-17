@@ -792,6 +792,17 @@
     "bot_reason": "pré-chargement"
   },
   {
+    "id": "1e4675a8-b369-4e6e-b154-6f7a3bd7e68f",
+    "created_at": "2026-10-16T07:39:33.495257+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome Headless",
+    "os": "Linux",
+    "is_bot": true,
+    "bot_reason": "signature robot"
+  },
+  {
     "id": "1e4e9850-4ff9-4b23-a466-ff21f68d44d4",
     "created_at": "2026-08-17T17:54:06.201906+00:00",
     "path": "/",
@@ -1393,6 +1404,17 @@
     "device_type": "desktop",
     "browser": "Chrome",
     "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
+    "id": "323ee3ea-2679-4a0b-996e-899f1aef68d5",
+    "created_at": "2026-10-16T23:52:14.995192+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": null,
+    "os": null,
     "is_bot": false,
     "bot_reason": null
   },
@@ -2662,6 +2684,17 @@
     "bot_reason": null
   },
   {
+    "id": "5cb5fd0e-3a83-4121-80f0-7ca5cb346204",
+    "created_at": "2026-10-16T13:14:51.292805+00:00",
+    "path": "/parcours/articles",
+    "referrer": "https://r.search.yahoo.com/_ylt=A2RSZvpEI9JqwwIAvd4k24lQ;_ylu=Y29sbwNldS13ZXN0LTEEcG9zAzIEdnRpZAMEc2VjA3Ny/RV=2/RE=1793366085/RO=10/RU=https%3a%2f%2flanaherve.fr%2fparcours%2farticles/RK=2/RS=rW.1eZUFacAoPAWG5okqBxQuw9o-",
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "5ccf7be4-783a-4c06-b3c1-2d141f34ec6c",
     "created_at": "2026-07-09T17:11:45.824879+00:00",
     "path": "/parcours/concours",
@@ -3729,6 +3762,17 @@
     "bot_reason": null
   },
   {
+    "id": "85f3d37b-edf3-4e51-ba5f-7d410a7582ea",
+    "created_at": "2026-10-16T07:39:33.637572+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome Headless",
+    "os": "Linux",
+    "is_bot": true,
+    "bot_reason": "signature robot"
+  },
+  {
     "id": "86076b6d-d7c3-4343-a8ce-c419830a928a",
     "created_at": "2026-07-09T00:00:45.395844+00:00",
     "path": "/",
@@ -4587,6 +4631,17 @@
     "bot_reason": null
   },
   {
+    "id": "9f2c889c-2654-46c4-be97-dd700503d4e1",
+    "created_at": "2026-10-16T13:14:51.442261+00:00",
+    "path": "/",
+    "referrer": "https://r.search.yahoo.com/_ylt=A2RSZvpEI9JqwwIAvN4k24lQ;_ylu=Y29sbwNldS13ZXN0LTEEcG9zAzEEdnRpZAMEc2VjA3Ny/RV=2/RE=1793366085/RO=10/RU=https%3a%2f%2flanaherve.fr%2f/RK=2/RS=GJJJUTmSvFrYjcjdBaKWmOIlR_k-",
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "9f671062-7c8d-4f80-98ff-cab1a02c0daf",
     "created_at": "2026-07-09T15:03:36.977444+00:00",
     "path": "/parcours/stage-mouvement",
@@ -4858,6 +4913,17 @@
     "device_type": "desktop",
     "browser": "Chrome",
     "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
+    "id": "a9620c65-449e-4687-9590-8b98c26f4b91",
+    "created_at": "2026-10-16T08:25:26.365287+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Mac OS",
     "is_bot": false,
     "bot_reason": null
   },
