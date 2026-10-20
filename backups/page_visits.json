@@ -1826,6 +1826,17 @@
     "bot_reason": null
   },
   {
+    "id": "3ffab2a5-0621-44a9-89fd-79f37fd3821c",
+    "created_at": "2026-10-19T11:54:22.370839+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "mobile",
+    "browser": "Mobile Safari",
+    "os": "iOS",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "40190742-0b6c-464c-a6d6-1b22e9e7e205",
     "created_at": "2026-09-24T14:38:49.955811+00:00",
     "path": "/",
@@ -3685,6 +3696,17 @@
     "bot_reason": null
   },
   {
+    "id": "7e43fb8d-7ccf-4594-b262-d4e398c8274a",
+    "created_at": "2026-10-19T09:34:39.78089+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Mac OS",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "7f146498-ea81-4364-8552-072157b431f8",
     "created_at": "2026-10-02T08:39:44.163346+00:00",
     "path": "/parcours/stage-mouvement",
@@ -3760,6 +3782,17 @@
     "os": "Windows",
     "is_bot": false,
     "bot_reason": null
+  },
+  {
+    "id": "83fb8694-9e49-4863-9a3e-b1d901ceafdc",
+    "created_at": "2026-10-19T08:15:34.498832+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome Headless",
+    "os": "Linux",
+    "is_bot": true,
+    "bot_reason": "signature robot"
   },
   {
     "id": "846408f2-36f4-48db-9830-38daecc032cf",
@@ -4013,6 +4046,17 @@
     "os": "Linux",
     "is_bot": false,
     "bot_reason": null
+  },
+  {
+    "id": "8a7c1f12-3769-444a-b57a-642c8b812295",
+    "created_at": "2026-10-19T08:15:34.795709+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome Headless",
+    "os": "Linux",
+    "is_bot": true,
+    "bot_reason": "signature robot"
   },
   {
     "id": "8aa0864d-e1b4-4b4e-bc54-fd5f516aa013",
