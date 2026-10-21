@@ -2079,6 +2079,17 @@
     "bot_reason": null
   },
   {
+    "id": "468f9a11-aaef-4390-96d4-e88c422c3a61",
+    "created_at": "2026-10-20T08:01:39.090544+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome Headless",
+    "os": "Linux",
+    "is_bot": true,
+    "bot_reason": "signature robot"
+  },
+  {
     "id": "4750d7bf-3508-431d-b428-b844b7320b21",
     "created_at": "2026-07-09T17:33:15.527487+00:00",
     "path": "/",
@@ -3683,6 +3694,17 @@
     "os": "iOS",
     "is_bot": false,
     "bot_reason": null
+  },
+  {
+    "id": "7dc9b4be-c5d4-4a0c-80db-f4dba3e826df",
+    "created_at": "2026-10-20T08:01:38.673863+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome Headless",
+    "os": "Linux",
+    "is_bot": true,
+    "bot_reason": "signature robot"
   },
   {
     "id": "7e3407b4-3363-498d-8bfe-8d82e24b33aa",
@@ -5665,6 +5687,17 @@
     "bot_reason": null
   },
   {
+    "id": "bf282cb9-df34-47c8-9b22-b33fd60e77cf",
+    "created_at": "2026-10-20T12:48:13.073794+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Firefox",
+    "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "bf5c6763-063f-4f9d-9f45-f944b5b1aaf9",
     "created_at": "2026-07-09T19:01:21.525844+00:00",
     "path": "/",
@@ -5859,6 +5892,17 @@
     "device_type": "desktop",
     "browser": "Chrome",
     "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
+    "id": "c641a8bf-5b1e-4a6a-83de-7065c69a336e",
+    "created_at": "2026-10-20T08:30:20.05188+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Mac OS",
     "is_bot": false,
     "bot_reason": null
   },
@@ -7234,6 +7278,17 @@
     "device_type": "desktop",
     "browser": "Chrome",
     "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
+    "id": "f6a14549-ae90-47f3-8a3f-4c09328a0feb",
+    "created_at": "2026-10-20T13:44:42.750241+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Mac OS",
     "is_bot": false,
     "bot_reason": null
   },
