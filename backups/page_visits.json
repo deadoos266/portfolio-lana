@@ -781,6 +781,17 @@
     "bot_reason": null
   },
   {
+    "id": "1c6b5327-319a-4e56-be03-56c3477a3523",
+    "created_at": "2026-10-22T08:06:18.166066+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome Headless",
+    "os": "Linux",
+    "is_bot": true,
+    "bot_reason": "signature robot"
+  },
+  {
     "id": "1cbb4687-b129-4f2b-9ab0-8f030732a954",
     "created_at": "2026-08-17T16:21:18.675938+00:00",
     "path": "/parcours/concours",
@@ -5993,6 +6004,17 @@
     "os": "Windows",
     "is_bot": false,
     "bot_reason": null
+  },
+  {
+    "id": "c9bdcb7a-f31a-41c4-9ab4-ab1774fde4eb",
+    "created_at": "2026-10-22T08:06:17.794105+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome Headless",
+    "os": "Linux",
+    "is_bot": true,
+    "bot_reason": "signature robot"
   },
   {
     "id": "c9f67b46-c3c8-4708-b33a-9ec7a7b4c93a",
