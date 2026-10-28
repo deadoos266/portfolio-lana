@@ -715,6 +715,17 @@
     "bot_reason": null
   },
   {
+    "id": "18216800-adc6-4a7e-bc0a-d5f47ef4c945",
+    "created_at": "2026-10-27T08:29:15.649267+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome Headless",
+    "os": "Linux",
+    "is_bot": true,
+    "bot_reason": "signature robot"
+  },
+  {
     "id": "1925d5be-65b5-4053-aa8f-2cdcf09d6e6a",
     "created_at": "2026-10-05T09:01:05.496549+00:00",
     "path": "/",
@@ -4070,6 +4081,17 @@
     "bot_reason": null
   },
   {
+    "id": "890c4bb8-b523-4c65-a037-136b4acd0306",
+    "created_at": "2026-10-27T13:58:45.685442+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Mac OS",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "894a567a-ea15-481b-9490-1ea0519ff07f",
     "created_at": "2026-10-03T19:45:14.251455+00:00",
     "path": "/parcours/calendrier",
@@ -5045,6 +5067,17 @@
     "device_type": "desktop",
     "browser": "Chrome",
     "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
+    "id": "a64d9cbc-3e95-47d7-b024-98b339a9571e",
+    "created_at": "2026-10-27T12:19:12.192351+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "mobile",
+    "browser": "Samsung Browser",
+    "os": "Android",
     "is_bot": false,
     "bot_reason": null
   },
@@ -6358,6 +6391,17 @@
     "bot_reason": null
   },
   {
+    "id": "d2a4d1d8-6bb0-408f-956f-173db9bcdd82",
+    "created_at": "2026-10-27T11:15:20.683616+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "mobile",
+    "browser": "Mobile Safari",
+    "os": "iOS",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "d2ae41f5-0d54-407e-9ecf-1d1752702688",
     "created_at": "2026-07-05T16:30:45.969263+00:00",
     "path": "/",
@@ -6466,6 +6510,17 @@
     "os": "Windows",
     "is_bot": false,
     "bot_reason": null
+  },
+  {
+    "id": "d6adc134-d802-44fe-b209-6d516cfb57db",
+    "created_at": "2026-10-27T08:29:14.534229+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome Headless",
+    "os": "Linux",
+    "is_bot": true,
+    "bot_reason": "signature robot"
   },
   {
     "id": "d71fb85a-6f13-411f-abd1-58497d1a2531",
