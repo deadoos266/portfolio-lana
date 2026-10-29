@@ -242,6 +242,17 @@
     "bot_reason": null
   },
   {
+    "id": "0752465c-81f5-4ebd-9d04-76fd4e4def0d",
+    "created_at": "2026-10-28T13:29:45.498662+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Mac OS",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "077cbc38-5efd-4fc1-9ace-b311b5ca8a3b",
     "created_at": "2026-07-09T17:48:27.421594+00:00",
     "path": "/",
@@ -1815,6 +1826,17 @@
     "bot_reason": null
   },
   {
+    "id": "3dc73378-6d18-4845-a2b0-6da581f0d2ad",
+    "created_at": "2026-10-28T09:07:36.387279+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome Headless",
+    "os": "Linux",
+    "is_bot": true,
+    "bot_reason": "signature robot"
+  },
+  {
     "id": "3e39e161-d6d6-4901-94cd-dac9d08f3674",
     "created_at": "2026-08-07T19:22:55.669354+00:00",
     "path": "/",
@@ -2262,6 +2284,17 @@
     "device_type": "desktop",
     "browser": "Firefox",
     "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
+    "id": "4aedbf48-1062-4b30-9e6d-9cda53e0c50a",
+    "created_at": "2026-10-28T13:25:56.276866+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Mac OS",
     "is_bot": false,
     "bot_reason": null
   },
@@ -2748,6 +2781,17 @@
     "os": "Linux",
     "is_bot": true,
     "bot_reason": "signature robot"
+  },
+  {
+    "id": "598ffa0e-86d1-436e-9d5c-3a6df3535f9c",
+    "created_at": "2026-10-28T13:28:29.071843+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
   },
   {
     "id": "59c3da25-4387-4c08-850b-764856f8e4dd",
@@ -5170,6 +5214,17 @@
     "bot_reason": null
   },
   {
+    "id": "aa24ec14-c7e3-4a44-ba9d-baa589c2bb43",
+    "created_at": "2026-10-28T13:29:45.384719+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Mac OS",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "aa4608ea-02e8-414a-9431-4a9c67e7354f",
     "created_at": "2026-07-08T21:29:03.244922+00:00",
     "path": "/preview-check-tmp",
@@ -5896,6 +5951,17 @@
     "bot_reason": null
   },
   {
+    "id": "c19593d8-45a1-4c99-abd7-cf727e36c7f1",
+    "created_at": "2026-10-28T15:10:33.278439+00:00",
+    "path": "/",
+    "referrer": "android-app://com.google.android.gm/",
+    "device_type": "mobile",
+    "browser": "Chrome",
+    "os": "Android",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "c1c7c926-4ab8-4e9b-ae1b-526e711bdf53",
     "created_at": "2026-07-08T18:37:55.883637+00:00",
     "path": "/preview-check-tmp",
@@ -6116,6 +6182,17 @@
     "bot_reason": null
   },
   {
+    "id": "c7868f88-542f-4eff-ab74-d1c6f6a41e49",
+    "created_at": "2026-10-29T08:29:39.973081+00:00",
+    "path": "/",
+    "referrer": "https://duckduckgo.com/",
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "c7a488a8-10c4-4666-888d-bbf32c6a453f",
     "created_at": "2026-07-08T19:24:45.538971+00:00",
     "path": "/preview-check-tmp",
@@ -6123,6 +6200,17 @@
     "device_type": "desktop",
     "browser": "Electron",
     "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
+    "id": "c97e1cc8-997f-462b-89eb-d026476f242e",
+    "created_at": "2026-10-28T14:28:25.201992+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "mobile",
+    "browser": "Chrome",
+    "os": "Android",
     "is_bot": false,
     "bot_reason": null
   },
@@ -6435,6 +6523,17 @@
     "bot_reason": null
   },
   {
+    "id": "d4ef57ea-eb7b-47bf-ac23-a03cd845c6ca",
+    "created_at": "2026-10-28T13:29:45.281728+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Mac OS",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "d5723df5-0ed1-44a6-83c1-f8c9878bc944",
     "created_at": "2026-07-08T23:12:24.658374+00:00",
     "path": "/",
@@ -6532,6 +6631,17 @@
     "os": "Windows",
     "is_bot": false,
     "bot_reason": null
+  },
+  {
+    "id": "d7ef6adf-9069-4009-8c13-9af8e6d3af13",
+    "created_at": "2026-10-28T09:07:36.889241+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome Headless",
+    "os": "Linux",
+    "is_bot": true,
+    "bot_reason": "signature robot"
   },
   {
     "id": "d80ad20e-1b48-40f4-b88a-32bb781f0a55",
