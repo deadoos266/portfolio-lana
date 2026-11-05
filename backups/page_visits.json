@@ -363,6 +363,17 @@
     "bot_reason": null
   },
   {
+    "id": "0b7ddaf9-704f-4b40-aee0-6b2d9db83e81",
+    "created_at": "2026-11-03T13:38:59.873541+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Mac OS",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "0b9dc3d2-1efc-4d38-a849-07b05f81fbf8",
     "created_at": "2026-09-17T18:08:22.195221+00:00",
     "path": "/",
@@ -1661,6 +1672,17 @@
     "bot_reason": null
   },
   {
+    "id": "36813724-5d68-462a-be20-bee0f02ac156",
+    "created_at": "2026-11-03T10:16:54.367192+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome Headless",
+    "os": "Linux",
+    "is_bot": true,
+    "bot_reason": "signature robot"
+  },
+  {
     "id": "37e5b2d5-9c3d-4dba-82de-063b6bfc996a",
     "created_at": "2026-06-29T20:40:23.894175+00:00",
     "path": "/",
@@ -2398,6 +2420,17 @@
     "bot_reason": null
   },
   {
+    "id": "4ef7f5a7-c23a-421e-9888-f3a52b6510d3",
+    "created_at": "2026-11-03T10:20:22.7193+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Opera",
+    "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "4f02be36-4254-4446-8165-cf7f61aaa434",
     "created_at": "2026-07-01T13:26:57.112814+00:00",
     "path": "/",
@@ -2682,6 +2715,17 @@
     "os": "Windows",
     "is_bot": false,
     "bot_reason": null
+  },
+  {
+    "id": "558e84f6-10ba-46a6-8c80-9e2dfe1044b6",
+    "created_at": "2026-11-03T10:16:54.799234+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome Headless",
+    "os": "Linux",
+    "is_bot": true,
+    "bot_reason": "signature robot"
   },
   {
     "id": "55edd697-f0ac-4b1d-add5-27c8cdf75223",
@@ -4134,6 +4178,17 @@
     "os": "Android",
     "is_bot": false,
     "bot_reason": null
+  },
+  {
+    "id": "8772400b-f82a-4a3b-9411-b82befe2d3a4",
+    "created_at": "2026-11-05T03:59:28.347819+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome Headless",
+    "os": "Linux",
+    "is_bot": true,
+    "bot_reason": "signature robot"
   },
   {
     "id": "87d0188e-3e09-4738-8f1e-40021588a9ac",
@@ -7535,6 +7590,17 @@
     "bot_reason": null
   },
   {
+    "id": "ef78b46c-c6be-48b3-b1e5-a24226e5a4ad",
+    "created_at": "2026-11-03T14:27:02.21612+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "mobile",
+    "browser": "Mobile Safari",
+    "os": "iOS",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "f04bfbba-73c3-49e5-9fe2-cc5c633cf0c0",
     "created_at": "2026-07-09T14:53:18.593482+00:00",
     "path": "/",
@@ -7927,6 +7993,17 @@
     "device_type": "desktop",
     "browser": "Chrome",
     "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
+    "id": "ff39fe13-e8c0-48a6-b39a-77a22b425679",
+    "created_at": "2026-11-05T09:36:16.948239+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Safari",
+    "os": "Mac OS",
     "is_bot": false,
     "bot_reason": null
   },
