@@ -418,6 +418,17 @@
     "bot_reason": null
   },
   {
+    "id": "0c3c9b33-9a37-4fb6-86ae-fb4611e897d3",
+    "created_at": "2026-11-05T16:22:42.464782+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "mobile",
+    "browser": "Mobile Safari",
+    "os": "iOS",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "0c573c72-d37e-4494-a7ec-0f5999b08d70",
     "created_at": "2026-07-02T13:02:18.581897+00:00",
     "path": "/parcours/concours",
@@ -636,6 +647,28 @@
     "os": "Windows",
     "is_bot": false,
     "bot_reason": null
+  },
+  {
+    "id": "1333a82f-ee42-42a0-a424-3cf62738c2e8",
+    "created_at": "2026-11-05T10:53:28.182129+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
+    "id": "1352c418-a61b-4399-8188-e553ce21faa9",
+    "created_at": "2026-11-05T10:02:04.857784+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome Headless",
+    "os": "Linux",
+    "is_bot": true,
+    "bot_reason": "signature robot"
   },
   {
     "id": "13bb601d-7987-402c-a8d0-f6b8d4f6a4f3",
@@ -2893,6 +2926,17 @@
     "bot_reason": null
   },
   {
+    "id": "5a9ac9c3-c720-4a3f-bdd1-b31fca69c08d",
+    "created_at": "2026-11-06T07:37:12.613094+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": null,
+    "os": null,
+    "is_bot": true,
+    "bot_reason": "signature robot"
+  },
+  {
     "id": "5af18158-08c2-4134-995b-2c7ad9c57c8e",
     "created_at": "2026-09-14T10:58:45.698551+00:00",
     "path": "/",
@@ -3791,6 +3835,17 @@
     "device_type": "mobile",
     "browser": "Chrome",
     "os": "iOS",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
+    "id": "7af8a42e-28de-4df4-8be8-1aa5f7065db6",
+    "created_at": "2026-11-05T16:22:39.681715+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Windows",
     "is_bot": false,
     "bot_reason": null
   },
@@ -4765,6 +4820,17 @@
   {
     "id": "98a20e90-86df-4884-bffe-3c2ebc13553f",
     "created_at": "2026-07-10T23:53:27.987352+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
+    "id": "98bf2700-368b-4d2d-b04e-f8d00736adc2",
+    "created_at": "2026-11-05T10:54:18.742506+00:00",
     "path": "/",
     "referrer": null,
     "device_type": "desktop",
@@ -6281,6 +6347,17 @@
     "bot_reason": null
   },
   {
+    "id": "c73c286c-d798-4a04-8f14-57e5bf10f011",
+    "created_at": "2026-11-06T07:37:20.641009+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": null,
+    "os": null,
+    "is_bot": true,
+    "bot_reason": "signature robot"
+  },
+  {
     "id": "c76c3543-c5f3-46bd-ac92-6c3f46ee76de",
     "created_at": "2026-07-09T18:22:28.316212+00:00",
     "path": "/preview-check-tmp",
@@ -7062,6 +7139,17 @@
     "bot_reason": null
   },
   {
+    "id": "e2d05719-4870-4154-a953-b6557f9789f2",
+    "created_at": "2026-11-05T10:54:17.830162+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "e33fbd00-b473-445f-b7f5-a21f55d38c05",
     "created_at": "2026-07-30T13:27:47.669288+00:00",
     "path": "/parcours/artistique-scolaire",
@@ -7313,6 +7401,17 @@
     "os": "iOS",
     "is_bot": false,
     "bot_reason": null
+  },
+  {
+    "id": "e8dec818-a82a-40c3-9d98-1427b2052797",
+    "created_at": "2026-11-05T10:02:04.838761+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome Headless",
+    "os": "Linux",
+    "is_bot": true,
+    "bot_reason": "signature robot"
   },
   {
     "id": "e9829dff-a602-4370-85b0-553efe1cca23",
@@ -7630,6 +7729,17 @@
     "device_type": "mobile",
     "browser": "Mobile Safari",
     "os": "iOS",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
+    "id": "f0aa5ac1-0603-41bc-9b32-eba6a34343a2",
+    "created_at": "2026-11-05T10:54:18.715694+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Windows",
     "is_bot": false,
     "bot_reason": null
   },
