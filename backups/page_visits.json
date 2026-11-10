@@ -1859,6 +1859,17 @@
     "bot_reason": null
   },
   {
+    "id": "3bd8ea18-24d5-4281-862e-77d8be2892ec",
+    "created_at": "2026-11-09T18:44:01.940293+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Mac OS",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "3c238dd7-9423-4604-ace2-5a1c5466b73a",
     "created_at": "2026-06-29T20:44:22.629909+00:00",
     "path": "/",
@@ -2928,6 +2939,17 @@
   {
     "id": "590e6978-c2de-436e-a53d-4bfff31f18db",
     "created_at": "2026-10-11T23:34:31.595954+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome Headless",
+    "os": "Linux",
+    "is_bot": true,
+    "bot_reason": "signature robot"
+  },
+  {
+    "id": "596321bc-97da-418b-9028-7651817a13b5",
+    "created_at": "2026-11-09T10:35:35.583743+00:00",
     "path": "/",
     "referrer": null,
     "device_type": "desktop",
@@ -5511,6 +5533,17 @@
     "bot_reason": null
   },
   {
+    "id": "ab2d0ef2-a822-493e-b1f8-15b4689c05f8",
+    "created_at": "2026-11-10T08:15:08.748309+00:00",
+    "path": "/",
+    "referrer": "https://www.linkedin.com/",
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Mac OS",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "ab84b852-b935-46d9-ab97-6626d33fc0e4",
     "created_at": "2026-07-08T20:42:40.846797+00:00",
     "path": "/preview-check-tmp",
@@ -6455,6 +6488,17 @@
     "os": "Windows",
     "is_bot": false,
     "bot_reason": null
+  },
+  {
+    "id": "c7caaa6a-afa5-46d9-8279-69f7a8afbb6c",
+    "created_at": "2026-11-09T10:35:35.273128+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome Headless",
+    "os": "Linux",
+    "is_bot": true,
+    "bot_reason": "signature robot"
   },
   {
     "id": "c97e1cc8-997f-462b-89eb-d026476f242e",
