@@ -594,6 +594,17 @@
     "bot_reason": null
   },
   {
+    "id": "117f4f09-2729-4622-abf5-ecb3da144247",
+    "created_at": "2026-11-10T11:41:50.314627+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "mobile",
+    "browser": "WebKit",
+    "os": "iOS",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "118f2604-e2d0-4dc2-8fad-ca1d84aba0cf",
     "created_at": "2026-08-17T18:07:59.724735+00:00",
     "path": "/",
@@ -1260,6 +1271,17 @@
     "referrer": null,
     "device_type": "desktop",
     "browser": "Electron",
+    "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
+    "id": "2570f91d-1c3e-4029-9d4a-055e28c332b9",
+    "created_at": "2026-11-10T11:40:54.908832+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Edge",
     "os": "Windows",
     "is_bot": false,
     "bot_reason": null
@@ -2486,6 +2508,17 @@
     "bot_reason": null
   },
   {
+    "id": "4d8015c1-808c-4e24-8bc0-cd6f40b0c52a",
+    "created_at": "2026-11-10T10:36:31.701671+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome Headless",
+    "os": "Linux",
+    "is_bot": true,
+    "bot_reason": "signature robot"
+  },
+  {
     "id": "4da57ef9-165d-454c-a928-706721fef426",
     "created_at": "2026-09-16T07:39:07.227356+00:00",
     "path": "/parcours/concours",
@@ -3439,6 +3472,17 @@
     "device_type": "desktop",
     "browser": "Electron",
     "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
+    "id": "6761ed01-3b6c-4dd9-9cde-7b1960a85fc5",
+    "created_at": "2026-11-11T08:47:51.681929+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Linux",
     "is_bot": false,
     "bot_reason": null
   },
@@ -6116,6 +6160,17 @@
     "bot_reason": null
   },
   {
+    "id": "bbad5be7-6c49-443f-adb3-17718e2d9fe3",
+    "created_at": "2026-11-10T10:36:32.043422+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome Headless",
+    "os": "Linux",
+    "is_bot": true,
+    "bot_reason": "signature robot"
+  },
+  {
     "id": "bbc51c4b-d0e4-4c46-befb-2c819f0692ee",
     "created_at": "2026-07-09T19:33:42.796197+00:00",
     "path": "/",
@@ -6831,6 +6886,17 @@
     "bot_reason": null
   },
   {
+    "id": "d473cfa3-1b7b-4403-ae04-5d75d49784b5",
+    "created_at": "2026-11-10T19:53:42.907347+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "mobile",
+    "browser": "Mobile Safari",
+    "os": "iOS",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "d4ef57ea-eb7b-47bf-ac23-a03cd845c6ca",
     "created_at": "2026-10-28T13:29:45.281728+00:00",
     "path": "/",
@@ -6970,6 +7036,17 @@
     "device_type": "desktop",
     "browser": "Chrome",
     "os": "Linux",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
+    "id": "d8468e61-3774-441a-9e64-d06fb2b25259",
+    "created_at": "2026-11-11T08:47:50.341193+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "mobile",
+    "browser": "Chrome",
+    "os": "Android",
     "is_bot": false,
     "bot_reason": null
   },
@@ -7522,6 +7599,17 @@
     "os": "Linux",
     "is_bot": true,
     "bot_reason": "signature robot"
+  },
+  {
+    "id": "e9359653-9809-460a-8a29-ab978cd9a3b7",
+    "created_at": "2026-11-10T11:44:50.343908+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
   },
   {
     "id": "e9829dff-a602-4370-85b0-553efe1cca23",
@@ -8259,5 +8347,16 @@
     "os": "Linux",
     "is_bot": true,
     "bot_reason": "signature robot"
+  },
+  {
+    "id": "ff7640e1-dc45-4203-b6d3-f7add80728ad",
+    "created_at": "2026-11-10T11:40:58.73252+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Edge",
+    "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
   }
 ]
