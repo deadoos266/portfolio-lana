@@ -6710,6 +6710,17 @@
     "bot_reason": null
   },
   {
+    "id": "cc87a94e-35cc-472b-8c13-d57c5c7164e9",
+    "created_at": "2026-11-13T18:24:23.342952+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "mobile",
+    "browser": "LinkedIn",
+    "os": "iOS",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "ccc297f3-cc8e-464b-8e0a-872729db4b3c",
     "created_at": "2026-07-08T21:23:52.963603+00:00",
     "path": "/preview-check-tmp",
