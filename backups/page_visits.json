@@ -737,6 +737,17 @@
     "bot_reason": null
   },
   {
+    "id": "1534823e-6b26-41e8-8508-a54c15e87c1e",
+    "created_at": "2026-11-15T10:08:09.987325+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome Headless",
+    "os": "Linux",
+    "is_bot": true,
+    "bot_reason": "signature robot"
+  },
+  {
     "id": "16725c73-7dad-4f65-ba5f-934d8f654762",
     "created_at": "2026-10-03T23:48:23.785551+00:00",
     "path": "/parcours/stage-mouvement",
@@ -1362,6 +1373,17 @@
     "os": "Windows",
     "is_bot": false,
     "bot_reason": null
+  },
+  {
+    "id": "2ac87ac0-5bd8-4053-9f69-0b5a5166bc0d",
+    "created_at": "2026-11-15T10:08:09.700127+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome Headless",
+    "os": "Linux",
+    "is_bot": true,
+    "bot_reason": "signature robot"
   },
   {
     "id": "2af160ce-9413-43c0-af76-79d1329b7a13",
@@ -5837,6 +5859,17 @@
     "device_type": "desktop",
     "browser": "Chrome",
     "os": "Windows",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
+    "id": "b10215e5-a801-4223-af43-0159a0b8d68e",
+    "created_at": "2026-11-15T16:39:22.840164+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": null,
+    "os": null,
     "is_bot": false,
     "bot_reason": null
   },
