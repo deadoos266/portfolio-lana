@@ -1397,6 +1397,17 @@
     "bot_reason": null
   },
   {
+    "id": "2b09162d-63da-427f-9063-b4a107b85fc3",
+    "created_at": "2026-11-19T05:22:26.385794+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "os": "Linux",
+    "is_bot": false,
+    "bot_reason": null
+  },
+  {
     "id": "2bef20e6-c19b-42e6-9643-09fa1b4a00d0",
     "created_at": "2026-10-03T22:30:33.463544+00:00",
     "path": "/parcours/critiques",
@@ -1784,6 +1795,17 @@
   {
     "id": "36813724-5d68-462a-be20-bee0f02ac156",
     "created_at": "2026-11-03T10:16:54.367192+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome Headless",
+    "os": "Linux",
+    "is_bot": true,
+    "bot_reason": "signature robot"
+  },
+  {
+    "id": "37256f0e-1b96-430f-aa28-c53502ecec2c",
+    "created_at": "2026-11-18T10:52:33.509418+00:00",
     "path": "/",
     "referrer": null,
     "device_type": "desktop",
@@ -7346,6 +7368,17 @@
     "os": "Windows",
     "is_bot": false,
     "bot_reason": null
+  },
+  {
+    "id": "df255c6f-8726-407a-afdf-fc6f5a1d6d61",
+    "created_at": "2026-11-18T10:52:33.088272+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome Headless",
+    "os": "Linux",
+    "is_bot": true,
+    "bot_reason": "signature robot"
   },
   {
     "id": "df88365d-239a-4ccc-87a0-602aba4148d1",
