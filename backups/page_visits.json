@@ -6545,6 +6545,17 @@
     "bot_reason": "signature robot"
   },
   {
+    "id": "c4a63a98-f2ec-46c1-b737-5c1faa73f4d4",
+    "created_at": "2026-11-19T10:54:24.622459+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome Headless",
+    "os": "Linux",
+    "is_bot": true,
+    "bot_reason": "signature robot"
+  },
+  {
     "id": "c4d0fe3f-f955-4a5e-a3d8-53765c1ca0ad",
     "created_at": "2026-10-02T08:39:49.473638+00:00",
     "path": "/parcours/cv",
@@ -8175,6 +8186,17 @@
   {
     "id": "f17b2d06-a24b-47b2-bf3d-b136a64cb681",
     "created_at": "2026-10-30T09:16:09.844136+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome Headless",
+    "os": "Linux",
+    "is_bot": true,
+    "bot_reason": "signature robot"
+  },
+  {
+    "id": "f17def81-b658-45c7-97cd-7516f25203fa",
+    "created_at": "2026-11-19T10:54:24.815932+00:00",
     "path": "/",
     "referrer": null,
     "device_type": "desktop",
