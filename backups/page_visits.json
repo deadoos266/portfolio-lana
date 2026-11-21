@@ -5236,6 +5236,17 @@
     "bot_reason": null
   },
   {
+    "id": "9e8dfb69-4af4-4e20-b75a-0e04c4587e41",
+    "created_at": "2026-11-20T10:43:04.808121+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome Headless",
+    "os": "Linux",
+    "is_bot": true,
+    "bot_reason": "signature robot"
+  },
+  {
     "id": "9e9cd26a-38ef-4647-a12f-2e9a62ce2960",
     "created_at": "2026-11-17T11:19:23.028385+00:00",
     "path": "/",
@@ -6499,6 +6510,17 @@
     "os": "Windows",
     "is_bot": false,
     "bot_reason": null
+  },
+  {
+    "id": "c40a5232-2ee2-44e6-a731-dcbc4c263aaf",
+    "created_at": "2026-11-20T10:43:04.078454+00:00",
+    "path": "/",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome Headless",
+    "os": "Linux",
+    "is_bot": true,
+    "bot_reason": "signature robot"
   },
   {
     "id": "c4166ef9-be19-4f64-9ade-5d203c177c01",
